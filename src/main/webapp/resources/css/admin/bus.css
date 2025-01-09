@@ -1,0 +1,9 @@
+@charset "UTF-8";
+
+div.table ul.flex li{padding:10px 0; box-sizing:border-box; text-align:center;}
+div.table ul.flex li span{display:block; font-size:12px;}
+
+ul.table-header{background:#f5f5f5;}
+ul.table-header li{font-size:14px;}
+
+.column11 li{width:calc(100% / 11);}
