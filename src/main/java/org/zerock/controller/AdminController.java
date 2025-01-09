@@ -22,7 +22,7 @@ public class AdminController {
 	public String loginGo() {
 		return "member/login";
 	}
-	
+/*
 	@PostMapping(value="login")
 	public String loginPro(adminDTO mdto, HttpSession session, Model model) {
 
@@ -40,13 +40,14 @@ public class AdminController {
 		}
 		
 	}
+*/
 	
 	// 관리자 추가 
 	@GetMapping(value="join")
 	public String join() {
 		return "member/join";
 	}
-	
+/*
 	@PostMapping(value="join")
 	public String joinPro(adminDTO mdto) {      
 		System.out.println("회원가입 요청이 들어옴: " + mdto); 
@@ -57,10 +58,10 @@ public class AdminController {
 		}
 	    return "member/join"; // 실패 시 가입 페이지로 리다이렉트
 	}
-	
+*/
 	
 	//Id 중복 확인
-	@PostMapping("/idCheck")
+/*	@PostMapping("/idCheck")
 	@ResponseBody
 	public ResponseEntity<Boolean> confirmId(String id) {
 		System.out.println(id);
@@ -76,5 +77,5 @@ public class AdminController {
 		}
 		System.out.println("중복" + result);
 		return new ResponseEntity<>(result, HttpStatus.OK);
-	}
-}
+	}*/
+} 
