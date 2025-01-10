@@ -6,7 +6,7 @@
     request.setAttribute("bodyClass", "member");
 %>
 <jsp:include page="../inc/header.jsp" />
-				<!-- 회원가입 jsp -->
+				<!-- 회원가입 jsp1 -->
             	<!-- #content 영역 시작 -->
 		<div class="login-container">
           <div class="sign-up-container">
