@@ -16,8 +16,8 @@ function validCheck(form){
 							 return false;
 						 }
 						 if (id.indexOf(" ") !== -1) {	// 아이디에 공백이 포함되면 경고
-						        alert("아이디에 공백을 포함할 수 없습니다.");
-						        return false;
+					         alert("아이디에 공백을 포함할 수 없습니다.");
+					         return false;
 						 }
 						 if(pw == ""){
 							 alert("비밀번호를 입력하시오.");
@@ -32,8 +32,8 @@ function validCheck(form){
 							 return false;
 						 }
 						 if (pw.indexOf(" ") !== -1) {  // 비밀번호에 공백이 포함되면 경고
-						        alert("비밀번호에 공백을 포함할 수 없습니다.");
-						        return false;
+					         alert("비밀번호에 공백을 포함할 수 없습니다.");
+					         return false;
 						 }
 						 
 						 return true;
