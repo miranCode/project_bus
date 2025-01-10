@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class MailSender {
     private static String verificationCode;
-
+    //1
     public static void sendVerificationEmail(String toEmail) throws Exception {
         Properties properties = new Properties();
         properties.load(MailSender.class.getClassLoader().getResourceAsStream("mail.properties"));

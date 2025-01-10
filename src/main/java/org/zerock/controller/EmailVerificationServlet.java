@@ -8,6 +8,7 @@ import javax.servlet.http.*;
 
 @Controller
 public class EmailVerificationServlet extends HttpServlet {
+	//이메일 전송 확인용
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String email = request.getParameter("email");
         try {

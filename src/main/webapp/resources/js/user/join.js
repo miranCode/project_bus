@@ -48,6 +48,7 @@ document.getElementById("dob").addEventListener("blur", function() {
   }
 });
 
+//이메일 인증 관련
 document.getElementById("auth-btn").addEventListener("click", function () {
     const email = document.getElementById("id").value;
     fetch("/sendVerification", {

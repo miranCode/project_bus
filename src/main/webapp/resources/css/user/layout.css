@@ -2,7 +2,7 @@
 
 @import url("../import.css?after");
 @import url("./borad.css?after");
-
+@import url("./member.css?after");
 
 html {width:100%; font-size:10px;} 
 body{
