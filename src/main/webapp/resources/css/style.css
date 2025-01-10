@@ -132,6 +132,7 @@ textarea{border:1px solid #ddd; padding:10px; box-sizing:border-box;}
 .ell.row3 {max-height:6rem; display:-webkit-box; white-space:normal;word-break: normal;-webkit-box-orient:vertical;-webkit-line-clamp:3} /* height 값 조정 */
 .ell.row4 {max-height:8rem; display:-webkit-box; white-space:normal;word-break: normal;-webkit-box-orient:vertical;-webkit-line-clamp:4} /* height 값 조정 */
 
+.no-data{width:100%; text-align: center; padding: 150px 0; border-bottom: 1px solid #ddd;}
 
 
 
@@ -170,3 +171,7 @@ textarea{border:1px solid #ddd; padding:10px; box-sizing:border-box;}
 
 .btn-area.four button,
 .btn-area.four a{width: 20%;}
+
+.btn-area.btn-right{justify-content: flex-end; display: flex;}
+.btn-area.btn-right button,
+.btn-area.btn-right a{width:180px;}
