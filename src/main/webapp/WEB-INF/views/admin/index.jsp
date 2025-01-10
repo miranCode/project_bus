@@ -9,7 +9,7 @@
             	<!-- #content 영역 시작 -->
             	
 				<div id="content">
-					
+					로그인 성공!
 				</div>  
 				<!-- #content 영역 끝 -->
 <jsp:include page="./inc/footer.jsp" />
