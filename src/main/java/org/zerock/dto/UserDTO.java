@@ -1,15 +1,11 @@
 package org.zerock.dto;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-
 public class UserDTO {
 	private Long userId;
 	private String name;
 	private String id;
 	private String pass;
-	private LocalDate dob;
-	private LocalDateTime createdAt;
+	private String dob;
 	
 	public Long getUserId() {
 		return userId;
@@ -35,23 +31,17 @@ public class UserDTO {
 	public void setPass(String pass) {
 		this.pass = pass;
 	}
-	public LocalDate getDob() {
+	public String getDob() {
 		return dob;
 	}
-	public void setDob(LocalDate dob) {
+	public void setDob(String dob) {
 		this.dob = dob;
 	}
-	public LocalDateTime getCreatedAt() {
-		return createdAt;
-	}
-	public void setCreatedAt(LocalDateTime createdAt) {
-		this.createdAt = createdAt;
-	}
-	
+
 	@Override
 	public String toString() {
 		return "UserDTO [userId=" + userId + ", name=" + name + ", id=" + id + ", pass=" + pass + ", dob="
-				+ dob + ", createdAt=" + createdAt + "]";
+				+ dob + "]";
 	}
 
 
