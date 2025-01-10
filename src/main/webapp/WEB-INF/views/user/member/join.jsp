@@ -6,11 +6,11 @@
     request.setAttribute("bodyClass", "member");
 %>
 <jsp:include page="../inc/header.jsp" />
-				<!-- 회원가입 jsp12 -->
+				<!-- 회원가입 jsp123 -->
             	<!-- #content 영역 시작 -->
 		<div class="login-container">
           <div class="sign-up-container">
-            <form id="signup-form">
+            <form id="signup-form" action="/member/join" method="post" onsubmit="return validCheck(this);">
                 <h1>회원가입</h1>
                 <!-- 이름 입력 -->
                 <input id="name" type="text" placeholder="Name">
