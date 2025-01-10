@@ -24,17 +24,17 @@ import org.zerock.mapper.AdminMapper;
 @Controller
 @RequestMapping("/admin/*") 
 public class AdminController {
-	
+	//123
 	@Autowired
 	AdminMapper mapper;
 	
-	// ·Î±×ÀÎ
+	// ï¿½Î±ï¿½ï¿½ï¿½
 		@GetMapping(value="/")
 		public String home() {
 			return "admin/index";
 		}
 	
-	// ·Î±×ÀÎ
+	// ï¿½Î±ï¿½ï¿½ï¿½
 	@GetMapping(value="login")
 	public String loginGo() {
 		return "admin/member/login";
@@ -49,36 +49,36 @@ public class AdminController {
 		AdminDTO login = mapper.login(mdto);
 		
 		if (login != null) {
-	        // ÀÔ·ÂÇÑ ºñ¹Ð¹øÈ£¿Í DB¿¡ ÀúÀåµÈ ºñ¹Ð¹øÈ£ ºñ±³
+	        // ï¿½Ô·ï¿½ï¿½ï¿½ ï¿½ï¿½Ð¹ï¿½È£ï¿½ï¿½ DBï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ð¹ï¿½È£ ï¿½ï¿½
 	        if (encoder.matches(mdto.getPw(), login.getPw())) {
-	        	// ·Î±×ÀÎ ¼º°ø ½Ã, ÇöÀç ½Ã°£À¸·Î lastLogin °»½Å
-                login.setLastLogin(new Date());  // ÇöÀç ½Ã°£À¸·Î ¼³Á¤
-                mapper.updateLastLogin(login);  // DB¿¡ lastLogin ¾÷µ¥ÀÌÆ®
+	        	// ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ï¿½ï¿½ lastLogin ï¿½ï¿½ï¿½ï¿½
+                login.setLastLogin(new Date());  // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+                mapper.updateLastLogin(login);  // DBï¿½ï¿½ lastLogin ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
                 
-                // °ü¸®ÀÚ ±ÇÇÑ°ú ·Î±×ÀÎ Â÷´Ü Ã³¸®
+                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ°ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
                 if ("BLOCKED".equals(login.getAccess())) {
-                    model.addAttribute("loginError", "·Î±×ÀÎ Â÷´ÜµÈ °èÁ¤ÀÔ´Ï´Ù.");
-                    return "admin/member/login";  // Â÷´ÜµÈ °èÁ¤ÀÏ °æ¿ì ·Î±×ÀÎ ½ÇÆÐ Ã³¸®
+                    model.addAttribute("loginError", "ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Üµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½.");
+                    return "admin/member/login";  // ï¿½ï¿½ï¿½Üµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
                 }
-	            // ºñ¹Ð¹øÈ£°¡ ÀÏÄ¡ÇÏ¸é ·Î±×ÀÎ ¼º°ø
+	            // ï¿½ï¿½Ð¹ï¿½È£ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½Ï¸ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	            session.setAttribute("id", login.getId());
 	            session.setAttribute("name", login.getName());
 	            session.setAttribute("level", login.getLevel());
-	            return "redirect:/admin/";  // ·Î±×ÀÎ ÈÄ ´ë½Ãº¸µå·Î ¸®´ÙÀÌ·ºÆ®
+	            return "redirect:/admin/";  // ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Ãºï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì·ï¿½Æ®
 	        } else {
-	            // ºñ¹Ð¹øÈ£ ºÒÀÏÄ¡ ½Ã ·Î±×ÀÎ ½ÇÆÐ Ã³¸®
-	            model.addAttribute("loginError", "ºñ¹Ð¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.");
-	            return "admin/member/login";  // ·Î±×ÀÎ ÆäÀÌÁö·Î ¸®ÅÏ
+	            // ï¿½ï¿½Ð¹ï¿½È£ ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
+	            model.addAttribute("loginError", "ï¿½ï¿½Ð¹ï¿½È£ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½ ï¿½Ê½ï¿½ï¿½Ï´ï¿½.");
+	            return "admin/member/login";  // ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	        }
 	    } else {
-	        // ¾ÆÀÌµð°¡ ÀÏÄ¡ÇÏÁö ¾ÊÀ¸¸é ·Î±×ÀÎ ½ÇÆÐ Ã³¸®
-	        model.addAttribute("loginError", "ÀÏÄ¡ÇÏ´Â Á¤º¸°¡ ¾ø½À´Ï´Ù.");
-	        return "admin/member/login";  // ·Î±×ÀÎ ÆäÀÌÁö·Î ¸®ÅÏ
+	        // ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
+	        model.addAttribute("loginError", "ï¿½ï¿½Ä¡ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
+	        return "admin/member/login";  // ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	    }
 		
 	}
 	
-	// °ü¸®ÀÚ Ãß°¡ 
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ 
 	@GetMapping(value="join")
 	public String join() {
 		return "admin/member/addAdmin";
@@ -86,14 +86,14 @@ public class AdminController {
 
 	@PostMapping(value = "join")
 	public String joinPro(AdminDTO mdto) {
-	    System.out.println("È¸¿ø°¡ÀÔ ¿äÃ»ÀÌ µé¾î¿È: " + mdto);
+	    System.out.println("È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½: " + mdto);
 	    
-	    // ºñ¹Ð¹øÈ£ ÇØ½Ì
+	    // ï¿½ï¿½Ð¹ï¿½È£ ï¿½Ø½ï¿½
 	    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 	    String hashedPassword = encoder.encode(mdto.getPw());
-	    mdto.setPw(hashedPassword);  // ÇØ½ÃµÈ ºñ¹Ð¹øÈ£·Î ¼³Á¤
+	    mdto.setPw(hashedPassword);  // ï¿½Ø½Ãµï¿½ ï¿½ï¿½Ð¹ï¿½È£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	    
-	    // id¿Í pw ºó °ª Ã¼Å©
+	    // idï¿½ï¿½ pw ï¿½ï¿½ ï¿½ï¿½ Ã¼Å©
 	    if (mdto == null || mdto.getId().trim().isEmpty()) {
 	        return "redirect:/admin/join";
 	    }
@@ -102,22 +102,22 @@ public class AdminController {
 	        return "redirect:/admin/join";
 	    }
 
-	    // regidate°¡ nullÀÌ¸é ÇöÀç ³¯Â¥·Î ¼³Á¤ (db¿¡¼­ ±âº»°ªÀ¸·Î Ã³¸®µÉ ¼öµµ ÀÖÀ½)
+	    // regidateï¿½ï¿½ nullï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Â¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (dbï¿½ï¿½ï¿½ï¿½ ï¿½âº»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
 	    if (mdto.getRegidate() == null) {
-	        mdto.setRegidate(new Date());  // ÇöÀç ³¯Â¥·Î ¼³Á¤
+	        mdto.setRegidate(new Date());  // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Â¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	    }
 
-	    // °ü¸®ÀÚ Ãß°¡
+	    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
 	    int result = mapper.join(mdto);
 	    if (result > 0) {
-	        return "redirect:/admin/login";  // ¼º°ø ½Ã ·Î±×ÀÎ ÆäÀÌÁö·Î ¸®´ÙÀÌ·ºÆ®
+	        return "redirect:/admin/login";  // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì·ï¿½Æ®
 	    }
 
-	    // ½ÇÆÐ ½Ã °¡ÀÔ ÆäÀÌÁö·Î ¸®´ÙÀÌ·ºÆ®
+	    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì·ï¿½Æ®
 	    return "redirect:/admin/join";
 	}
 	
-	//Id Áßº¹ È®ÀÎ
+	//Id ï¿½ßºï¿½ È®ï¿½ï¿½
 	@PostMapping("/idCheck")
 	@ResponseBody
 	public ResponseEntity<Boolean> confirmId(String id) {
@@ -132,28 +132,28 @@ public class AdminController {
 				result = true;
 			}
 		}
-		System.out.println("Áßº¹" + result);
+		System.out.println("ï¿½ßºï¿½" + result);
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 	
-	// °ü¸®ÀÚ ¸ñ·Ï Á¶È¸ ¹× ÆäÀÌÂ¡ Ã³¸®
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½È¸ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Â¡ Ã³ï¿½ï¿½
 	@GetMapping("manageAccount")
 	public String manageAccounts(@RequestParam(value = "page", defaultValue = "1") int currentPage, Model model) {
-	    int pageSize = 10;  // ÇÑ ÆäÀÌÁö¿¡ º¸¿©ÁÙ °ü¸®ÀÚ ¼ö
-	    int startRow = (currentPage - 1) * pageSize;  // ½ÃÀÛ Çà ¹øÈ£
+	    int pageSize = 10;  // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+	    int startRow = (currentPage - 1) * pageSize;  // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½È£
 
-	    List<AdminDTO> adminList = mapper.selectAdminList(startRow, pageSize);  // °ü¸®ÀÚ ¸ñ·Ï Á¶È¸
-	    int totalAdminCount = mapper.countAdmin();  // ÀüÃ¼ °ü¸®ÀÚ ¼ö
-	    int totalPage = (int) Math.ceil((double) totalAdminCount / pageSize);  // ÀüÃ¼ ÆäÀÌÁö ¼ö
+	    List<AdminDTO> adminList = mapper.selectAdminList(startRow, pageSize);  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½È¸
+	    int totalAdminCount = mapper.countAdmin();  // ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+	    int totalPage = (int) Math.ceil((double) totalAdminCount / pageSize);  // ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
 
 	    model.addAttribute("adminList", adminList);
 	    model.addAttribute("currentPage", currentPage);
 	    model.addAttribute("totalPage", totalPage);
 	    
-	    return "admin/member/manageAccount";  // °ü¸®ÀÚ ¸ñ·Ï ÆäÀÌÁö·Î ÀÌµ¿
+	    return "admin/member/manageAccount";  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
 	}
 	
-	// °ü¸®ÀÚ ¼öÁ¤ Ã³¸®
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
 	@PostMapping("updateAccount")
 	public String updateAccount(@RequestParam("selectedIds") List<String> selectedIds,
 	                             @RequestParam("level") String level,
@@ -163,8 +163,8 @@ public class AdminController {
 	        admin.setId(id);
 	        admin.setLevel(level);
 	        admin.setAccess(access);
-	        mapper.updateAdmin(admin);  // DB¿¡¼­ °ü¸®ÀÚÀÇ Á¤º¸ ¼öÁ¤
+	        mapper.updateAdmin(admin);  // DBï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	    }
-	    return "redirect:/admin/manageAccount";  // ¼öÁ¤ ÈÄ ´Ù½Ã °ü¸®ÀÚ ¸ñ·Ï ÆäÀÌÁö·Î ¸®´ÙÀÌ·ºÆ®
+	    return "redirect:/admin/manageAccount";  // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì·ï¿½Æ®
 	}
 } 
