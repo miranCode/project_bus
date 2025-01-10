@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class MemberController {
-	//12
+	//123
 	@GetMapping("/login")
 	public String login() {
 		return "user/member/login";

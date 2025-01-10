@@ -7,7 +7,7 @@
 %>
 
 <jsp:include page="../inc/header.jsp" />
-				<!-- 회원가입 jsp1 -->
+				<!-- 회원가입 jsp12 -->
             	<!-- #content 영역 시작 -->
  		<div class="login-container">
           <div class="sign-in-container">
