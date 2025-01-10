@@ -5,7 +5,7 @@
     <div>
         <ul>
             <li>
-                <a href="/info">css</a>
+                <a href="/info">/qna/write</a>
             </li>
             <li>
                 <a href=""></a>
