@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.zerock.dto.AdminDTO;
-
+//250110
 public interface AdminMapper {
 
 		public AdminDTO login(AdminDTO mdto);

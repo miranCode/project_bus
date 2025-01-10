@@ -3,7 +3,7 @@ package org.zerock.dto;
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
-
+// 250110
 public class AdminDTO {
 	private String id;
 	private String pw;
