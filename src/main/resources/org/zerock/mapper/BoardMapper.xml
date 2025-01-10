@@ -3,7 +3,7 @@
 
 <mapper namespace="org.zerock.mapper.BoardMapper">
 	<!--  -->
-    <!-- 게시글 등록 -->
+    <!-- 게시글 등록 !@#-->
     <insert id="insert" parameterType="org.zerock.dto.BoardDTO">
         INSERT INTO board (name, title, content, email)
         VALUES (#{name}, #{title}, #{content}, #{email})
