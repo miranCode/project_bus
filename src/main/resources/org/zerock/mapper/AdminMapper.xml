@@ -13,7 +13,7 @@
     	SELECT id, pw, name FROM manager WHERE id=#{id}
     	<!--  -->
 	</select>
-	
+	<!-- 250110 -->
 	<insert id="join" parameterType="org.zerock.dto.AdminDTO">
 		insert into manager (id, pw, name, regidate) 
 		values(#{id}, #{pw}, #{name}, #{regidate});
