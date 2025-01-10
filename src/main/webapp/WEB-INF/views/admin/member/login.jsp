@@ -9,7 +9,7 @@
             	<!-- #content 영역 시작 -->
 				<div id="content">
 					<div id="login_box">
-						<form action="loginProcess.jsp" method="post" onsubmit="check(this);">
+						<form action="/admin/login" method="post" onsubmit="return check(this);">
 							<div id="id_box">
 								<label for="id">ID:&nbsp;</label>
 								<div id="id_input">
