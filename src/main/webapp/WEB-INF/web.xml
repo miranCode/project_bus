@@ -63,5 +63,22 @@
         <filter-name>encodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+	
+	<servlet>
+        <servlet-name>EmailVerificationServlet</servlet-name>
+        <servlet-class>org.zerock.controller.EmailVerificationServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EmailVerificationServlet</servlet-name>
+        <url-pattern>/sendVerification</url-pattern>
+    </servlet-mapping>
 
+    <servlet>
+        <servlet-name>VerifyCodeServlet</servlet-name>
+        <servlet-class>org.zerock.controller.VerifyCodeServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>VerifyCodeServlet</servlet-name>
+        <url-pattern>/verifyCode</url-pattern>
+    </servlet-mapping>
 </web-app>

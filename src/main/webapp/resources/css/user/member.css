@@ -1,0 +1,224 @@
+
+* {
+  box-sizing: border-box;
+}
+body {
+  font-family: "Montserrat", sans-serif;
+  margin: 0;
+  padding: 0;
+  
+}
+body.member #wrap{
+  background: #ebecf0;
+  overflow: hidden;  
+}
+#container{
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #ebecf0;
+  overflow: hidden;
+}
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  box-shadow: -5px -5px 10px #fff, 5px 5px 10px #babebc;
+  position: absolute;
+  width: 768px;
+  min-height: 480px;
+  overflow: hidden;
+  padding: 30px 30px;
+}
+form {
+  background: #ebecf0;
+  display: flex;
+  flex-direction: column;
+  padding: 0 50px;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+#id,
+#pass,
+#name,
+#confirm-pass,
+#dob,#phone,
+#verification-code {
+  background: #eee;
+  padding: 16px;
+  margin: 8px 0;
+  width: 65%;
+  border: 0;
+  outline: none;
+  border-radius: 20px;
+  box-shadow: inset 7px 2px 10px #babebc, inset -5px -5px 12px #fff;
+}
+body button {
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 15px 45px;
+  margin: 14px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform 80ms ease-in;
+}
+.form_btn {
+  box-shadow: -5px -5px 10px #fff, 5px 5px 8px #babebc;
+}
+.form_btn:active {
+  box-shadow: inset 1px 1px 2px #babebc, inset -1px -1px 2px #fff;
+}
+.sign-in-container {
+  position: relative;
+  width: 100%;
+  height: auto;
+  transition: all 0.5s;
+  padding-bottom: 20px;
+}
+.social-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+}
+form h1 {
+  font-weight: bold;
+  margin: 0;
+  color: #000;
+}
+
+p {
+  font-size: 16px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  margin: 20px 0 30px;
+}
+span {
+  font-size: 12px;
+  color: #000;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+}
+.social-links div {
+  width: 50px;
+  height: 50px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 15px;
+  border-radius: 50%;
+  box-shadow: -5px -5px 10px #fff, 5px 5px 8px #babebc;
+  cursor: pointer;
+}
+.social-links div:active {
+  box-shadow: inset 1px 1px 2px #babebc, inset -1px -1px 2px #fff;
+}
+.social-links a {
+  color: #000;
+}
+.sign-in-option {
+  display: flex;
+  width: 100%;
+  justify-content: space-between; /* 양쪽 끝 정렬 */
+  align-items: center; /* 세로 중앙 정렬 */
+  padding: 10px 80px; /* 여백 추가 */
+  margin-bottom: 20px;
+  font-size: 13px;
+}
+
+.sign-in-option a {
+  text-decoration: none; /* 하이퍼링크 밑줄 제거 */
+  color: inherit; /* 부모 요소의 글자색 상속 */
+  margin-left: 10px; /* 링크 간격 유지 */
+}
+
+.sign-in-option a:visited,
+.sign-in-option a:hover,
+.sign-in-option a:active {
+  color: inherit; /* 방문, 호버, 클릭 시 글자색 유지 */
+  text-decoration: none; /* 밑줄 제거 */
+}
+
+#login-span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 80%; /* 전체 너비 사용 */
+  text-align: center;
+  padding: 10px 0px;
+}
+
+#login-span::before,
+#login-span::after {
+  content: "";
+  flex: 1; /* 선의 길이를 유동적으로 조정 */
+  border-top: 1px solid #000; /* 선의 색상과 두께 설정 */
+  margin: 0 10px; /* 선과 텍스트 사이 여백 */
+}
+
+.sign-up-container {
+  position: relative;
+  width: 100%;
+  height: auto;
+  transition: all 0.5s;
+  padding-bottom: 20px;
+  padding-top: 20px ;
+}
+
+.email-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+}
+.Auth_btn, .Auth_btn2 {
+  position: absolute;
+  right: 110px; /* 오른쪽 끝에 위치 */
+  top: 30%; /* 세로 중앙 정렬 */
+  transform: translateY(-50%); /* 정확한 세로 중앙 정렬 */
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: -5px -5px 10px #fff, 5px 5px 8px #babebc;
+  z-index: 1; /* 버튼이 입력 필드 위로 오게 설정 */
+}
+
+.Auth_btn:active {
+  box-shadow: inset 1px 1px 2px #babebc, inset -1px -1px 2px #fff;
+}
+
+.email-code{
+  display: none;
+  width: 100%;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+}
+
+.sign-up-option{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.sign-up-option a {
+  text-decoration: none; /* 하이퍼링크 밑줄 제거 */
+  color: inherit; /* 부모 요소의 글자색 상속 */
+}
+
