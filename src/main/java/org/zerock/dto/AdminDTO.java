@@ -4,13 +4,34 @@ import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-public class adminDTO {
+public class AdminDTO {
 	private String id;
 	private String pw;
 	private String name;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date regidate;
+	private Date lastLogin;
+	private String level;
+	private String access;
 	
+	public Date getLastLogin() {
+		return lastLogin;
+	}
+	public void setLastLogin(Date lastLogin) {
+		this.lastLogin = lastLogin;
+	}
+	public String getLevel() {
+		return level;
+	}
+	public void setLevel(String level) {
+		this.level = level;
+	}
+	public String getAccess() {
+		return access;
+	}
+	public void setAccess(String access) {
+		this.access = access;
+	}
 	public String getId() {
 		return id;
 	}
@@ -38,6 +59,7 @@ public class adminDTO {
 	
 	@Override
 	public String toString() {
-		return "adminDTO [id=" + id + ", pw=" + pw + ", name=" + name + ", regidate=" + regidate + "]";
+		return "AdminDTO [id=" + id + ", pw=" + pw + ", name=" + name + ", regidate=" + regidate + ", lastLogin="
+				+ lastLogin + ", level=" + level + ", access=" + access + "]";
 	}
 }
