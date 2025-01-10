@@ -55,3 +55,8 @@ spring-boot-devtools
 *.class
 
 .factorypath
+
+target/
+*.war
+*.jar
+src/main/webapp/META-INF/
