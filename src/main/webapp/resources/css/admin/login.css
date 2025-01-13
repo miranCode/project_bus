@@ -1,0 +1,85 @@
+@charset "UTF-8";
+
+
+
+body.member #header {
+	display: none;
+}
+
+body.member #container{
+	padding: 0;
+}
+
+body.member #login_area {
+	display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+}
+
+body.member #login_box{
+	display: flex;
+    justify-content: center;
+    background-color: #474747;
+	width: 600px;
+    height: 310px;
+    margin: auto;
+}
+
+body.member #login_box form{
+	padding: 52px;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+body.member #id_box, #pw_box{
+	display: flex;
+    width: 100%;
+    height: 45px;
+    margin-bottom: 30px;
+}
+
+body.member #ID_text, #PW_text{
+	padding-top:10px;
+}
+
+body.member #ID_text, #PW_text label{
+	color: #ddd;
+}
+
+body.member #id_input, #pw_input{
+	width: 100%;
+	height: 100%;
+}
+
+body.member #id, #pw{
+	width: 100%;
+	height: 100%;
+	border-radius: 7px;
+	padding-left: 10px;
+	background-color: #ddd;
+}
+
+body.member #ID_text {
+	margin-right: 9px;
+}
+
+body.member #button_box_01{
+	display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+body.member #loginbtn {
+	width: 300px;
+    height: 50px;
+    background-color: black;
+    color: #ddd;
+    border-radius: 7px;
+}
+
+body.member #loginbtn:hover{
+	background-color: #727272;
+	color: #ddd;
+}
