@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.zerock.mapper.NaverLoginMapper">
+    <!-- 네이버 회원 정보 삽입 -->
+    <insert id="insertNaverMember" parameterType="org.zerock.dto.UserDTO">
+        INSERT INTO users (id, phone_number, name)
+        VALUES (#{id}, #{phone_number}, #{name})
+    </insert>
+	
+	<select id="selectNaverMemberById" resultType="org.zerock.dto.UserDTO">
+    	select * from users where id=#{id}
+	</select>
+
+    <!-- 네이버 회원 정보 수정 -->
+    <!-- 네이버 정보 수정 불필요 -->
+    <select id="updateNaverMember" resultType="org.zerock.dto.UserDTO">
+        select * from users where id=#{id}
+    </select>
+
+    <!-- 네이버 회원 정보 삭제 -->
+    <delete id="deleteNaverMember" parameterType="String">
+        DELETE FROM users WHERE id = #{id}
+    </delete>
+
+</mapper>
