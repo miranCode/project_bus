@@ -29,23 +29,31 @@
 									</div>
 								</div>
 								<div id="name_box">
-									<label for="name">NAME:&nbsp;</label>
+									<div id="NAME_text">
+										<label for="name">NAME:&nbsp;</label>
+									</div>
 									<div id="name_input">
 										<input type="text" id="name" name="name" placeholder="Insert into your new manager name">
 									</div>
 								</div>
-								<div id="level_set">
-									<label for="level">LEVEL:&nbsp;</label>
-									<div id="level_select">
-										<select name="level" id="level">
-											<option value="1">1</option>
-											<option value="2">2</option>
-											<option value="3">3</option>
-										</select>
+								<div class="flex ju-between al-center">
+									<div id="level_set">
+										<div id="LEVEL_text">
+											<label for="level">LEVEL:&nbsp;</label>
+										</div>
+										<div id="level_select">
+											<select name="level" id="level">
+												<option value="1">1</option>
+												<option value="2">2</option>
+												<option value="3">3</option>
+											</select>
+										</div>
+									</div>
+									<div id="btn_box">
+										<button type="submit" id="submitbtn">ADD</button>
+										<button type="reset" id="resetbtn">RESET</button>
 									</div>
 								</div>
-								<button type="submit" id="submitbtn">ADD</button>
-								<button type="reset" id="resetbtn">RESET</button>
 							</form>
 						</div>
 					</div>

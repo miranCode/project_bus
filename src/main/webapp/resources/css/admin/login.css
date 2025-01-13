@@ -6,7 +6,7 @@ body.member #header {
 	display: none;
 }
 
-body.member #container{
+body.member #container {
 	padding: 0;
 }
 
@@ -15,45 +15,46 @@ body.member #login_area {
     justify-content: center;
     width: 100%;
     height: 100vh;
+    background-color: #474747;
 }
 
-body.member #login_box{
+body.member #login_box {
 	display: flex;
     justify-content: center;
-    background-color: #474747;
+    background-color: #a6a6a6;
 	width: 600px;
     height: 310px;
     margin: auto;
 }
 
-body.member #login_box form{
+body.member #login_box form {
 	padding: 52px;
     width: 100%;
     height: 100%;
     box-sizing: border-box;
 }
 
-body.member #id_box, #pw_box{
+body.member #id_box, #pw_box {
 	display: flex;
     width: 100%;
     height: 45px;
     margin-bottom: 30px;
 }
 
-body.member #ID_text, #PW_text{
+body.member #ID_text, #PW_text {
 	padding-top:10px;
 }
 
-body.member #ID_text, #PW_text label{
+body.member #ID_text, #PW_text label {
 	color: #ddd;
 }
 
-body.member #id_input, #pw_input{
+body.member #id_input, #pw_input {
 	width: 100%;
 	height: 100%;
 }
 
-body.member #id, #pw{
+body.member #id, #pw {
 	width: 100%;
 	height: 100%;
 	border-radius: 7px;
@@ -74,7 +75,7 @@ body.member #button_box_01{
 body.member #loginbtn {
 	width: 300px;
     height: 50px;
-    background-color: black;
+    background-color: #474747;
     color: #ddd;
     border-radius: 7px;
 }
