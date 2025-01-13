@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.zerock.dto.BusDTO;
+import org.zerock.dto.BusUseDTO;
 import org.zerock.service.ApiService;
 
 
@@ -31,22 +32,18 @@ public class ApiController {
 	
 	@GetMapping("saveBusLine")
 	public ResponseEntity<List<BusDTO>> svaBusLine(BusDTO bdto) {
-		
 		List<BusDTO> apiData = new ArrayList<>();
-	    
 	    try {
 	        apiData = aService.busLineApi(); 
 	        System.out.println("API 호출성공");
 	        
 	        // apiData null 이 아니면 저장 
-	        
 	        if(apiData != null && !apiData.isEmpty()){
 	        	aService.saveBusLine();
 	        	return ResponseEntity.ok(apiData);  // JSON 형식으로 응답 반환
 	        } else {
 	            return null;
 	        }
-	        
 	    } catch (Exception e) {
 	        System.out.println("API 호출 중 오류 발생: " + e.getMessage());
 	        e.printStackTrace();
@@ -56,13 +53,26 @@ public class ApiController {
 	
 	// 
 	@GetMapping("busUse")
-	public String busUse(BusDTO bdto, Model model) {
-		List<BusDTO> responses = aService.busLineList(bdto);
+	public String busUse(BusUseDTO budto, Model model) {
+		List<BusUseDTO> responses = aService.busUseList(budto);
 		
-		model.addAttribute("budLineList", responses);
+		model.addAttribute("busUseList", responses);
 		
 		return "admin/bus/busUse";
 	}
 	
+	@GetMapping("saveBusUse")
+	public ResponseEntity<List<BusUseDTO>> svaBusLine(BusUseDTO budto) {
+		List<BusUseDTO> apiData = new ArrayList<>();
+		try {
+			apiData = aService.busUseApi(); 
+	        System.out.println("API 호출성공" + apiData );
+		}catch (Exception e) {
+			System.out.println("API 호출 중 오류 발생: " + e.getMessage());
+	        e.printStackTrace();
+	        return null;
+		}
+		return ResponseEntity.ok(apiData);  // JSON 형식으로 응답 반환
+	}
 
 }

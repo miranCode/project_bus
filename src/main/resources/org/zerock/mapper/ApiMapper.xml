@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.zerock.mapper.ApiMapper">
-	<!--  -->
+	<!-- 버스 노선 정보   -->
 	<insert id="inBusLine" parameterType="org.zerock.dto.BusDTO">
 		insert into busnum(RTE_NM, RTE_ID)
 		values (#{RTE_NM},#{RTE_ID});
@@ -17,4 +17,21 @@
 	<select id="busLineList" resultType="org.zerock.dto.BusDTO">
 		select * from busnum;
 	</select>
+	
+	<!-- 버스 노선별 정류장별 이용 정보   -->
+	<select id="busUseList" resultType="org.zerock.dto.BusUseDTO">
+		select * from bususe;
+	</select>
+	
+	<insert id="inBusUse" parameterType="org.zerock.dto.BusUseDTO">
+		insert into bususe(USE_YMD, RTE_ID, RTE_NO, RTE_NM, STOPS_ID, STOPS_ARS_NO, SBWY_STNS_NM, GTON_TNOPE, GTOFF_TNOPE, REG_YMD)
+		values (#{USE_YMD}, #{RTE_ID}, #{RTE_NO}, #{RTE_NM}, #{STOPS_ID}, #{STOPS_ARS_NO}, #{SBWY_STNS_NM}, #{GTON_TNOPE}, #{GTOFF_TNOPE}, #{REG_YMD});
+	</insert>
+	
+	<select id="seBusUse" resultType="Integer">
+		select count(*) from bususe 
+		where USE_YMD = #{USE_YMD} and RTE_ID = #{RTE_ID} and RTE_NO = #{RTE_NO} and RTE_NM = #{RTE_NM} and STOPS_ID = #{STOPS_ID} and STOPS_ARS_NO = #{STOPS_ARS_NO} and SBWY_STNS_NM = #{SBWY_STNS_NM} adn GTON_TNOPE = #{GTON_TNOPE} and GTOFF_TNOPE = #{GTOFF_TNOPE} and REG_YMD = #{REG_YMD}
+		
+	</select>
+	<!-- 서울시 버스노선별 정류장별 시간대별 승하차 인원 정보   -->	
 </mapper>

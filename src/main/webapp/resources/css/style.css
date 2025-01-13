@@ -174,4 +174,4 @@ textarea{border:1px solid #ddd; padding:10px; box-sizing:border-box;}
 
 .btn-area.btn-right{justify-content: flex-end; display: flex;}
 .btn-area.btn-right button,
-.btn-area.btn-right a{width:180px;}
+.btn-area.btn-right a{width:auto; padding:0 10px; box-sizing:border-box;}

@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.zerock.dto.ApiDTO;
 import org.zerock.dto.BusDTO;
+import org.zerock.dto.BusUseDTO;
 
 @Mapper 
 public interface ApiMapper {
@@ -19,6 +20,9 @@ public interface ApiMapper {
 	
 	// 버스 노선별 정류장별 정보 
 	
+	public int inBusUse(BusUseDTO budto); // 저장되면 1을 반환
+	public int seBusUse(BusUseDTO budto); //
+	public List<BusUseDTO> busUseList(BusUseDTO budto);
 	
 	
 

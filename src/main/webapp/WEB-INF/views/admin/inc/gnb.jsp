@@ -5,7 +5,12 @@
     <div>
         <ul>
             <li>
-                <a href="/info">css</a>
+                <a href="/bus/busLine">BusAPI</a>
+                <ul>
+                	<li><a href="/bus/busLine">busLine</a></li>
+                	<li><a href="/bus/busUse">busUse</a></li>
+                	<li><a href="/bus/busUseTime">busUseTime</a></li>
+                </ul>
             </li>
             <li>
                 <a href=""></a>
