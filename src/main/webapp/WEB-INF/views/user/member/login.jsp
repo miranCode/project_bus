@@ -31,13 +31,13 @@
           <span id="login-span">소셜 로그인</span>
           <div class="social-links">
             <div>
-              <a href="#"><i class="xi-google"></i></a>
+              <a href="/google/login"><i class="xi-google"></i></a>
             </div>
             <div>
-              <a href="#"><i class="xi-naver"></i></a>
+              <a href="/naver/login"><i class="xi-naver"></i></a>
             </div>
             <div>
-              <a href="#"><i class="xi-kakaotalk"></i></a>
+              <a href="https://kauth.kakao.com/oauth/authorize?client_id=558503d359c98d21606dc6d90c6795aa&redirect_uri=http://localhost:8080/auth/kakao/callback&response_type=code"><i class="xi-kakaotalk"></i></a>
             </div>
           </div>
        </div>
