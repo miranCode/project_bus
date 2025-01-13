@@ -7,40 +7,47 @@
 %>
 <jsp:include page="../inc/header.jsp" />
             	<!-- #content 영역 시작 -->
+            	<link rel="stylesheet" href="/resources/css/admin/addAdmin.css">
 				<div id="content">
-					<div id="insert_manager_box">
-						<form action="/admin/join" method="post" onsubmit="return validCheck(this);">
-							<div id="id_box">
-								<label for="id">ID:&nbsp;</label>
-								<div id="id_input">
-									<input type="text" id="id" name="id" placeholder="Insert into your new manager ID">
+					<div id="addAdmin_area">
+						<div id="insert_manager_box">
+							<form action="/admin/join" method="post" onsubmit="return validCheck(this);">
+								<div id="id_box">
+									<div id="ID_text">
+										<label for="id">ID:&nbsp;</label>
+									</div>
+									<div id="id_input">
+										<input type="text" id="id" name="id" placeholder="Insert into your new manager ID">
+									</div>
 								</div>
-							</div>
-							<div id="pw_box">
-								<label for="pw">PW:&nbsp;</label>
-								<div id="pw_input">
-									<input type="password" id="pw" name="pw" placeholder="Insert into your new manager PW">
+								<div id="pw_box">
+									<div id="PW_text">
+										<label for="pw">PW:&nbsp;</label>
+									</div>
+									<div id="pw_input">
+										<input type="password" id="pw" name="pw" placeholder="Insert into your new manager PW">
+									</div>
 								</div>
-							</div>
-							<div id="name_box">
-								<label for="name">NAME:&nbsp;</label>
-								<div id="name_input">
-									<input type="text" id="name" name="name" placeholder="Insert into your new manager name">
+								<div id="name_box">
+									<label for="name">NAME:&nbsp;</label>
+									<div id="name_input">
+										<input type="text" id="name" name="name" placeholder="Insert into your new manager name">
+									</div>
 								</div>
-							</div>
-							<div id="level_set">
-								<label for="level">LEVEL:&nbsp;</label>
-								<div id="level_select">
-									<select name="level" id="level">
-										<option value="1">1</option>
-										<option value="2">2</option>
-										<option value="3">3</option>
-									</select>
+								<div id="level_set">
+									<label for="level">LEVEL:&nbsp;</label>
+									<div id="level_select">
+										<select name="level" id="level">
+											<option value="1">1</option>
+											<option value="2">2</option>
+											<option value="3">3</option>
+										</select>
+									</div>
 								</div>
-							</div>
-							<button type="submit" id="submitbtn">ADD</button>
-							<button type="reset" id="resetbtn">RESET</button>
-						</form>
+								<button type="submit" id="submitbtn">ADD</button>
+								<button type="reset" id="resetbtn">RESET</button>
+							</form>
+						</div>
 					</div>
 				</div>
 				<script src="/resources/js/admin/addAdmin.js"></script>
