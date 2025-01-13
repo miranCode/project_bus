@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.zerock.dto.UserDTO;
 import org.zerock.mapper.MemberMapper;
-
+import org.zerock.service.MailSender;
 @Controller
 @RequestMapping("/member/*")
 public class MemberController {
@@ -18,6 +18,8 @@ public class MemberController {
 	@Autowired
 	MemberMapper mapper;
 	
+	@Autowired
+	private MailSender mailSender;
 	
 	//로그인
 	@GetMapping(value = "login")
@@ -82,7 +84,12 @@ public class MemberController {
         
         // 이메일 인증 로직 처리 (이메일 발송 등)
         // 이메일 인증 코드 발송 처리
-        
-        return "success"; // 이메일 인증 성공
+        try {
+            mailSender.sendVerificationEmail(id);
+            return "success";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "fail";
+        }
     }
 }

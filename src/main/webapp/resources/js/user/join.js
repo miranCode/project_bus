@@ -112,21 +112,30 @@ function startTimer() {
 }
 
 document.getElementById("auth-btn2").addEventListener("click", function () {
-    const code = document.getElementById("verification-code").value;
-    fetch("/verifyCode", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-        },
-        body: `code=${encodeURIComponent(code)}`
-    }).then(response => response.text())
-    .then(data => {
-        if (data === "success") {
-            document.getElementById("verification-success").style.display = "block";
-        } else {
-            document.getElementById("verification-error").style.display = "block";
-        }
-    });
+	 const code = document.getElementById("verification-code").value;
+	    fetch("/verifyCode", {
+	        method: "POST",
+	        headers: {
+	            "Content-Type": "application/x-www-form-urlencoded"
+	        },
+	        body: `code=${encodeURIComponent(code)}`
+	    }).then(response => response.text())
+	    .then(data => {
+	        if (data === "success") { //인증 성공시
+	            document.getElementById("verification-success").style.display = "block";
+	            document.getElementById("email-code").style.display = "none"; // 인증코드 입력칸 숨기기
+
+	            // 이메일 입력 비활성화
+	            const emailInput = document.getElementById("id");
+	            emailInput.readOnly = true;
+
+	            // 인증 버튼 비활성화
+	            document.getElementById("auth-btn").disabled = true;
+
+	        } else {
+	            document.getElementById("verification-error").style.display = "block";
+	        }
+	    });
 });
 
 document.getElementById("signup-form").addEventListener("submit", function(event) {
