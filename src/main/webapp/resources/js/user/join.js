@@ -48,6 +48,18 @@ document.getElementById("dob").addEventListener("blur", function() {
   }
 });
 
+//전화번호 입력 유효성 검사
+document.getElementById("phone").addEventListener("blur", function() {
+const phone = this.value;
+const phoneRegex = /^\d{10,11}$/;  // 10~11자리 숫자 허용 (한국 전화번호 기준)
+
+if (!phoneRegex.test(phone)) {
+ document.getElementById("phone-error").style.display = 'inline';
+} else {
+ document.getElementById("phone-error").style.display = 'none';
+}
+});
+
 let timer; // 타이머 변수
 let timeLeft = 300; // 타이머를 5분(300초)로 설정
 
@@ -143,12 +155,13 @@ document.getElementById("signup-form").addEventListener("submit", function(event
 
   const nameValid = document.getElementById("name-error").style.display === 'none';
   const emailValid = document.getElementById("email-error").style.display === 'none';
+  const phoneValid = document.getElementById("phone-error").style.display === 'none';
   const passwordValid = document.getElementById("password-error").style.display === 'none';
   const confirmPasswordValid = document.getElementById("confirm-pass-error").style.display === 'none';
   const dobValid = document.getElementById("dob-error").style.display === 'none';
   const verificationValid = document.getElementById("verification-success").style.display === 'block';
 
-  if (nameValid && emailValid && passwordValid && confirmPasswordValid && dobValid && verificationValid) {
+  if (nameValid && emailValid && phoneValid && passwordValid && confirmPasswordValid && dobValid && verificationValid) {
       // 서버에 회원가입 데이터 전송 (DB 저장)
       const formData = new FormData(this);
       fetch("/member/join", {

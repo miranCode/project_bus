@@ -43,7 +43,10 @@
                 <!-- 생년월일 입력 -->
                 <input id="dob" name="dob" type="text" placeholder="yyyyMMdd">
                 <label id="dob-error" style="display: none; color: red;">생년월일은 숫자만 입력해야 하며, 8자까지 입력 가능합니다.</label>
-              
+              	
+              	<!-- 전화번호 입력 -->
+              	<input id="phone" name="phone" type="text" placeholder="Phone Number">
+				<label id="phone-error" style="display: none; color: red;">유효한 전화번호를 입력해주세요 (숫자만 입력).</label>
                 <button type="submit" class="form_btn">가입하기</button>
               </form>
               

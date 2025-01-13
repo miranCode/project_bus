@@ -17,4 +17,15 @@
     	SELECT COUNT(*) FROM users WHERE id = #{id};
 	</select>
 	
+	<select id="findUserByGoogleId" resultType="org.zerock.dto.UserDTO">
+    	SELECT * FROM users
+    	WHERE id = #{id}
+	</select>
+
+	<!-- 새 사용자 등록 -->
+	<insert id="insertUser">
+    	INSERT INTO users (id, name , phone_number )
+    	VALUES (#{id}, #{name}, #{phone_number} )
+	</insert>
+	
   </mapper>
