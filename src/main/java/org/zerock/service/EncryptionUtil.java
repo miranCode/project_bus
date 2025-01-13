@@ -6,7 +6,7 @@ import java.util.Base64;
 
 public class EncryptionUtil {
 
-    private static final String SECRET_KEY = "1234567890123456"; // 16-byte AES 키
+    private static final String SECRET_KEY = "1234567890123456"; // 16-byte AES 키12
 
     public static String encrypt(String data) throws Exception {
         SecretKeySpec key = new SecretKeySpec(SECRET_KEY.getBytes(), "AES");

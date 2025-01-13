@@ -15,7 +15,7 @@ public class MailSender {
     private static String verificationCode;
     
     @Autowired
-    private MemberMapper memberMapper;  // DB 접근을 위한 의존성 주입
+    private MemberMapper memberMapper;  // DB 접근을 위한 의존성 주입12
 
     public  void sendVerificationEmail(String toEmail) throws Exception {
         Properties properties = new Properties();

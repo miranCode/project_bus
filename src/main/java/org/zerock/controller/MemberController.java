@@ -61,7 +61,7 @@ public class MemberController {
 	    }
 	}
 	
-	// 이메일 중복 확인 API
+	// 이메일 중복 확인 API1
     @PostMapping("/checkDuplicateEmail")
     @ResponseBody
     public String checkDuplicateEmail(@RequestParam("email") String id) {

@@ -10,7 +10,7 @@ document.getElementById("name").addEventListener("blur", function() {
 
 document.getElementById("id").addEventListener("blur", function() {
   const email = this.value;
-  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;  // 이메일 형식
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;  // 이메일 형식12
   if (!emailRegex.test(email)) {
     document.getElementById("email-error").style.display = 'inline';
   } else {

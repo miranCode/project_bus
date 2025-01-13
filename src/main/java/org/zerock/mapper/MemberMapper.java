@@ -14,7 +14,7 @@ public interface MemberMapper {
     // 이메일 중복 검사 메소드
     public int checkEmailDuplicate(String id);
     
-    //메일 키 가져오기
+    //메일 키 가져오기2
     @Select("SELECT encrypted_password FROM smtp_credentials WHERE username = #{username}")
     String getEncryptedPassword(@Param("username") String username);
 }
