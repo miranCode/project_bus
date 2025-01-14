@@ -1,8 +1,11 @@
 package org.zerock.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,19 +30,38 @@ public class MemberController {
 		return "user/member/login";
 	}
 	
-	@PostMapping("/login")
-	public String loginPro(UserDTO udto) {      
-	    UserDTO dbUser = mapper.getUserById(udto.getId());  // DB에서 사용자 정보 가져오기
-	    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+	@PostMapping(value = "login")
+	public String loginPro(UserDTO mdto, HttpSession session, Model model) {
+	    System.out.println("사용자 입력 정보: " + mdto);
 
-	    // 비밀번호 비교
-	    if(dbUser != null && encoder.matches(udto.getPass(), dbUser.getPass())) {
-	        return "redirect:/dashboard";  // 로그인 성공 시
+	    // DB에서 사용자 정보 조회
+	    UserDTO dbUser = mapper.login(mdto); // id로 사용자 정보 가져오기
+
+	    if (dbUser != null) {
+	        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+	        // 암호화된 비밀번호 비교
+	        if (encoder.matches(mdto.getPass(), dbUser.getPass())) {
+	            System.out.println("로그인 성공: " + dbUser);
+
+	            // 세션에 사용자 정보 저장
+	            session.setAttribute("id", dbUser.getId());
+	            session.setAttribute("uname", dbUser.getName());
+	            session.setAttribute("phone_num", dbUser.getPhone_number());
+
+	            return "redirect:/"; // 로그인 성공 시 메인 페이지로 리다이렉트
+	        } else {
+	            System.out.println("비밀번호가 일치하지 않음");
+	            model.addAttribute("loginError", "아이디 또는 비밀번호가 올바르지 않습니다.");
+	            return "user/member/login"; // 로그인 실패 시 로그인 페이지로
+	        }
 	    } else {
-	        return "user/member/login";  // 로그인 실패 시
+	        System.out.println("DB에 사용자 정보 없음");
+	        model.addAttribute("loginError", "아이디 또는 비밀번호가 올바르지 않습니다.");
+	        return "user/member/login"; // 로그인 실패 시 로그인 페이지로
 	    }
 	}
-	
+
 	//회원가입
 	@GetMapping("/join")
 	public String join() {
@@ -92,4 +114,15 @@ public class MemberController {
             return "fail";
         }
     }
+    
+    @GetMapping("/logout")
+	public String logout(HttpSession session) {
+	    session.invalidate();
+	    return "redirect:/";
+	}
+    
+	@GetMapping(value = "myinfo")
+	public String myinfo() {
+		return "user/member/myinfo";
+	}
 }

@@ -93,6 +93,7 @@ public class NaverLoginService {
                     dto.setId(responseNode.path("id").asText(null));
                     dto.setPhone_number(responseNode.path("mobile").asText(null));
                     dto.setName(responseNode.path("name").asText(null));
+                    dto.setEmail(responseNode.path("email").asText(null));
                     return dto;
                 } catch (Exception e) {
                     e.printStackTrace();

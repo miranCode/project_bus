@@ -9,7 +9,7 @@
             	<!-- #content 영역 시작 -->
             	
 				<div id="content">
-					${serverTime} , ${ name }
+					${serverTime} , ${ uname }
 				</div>  
 				<!-- #content 영역 끝 -->
 <jsp:include page="./inc/footer.jsp" />

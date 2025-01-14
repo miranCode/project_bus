@@ -70,8 +70,8 @@ public class GoogleController {
            // 占쎄쉭占쎈�∽옙肉� 占쎄텢占쎌뒠占쎌쁽 占쎌젟癰귨옙 占쏙옙占쎌삢
            HttpSession session = request.getSession();
            session.setAttribute("uname", user.getName()); // 占쎄쉭占쎈�∽옙肉� 占쎄텢占쎌뒠占쎌쁽 占쎌젟癰귨옙 占쏙옙占쎌삢
-           session.setAttribute("email", user.getId());
-           session.setAttribute("phone_num", user.getPhone_number());
+           session.setAttribute("id", user.getId());
+           session.setAttribute("email", user.getEmail());
 
            System.out.println("### User logged in: " + user.getName());
        }

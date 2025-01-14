@@ -3,8 +3,8 @@
 <mapper namespace="org.zerock.mapper.NaverLoginMapper">
     <!-- 네이버 회원 정보 삽입 -->
     <insert id="insertNaverMember" parameterType="org.zerock.dto.UserDTO">
-        INSERT INTO users (id, phone_number, name)
-        VALUES (#{id}, #{phone_number}, #{name})
+        INSERT INTO users (id, email, phone_number, name, provider)
+        VALUES (#{id}, #{email}, #{phone_number}, #{name}, "네이버")
     </insert>
 	
 	<select id="selectNaverMemberById" resultType="org.zerock.dto.UserDTO">

@@ -138,6 +138,7 @@ public class GoogleServiceImpl implements GoogleService {
 
     public boolean saveUser(HashMap<String, Object> userInfo) {
         String googleId = (String) userInfo.get("id");
+        String email = (String) userInfo.get("email");
         String name = (String) userInfo.get("name");
         String phone_number = (String) userInfo.get("phone_number");
 
@@ -146,6 +147,7 @@ public class GoogleServiceImpl implements GoogleService {
         UserDTO memberdto = new UserDTO();
         
         memberdto.setId(googleId); // Google ID�몴占� 占쏙옙占쎌삢
+        memberdto.setEmail(email);
         memberdto.setName(name); // 占쎄텢占쎌뒠占쎌쁽 占쎌뵠�뵳占� 占쏙옙占쎌삢
         memberdto.setPhone_number(phone_number); // 占쎌뵠筌롫뗄�뵬 占쏙옙占쎌삢
         // 占쎄텢占쎌뒠占쎌쁽 �넫�굝履� (�뤃�덌옙) 占쏙옙占쎌삢

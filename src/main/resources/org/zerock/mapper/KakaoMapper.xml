@@ -17,8 +17,8 @@
 	</select>
 	
 	<insert id="kjoin" parameterType="org.zerock.dto.UserDTO">
-	    INSERT INTO users (id, name)
-	    VALUES (#{id}, #{name})
+	    INSERT INTO users (id, email, name, provider)
+	    VALUES (#{id}, #{email}, #{name}, "카카오")
 	</insert>
 	
 </mapper>
