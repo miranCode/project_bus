@@ -1,0 +1,94 @@
+@charset "UTF-8";
+
+body.member #header {
+	display: none;
+}
+
+body.member #container {
+	padding: 0;
+}
+
+body.member #manageAccount_area {
+	display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    background-color: #474747;
+}
+
+body.member #account_box {
+	display: flex;
+    justify-content: center;
+    background-color: #a6a6a6;
+	width: 340px;
+	height: 450px;
+    margin: auto;
+}
+
+body.member #account_box form {
+	padding: 10px;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+body.member #list_box {
+	text-align: center;
+}
+
+body.member #adminList {
+	background-color: #ddd;
+	border: 1px solid black;
+}
+
+body.member li {
+	margin: 5px 5px 0px 5px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+body.member li:last-child {
+	margin-bottom: 5px;
+}
+
+body.member #pagination {
+	display: flex;
+	justify-content: center;
+	margin-top: 10px;
+}
+
+body.member #pagination a {
+	margin-left: 10px;
+}
+
+body.member #level_setting {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 10px;
+    border-top: 1px solid;
+    padding-top: 10px;
+}
+
+body.member #set_access {
+	display: flex;
+}
+
+body.member #active_box {
+	margin-right: 10px;
+}
+
+body.member #level {
+	width: 70px;
+    text-align: center;
+    background-color: #ddd;
+}
+
+body.member #set_btn {
+	margin-top: 20px;
+	display: flex;
+	justify-content: space-around;
+}
+
+body.member button:hover {
+	color: #ddd;
+}
