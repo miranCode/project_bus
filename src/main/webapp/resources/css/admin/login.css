@@ -13,22 +13,30 @@ body.member #container {
 body.member #login_area {
 	display: flex;
     justify-content: center;
+    align-items: center;
     width: 100%;
     height: 100vh;
-    background-color: #474747;
+    background-color: #f4f4f9;
 }
 
 body.member #login_box {
 	display: flex;
+	flex-direction: column;
     justify-content: center;
-    background-color: #a6a6a6;
-	width: 600px;
-    height: 310px;
-    margin: auto;
+    background-color: #ffffff;
+	width: 380px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+}
+
+body.member h3 {
+	color: #0056b3;
+	text-align: center;
+    font-size: 17px;
 }
 
 body.member #login_box form {
-	padding: 52px;
+	padding: 30px;
     width: 100%;
     height: 100%;
     box-sizing: border-box;
@@ -46,7 +54,9 @@ body.member #ID_text, #PW_text {
 }
 
 body.member #ID_text, #PW_text label {
-	color: #ddd;
+	font-size: 14px;
+    font-weight: 500;
+    color: #555;
 }
 
 body.member #id_input, #pw_input {
@@ -55,11 +65,21 @@ body.member #id_input, #pw_input {
 }
 
 body.member #id, #pw {
+	box-sizing: border-box;
 	width: 100%;
 	height: 100%;
-	border-radius: 7px;
+	border-radius: 8px;
 	padding-left: 10px;
-	background-color: #ddd;
+	border: 1px solid #ddd;
+    font-size: 14px;
+    color: #333;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s;
+}
+
+body.member #id:focus, body.member #pw:focus {
+    border-color: #0056b3;
+    outline: none;
 }
 
 body.member #ID_text {
@@ -73,14 +93,17 @@ body.member #button_box_01{
 }
 
 body.member #loginbtn {
-	width: 300px;
+	width: 100%;
     height: 50px;
-    background-color: #474747;
-    color: #ddd;
-    border-radius: 7px;
+    background-color: #0056b3;
+    color: #fff;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-body.member #loginbtn:hover{
-	background-color: #727272;
-	color: #ddd;
+body.member #loginbtn:hover {
+    background-color: #004080;
 }

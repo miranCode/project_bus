@@ -11,6 +11,9 @@
 				<div id="content">
 					<div id="login_area">
 						<div id="login_box">
+							<div>
+								<h3>관리자 로그인</h3>
+							</div>
 							<form action="/admin/login" method="post" onsubmit="return check(this);">
 								<div id="id_box">
 									<div id=ID_text>

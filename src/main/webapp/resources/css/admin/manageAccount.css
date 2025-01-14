@@ -1,94 +1,132 @@
 @charset "UTF-8";
 
-body.member #header {
-	display: none;
-}
+body.admin #content{width:85%; margin-left:15%;}
 
-body.member #container {
-	padding: 0;
-}
-
-body.member #manageAccount_area {
-	display: flex;
-    justify-content: center;
+body.admin #manageAccount_area {
     width: 100%;
-    height: 100vh;
-    background-color: #474747;
+}
+body.admin #account_box {
+    background-color: #ffffff;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 30px;
 }
 
-body.member #account_box {
-	display: flex;
-    justify-content: center;
-    background-color: #a6a6a6;
-	width: 340px;
-	height: 450px;
-    margin: auto;
+body.admin h3 {
+    color: #0056b3;
+    text-align: center;
+    font-size: 17px;
 }
 
-body.member #account_box form {
-	padding: 10px;
+body.admin #account_box form {
     width: 100%;
     height: 100%;
     box-sizing: border-box;
 }
 
-body.member #list_box {
-	text-align: center;
+body.admin #list_box {
+    margin-bottom: 30px;
 }
 
-body.member #adminList {
-	background-color: #ddd;
-	border: 1px solid black;
+body.admin #adminList {
+    list-style: none;
+    padding-left: 0;
 }
 
-body.member li {
-	margin: 5px 5px 0px 5px;
+body.admin ul.table li {
+    font-size: 14px;
+    color: #555;
+    width:100%;
+}
+
+body.admin ul.table li ul{width:100%}
+
+body.admin ul.table li ul li input{margin:0;}
+
+body.admin ul.table li ul li:first-child{width:15%;}
+
+body.admin .admin-checkbox {
+    margin-right: 10px;
+}
+
+body.admin #pagination {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
+    margin: 20px 0;
 }
 
-body.member li:last-child {
-	margin-bottom: 5px;
+body.admin .page-link {
+    font-size: 14px;
+    color: #0056b3;
+    text-decoration: none;
 }
 
-body.member #pagination {
-	display: flex;
-	justify-content: center;
-	margin-top: 10px;
+body.admin .page-link:hover {
+    color: #004080;
 }
 
-body.member #pagination a {
-	margin-left: 10px;
+body.admin #level_setting {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
 }
 
-body.member #level_setting {
-	display: flex;
-	justify-content: space-between;
-	margin-top: 10px;
-    border-top: 1px solid;
-    padding-top: 10px;
+body.admin #set_level select {
+    width: 120px;
+    height: 40px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+    font-size: 14px;
+    padding: 5px;
 }
 
-body.member #set_access {
-	display: flex;
+body.admin #set_access {
+    display: flex;
 }
 
-body.member #active_box {
-	margin-right: 10px;
+body.admin #active_box, #blocked_box {
+    margin-bottom: 10px;
 }
 
-body.member #level {
-	width: 70px;
-    text-align: center;
+body.admin label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #555;
+}
+
+body.admin input[type="radio"] {
+    margin-right: 10px;
+}
+
+body.admin #set_btn {
+    display: flex;
+}
+
+body.admin #set_btn button {
+    width: 100px;
+    height: 45px;
+    background-color: #0056b3;
+    color: #fff;
+    font-size: 14px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+body.admin #set_reset {
+	margin-left: 20px;
+}
+
+body.admin #set_btn button:hover {
+    background-color: #004080;
+}
+
+body.admin #set_reset {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+body.admin #set_reset:hover {
     background-color: #ddd;
-}
-
-body.member #set_btn {
-	margin-top: 20px;
-	display: flex;
-	justify-content: space-around;
-}
-
-body.member button:hover {
-	color: #ddd;
 }

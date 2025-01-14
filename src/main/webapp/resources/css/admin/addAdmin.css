@@ -13,19 +13,27 @@ body.member #addAdmin_area{
     justify-content: center;
     width: 100%;
     height: 100vh;
-    background-color: #474747;
+    background-color: #f4f4f9;
+    align-items: center;
 }
 
 body.member #insert_manager_box{
 	display: flex;
+	flex-direction: column;
     justify-content: center;
-    background-color: #a6a6a6;
-	width: 770px;
-    margin: auto;
+    background-color: #ffffff;
+	width: 380px;
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+}
+
+body.member h3 {
+	padding-bottom: 20px;
+	text-align: center;
+	color: #0056b3;
 }
 
 body.member #insert_manager_box form{
-	padding: 52px;
     width: 100%;
     height: 100%;
     box-sizing: border-box;
@@ -45,15 +53,26 @@ body.member #level_set {
 }
 
 body.member #id_input, #pw_input, #name_input {
+	border-radius: 8px;
 	width: 100%;
     height: 100%;
 }
 
 body.member #id, #pw, #name, #level {
+	border-radius: 8px;
 	width: 100%;
 	height: 100%;
 	padding-left: 10px;
-	background-color: #ddd;
+	border: 1px solid #ddd;
+    font-size: 14px;
+    color: #333;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s;
+}
+
+body.member #id:focus, #pw:focus, #name:focus, #level:focus {
+    border-color: #0056b3;
+    outline: none;
 }
 
 body.member #ID_text {
@@ -69,27 +88,69 @@ body.member #ID_text, #PW_text, #NAME_text, #LEVEL_text {
 }
 
 body.member #level_select {
-	width: 200px;
+	width: 100px;
 	height: 100%;
 }
 
 body.member #level {
 	text-align: center;
-	background-color: #ddd;
+	background-color: #f9f9f9;
 }
 
 body.member #ID_text, #PW_text, #NAME_text, #LEVEL_text label {
-	color: #ddd;
+	font-size: 14px;
+    font-weight: 500;
+	color: #555;
+}
+
+body.member #level_btn_box {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 
 body.member button {
-	color: #ddd;
+	font-size: 14px;
+    font-weight: 500;
+	color: #fff;
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	width: 50px;
+	background-color: #0056b3;
 }
 
 body.member #submitbtn {
-	margin-right: 40px;
+	margin-right: 5px;
+}
+
+body.member #btn_box button {
+    transition: color 0.3s, border 0.3s;
 }
 
 body.member #btn_box button:hover {
-	color: #474747;
+	background-color: #004080;
+	color: #ddd;
+}
+
+body.member #access_box {
+	display: flex;
+	align-items: center;
+}
+
+body.member #access_select label{
+	font-size: 13px;
+    font-weight: 500;
+    color: #555;
+}
+
+body.member #access_box p{
+	font-size: 14px;
+    font-weight: 500;
+    color: #555;
+}
+
+body.member #access_select input{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }

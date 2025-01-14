@@ -35,18 +35,6 @@ ul.table > li ul li{
 }
 ul.table > li ul li:last-child{border-right:1px solid #ddd;}
 
-ul.table > li ul li:first-child,
-ul.table > li ul li:nth-child(2),
-ul.table > li ul li:nth-child(3),
-ul.table > li ul li:nth-child(5),
-ul.table > li ul li:nth-child(6),
-ul.table > li ul li:last-child{width:calc(40%/5);}
-
-ul.table > li ul li:nth-child(4){width:10%;}
-ul.table > li ul li:nth-child(7),
-ul.table > li ul li:nth-child(8){width:calc(50%/2);}
-
-
 /* 페이지내이션  */
 .pagination{margin-top: 50px;}
 .pagination ul li{width: 35px; height: 35px; box-sizing: border-box;; border: 1px solid #ddd; background: #fff; border-radius: 9px; margin-right: 5px;}
@@ -55,7 +43,11 @@ ul.table > li ul li:nth-child(8){width:calc(50%/2);}
 .pagination ul li.on{ border-color: rgb(73, 73, 238);}
 .pagination ul li.on a{color: rgb(73, 73, 238);}
 .pagination ul li:last-child{margin-right: 0;}
+.pagination ul li.wAuto{width:auto; padding: 0 10px}
 
 .pagination ul li:hover{background: rgb(73, 73, 238); border-color: rgb(73, 73, 238);}
 .pagination ul li:hover a{color: #fff;}
+
+
+
 
