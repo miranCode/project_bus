@@ -9,6 +9,16 @@ document.getElementById("name").addEventListener("blur", function() {
 });
 
 document.getElementById("id").addEventListener("blur", function() {
+	  const id = this.value;
+	  const idRegex = /^[a-z0-9]+$/;  // 이메일 형식12
+	  if (!idRegex.test(id)) {
+	    document.getElementById("id-error").style.display = 'inline';
+	  } else {
+	    document.getElementById("id-error").style.display = 'none';
+	  }
+	});
+
+document.getElementById("email").addEventListener("blur", function() {
   const email = this.value;
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;  // 이메일 형식12
   if (!emailRegex.test(email)) {
@@ -64,7 +74,7 @@ let timer; // 타이머 변수
 let timeLeft = 300; // 타이머를 5분(300초)로 설정
 
 document.getElementById("auth-btn").addEventListener("click", function () {
-    const email = document.getElementById("id").value;
+    const email = document.getElementById("email").value;
     
     // 이메일 중복 확인 후 인증 전송
     fetch("/member/checkDuplicateEmail", {  // 경로 수정
@@ -136,9 +146,9 @@ document.getElementById("auth-btn2").addEventListener("click", function () {
 	        if (data === "success") { //인증 성공시
 	            document.getElementById("verification-success").style.display = "block";
 	            document.getElementById("email-code").style.display = "none"; // 인증코드 입력칸 숨기기
-
+	            document.getElementById("verification-error").style.display = "none";
 	            // 이메일 입력 비활성화
-	            const emailInput = document.getElementById("id");
+	            const emailInput = document.getElementById("email");
 	            emailInput.readOnly = true;
 
 	            // 인증 버튼 비활성화
@@ -154,6 +164,7 @@ document.getElementById("signup-form").addEventListener("submit", function(event
   event.preventDefault();
 
   const nameValid = document.getElementById("name-error").style.display === 'none';
+  const idValid = document.getElementById("id-error").style.display === 'none';
   const emailValid = document.getElementById("email-error").style.display === 'none';
   const phoneValid = document.getElementById("phone-error").style.display === 'none';
   const passwordValid = document.getElementById("password-error").style.display === 'none';
@@ -161,7 +172,7 @@ document.getElementById("signup-form").addEventListener("submit", function(event
   const dobValid = document.getElementById("dob-error").style.display === 'none';
   const verificationValid = document.getElementById("verification-success").style.display === 'block';
 
-  if (nameValid && emailValid && phoneValid && passwordValid && confirmPasswordValid && dobValid && verificationValid) {
+  if (nameValid && idValid && emailValid && phoneValid && passwordValid && confirmPasswordValid && dobValid && verificationValid) {
       // 서버에 회원가입 데이터 전송 (DB 저장)
       const formData = new FormData(this);
       fetch("/member/join", {

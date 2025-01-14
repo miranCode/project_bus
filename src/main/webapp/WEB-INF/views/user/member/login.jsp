@@ -11,11 +11,11 @@
             	<!-- #content 영역 시작 -->
  		<div class="login-container">
           <div class="sign-in-container">
-            <form>
+            <form action="/member/login" method="post" >
               <h1>로그인</h1>
-              <input id="id" type="email" placeholder="Email">
-              <input id="pass"type="password" placeholder="Password">
-              <button class="form_btn">Sign In</button>
+              <input name= "id" id="id" type="text" placeholder="Id">
+              <input name="pass" id="pass"type="password" placeholder="Password">
+              <button type="submit" class="form_btn">Sign In</button>
             </form>
           </div>
           <div class="sign-in-option">
@@ -44,3 +44,4 @@
 
 				<!-- #content 영역 끝 -->
 <jsp:include page="../inc/footer.jsp" />
+<script type="text/javascript" src="/resources/js/user/login.js"></script>

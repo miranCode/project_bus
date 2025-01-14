@@ -8,6 +8,8 @@ import org.zerock.dto.UserDTO;
 
 @Mapper
 public interface MemberMapper {
+	
+	public UserDTO login(UserDTO udto);
 	// 회원가입 메소드
 	public int join(UserDTO udto);
 	

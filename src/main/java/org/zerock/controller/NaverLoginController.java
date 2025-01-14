@@ -39,8 +39,9 @@ public class NaverLoginController {
         UserDTO login = mapper.selectNaverMemberById(userInfo.getId());
         System.out.println(userInfo.getId());
         System.out.println(login);
-        session.setAttribute("name", login.getName());
-        session.setAttribute("email", login.getId());
+        session.setAttribute("uname", login.getName());
+        session.setAttribute("id", login.getId());
+        session.setAttribute("email", login.getEmail());
         session.setAttribute("phone_num", login.getPhone_number());
     
         return "redirect:/";

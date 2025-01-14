@@ -15,10 +15,12 @@
                 <!-- 이름 입력 -->
                 <input id="name" name="name" type="text" placeholder="Name">
                 <label id="name-error" style="display: none; color: red;">이름은 숫자와 공백을 포함할 수 없습니다.</label>
-              
+              	
+              	<input id="id" name="id" type="text" placeholder="Id">
+              	<label id="id-error" style="display: none; color: red;">잘못된 아이디 양식입니다.</label>
                 <!-- 이메일(아이디) 입력, 인증-->
                 <div class="email-wrapper">
-                  <input id="id" name="id" type="email" placeholder="Email">
+                  <input id="email" name="email" type="email" placeholder="Email">
                   <button type="button" class="Auth_btn" id="auth-btn">인증</button>
                 </div>
                 <label id="email-error" style="display: none; color: red;">유효한 이메일을 입력해주세요.</label>
@@ -45,7 +47,7 @@
                 <label id="dob-error" style="display: none; color: red;">생년월일은 숫자만 입력해야 하며, 8자까지 입력 가능합니다.</label>
               	
               	<!-- 전화번호 입력 -->
-              	<input id="phone" name="phone" type="text" placeholder="Phone Number">
+              	<input id="phone" name="phone_number" type="text" placeholder="Phone Number">
 				<label id="phone-error" style="display: none; color: red;">유효한 전화번호를 입력해주세요 (숫자만 입력).</label>
                 <button type="submit" class="form_btn">가입하기</button>
               </form>

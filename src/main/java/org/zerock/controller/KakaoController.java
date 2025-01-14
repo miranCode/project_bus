@@ -24,42 +24,41 @@ public class KakaoController {
     @GetMapping(value="/auth/kakao/callback")
     public String kakaoLogin(UserDTO mdto, @RequestParam(value = "code", required = false) String code, HttpSession session) throws Exception {
 
-        int idCheck = 0;
         String access_Token = service.getAccessToken(code);
         HashMap<String, Object> userInfo = service.getUserInfo(access_Token);
 
-        // 카카오 정보가 유효한 경우
         if (access_Token != null) {
-            // DTO에 값을 설정
             mdto.setId(userInfo.get("id").toString());
             mdto.setName(userInfo.get("nickname").toString());
+            mdto.setEmail(userInfo.get("email").toString());
 
-            idCheck = mapper.klogin(mdto);
+            // 사용자가 DB에 존재하는지 체크
+            int idCheck = mapper.klogin(mdto);
+
+            // 사용자가 없을 경우 회원가입 진행
+            if (idCheck == 0) {
+                int result = mapper.kjoin(mdto);
+                System.out.println("카카오 회원등록 완료");
+            }
+
+            // 회원가입 후 로그인 정보 재조회
             UserDTO login = mapper.kloginGo(mdto);
 
-            // 아이디가 저장된 경우 
-            if (idCheck > 0) {
-                System.out.println("카카오 아이디 있음");
+            if (login != null) {
+                session.setAttribute("uname", login.getName());
+                session.setAttribute("id", login.getId());
+                session.setAttribute("email", login.getEmail());
+                System.out.println("로그인 성공: " + login.getName());
             } else {
-                // Mapper를 통해 DB에 회원 등록
-                int result = mapper.kjoin(mdto);
-                System.out.println("카카오 회원등록");
+                throw new NullPointerException("회원가입 후 로그인 정보 조회 실패");
             }
 
-            // 로그인 후 세션에 사용자 정보 저장
-            if (login != null) {
-                session.setAttribute("name", login.getName());  // 카카오에서 가져온 nickname을 uname에 저장
-                session.setAttribute("email", login.getId());
-                // session.setAttribute("phone_num", login.getPhone_number());
-            } else {
-                // 로그인 실패 메시지를 추가
-                throw new NullPointerException("로그인 정보가 없습니다. 회원가입이 제대로 이루어지지 않았습니다.");
-            }
-            // 리디렉션 경로 수정
-            return "redirect:/";  // 상대 경로 대신 redirect:/index 사용
+            // 로그인 성공 후 메인 페이지로 이동
+            return "redirect:/";
         }
 
-        // 로그인 실패 시 리디렉션
-        return "redirect:/";  
+        // 로그인 실패 시 처리
+        return "redirect:/login";
     }
+
 }
