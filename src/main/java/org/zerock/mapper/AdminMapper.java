@@ -21,5 +21,7 @@ public interface AdminMapper {
 	public int countAdmin();
 	
 	// 관리자 수정 쿼리
-	public void updateAdmin(AdminDTO admin);
+	public int updateAdmin(AdminDTO admin);
+	
+	public AdminDTO selectAdminById(String id);
 }

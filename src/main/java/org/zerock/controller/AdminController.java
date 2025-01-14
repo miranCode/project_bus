@@ -14,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -64,7 +65,8 @@ public class AdminController {
 	            session.setAttribute("id", login.getId());
 	            session.setAttribute("name", login.getName());
 	            session.setAttribute("level", login.getLevel());
-	            return "redirect:/admin/";  // 로그인 후 대시보드로 리다이렉트
+	            session.setMaxInactiveInterval(10 * 60);  // 10분(600초)
+	            return "redirect:/admin/test";  // 로그인 후 대시보드로 리다이렉트
 	        } else {
 	            // 비밀번호 불일치 시 로그인 실패 처리
 	            model.addAttribute("loginError", "비밀번호가 일치하지 않습니다.");
@@ -78,42 +80,92 @@ public class AdminController {
 		
 	}
 	
-	// 관리자 추가 
-	@GetMapping(value="join")
-	public String join() {
-		return "admin/member/addAdmin";
+	@GetMapping(value="logout")
+	public String logout(HttpSession session) {
+	    session.invalidate();  // 세션 무효화
+	    return "redirect:/admin/login";  // 로그아웃 후 로그인 페이지로 리다이렉트
 	}
+	
+	
+	// 관리자 추가 (GET 방식, 폼 화면만 처리)
+	@GetMapping(value="join")
+	public String join(@RequestParam(value = "id", required = false) String id, Model model) {
+	    if (id != null) {
+	        // id가 있을 경우 해당 관리자의 정보 조회
+	        AdminDTO admin = mapper.selectAdminById(id);
+	        model.addAttribute("admin", admin); // 관리자 정보를 모델에 추가
+	    }
+	    return "admin/member/addAdmin";  // 관리자 추가 화면
+	}
+	
+	@PostMapping(value="join")
+	public String join(@ModelAttribute AdminDTO mdto, Model model) {
+	    if (mdto.getId() != null && !mdto.getId().isEmpty()) {
+	        // 기존 관리자의 정보를 수정하는 로직
+	        int result = mapper.updateAdmin(mdto);
+	        
+	        if (result > 0) {
+	            return "redirect:/admin/manageAccount";  // 수정 후 관리자 목록 페이지로 리다이렉트
+	        }
+	    }
 
-	@PostMapping(value = "join")
-	public String joinPro(AdminDTO mdto) {
-	    System.out.println("회원가입 요청이 들어옴: " + mdto);
-	    
-	    // 비밀번호 해싱
+	    // 새 관리자를 추가하는 로직 (기존 ID 중복 검사 및 추가)
+	    if (mapper.idCheck(mdto.getId())) {
+	        model.addAttribute("idError", "이미 존재하는 ID입니다.");
+	        return "admin/member/addAdmin";  // 중복 ID가 있을 경우 관리자 추가 페이지로 다시 리다이렉트
+	    }
+
+	    // 비밀번호 암호화 처리
 	    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-	    String hashedPassword = encoder.encode(mdto.getPw());
-	    mdto.setPw(hashedPassword);  // 해시된 비밀번호로 설정
-	    
-	    // id와 pw 빈 값 체크
-	    if (mdto == null || mdto.getId().trim().isEmpty()) {
-	        return "redirect:/admin/join";
+	    if (mdto.getPw() != null && !mdto.getPw().isEmpty()) {
+	        String hashedPassword = encoder.encode(mdto.getPw());
+	        mdto.setPw(hashedPassword);  // 해시된 비밀번호로 설정
 	    }
 
-	    if (mdto.getPw() == null || mdto.getPw().trim().isEmpty()) {
-	        return "redirect:/admin/join";
-	    }
-
-	    // regidate가 null이면 현재 날짜로 설정 (db에서 기본값으로 처리될 수도 있음)
-	    if (mdto.getRegidate() == null) {
-	        mdto.setRegidate(new Date());  // 현재 날짜로 설정
-	    }
-
-	    // 관리자 추가
+	    // 새 관리자 정보 추가
 	    int result = mapper.join(mdto);
 	    if (result > 0) {
-	        return "redirect:/admin/login";  // 성공 시 로그인 페이지로 리다이렉트
+	        return "redirect:/admin/manageAccount";  // 관리자 목록 페이지로 리다이렉트
+	    }
+	    
+	    // 실패 시, 관리자 추가 페이지로 리다이렉트
+	    return "redirect:/admin/join";
+	}
+
+
+	// 관리자 추가 처리 (POST 방식)
+	@PostMapping("/admin/joinPro")
+	public String joinPro(@ModelAttribute AdminDTO mdto, Model model) {
+	    // ID 중복 체크
+	    if (mapper.idCheck(mdto.getId())) {
+	        model.addAttribute("idError", "이미 존재하는 ID입니다.");
+	        return "admin/member/addAdmin";  // 중복 ID가 있을 경우 관리자 추가 페이지로 다시 리다이렉트
 	    }
 
-	    // 실패 시 가입 페이지로 리다이렉트
+	    // 비밀번호 암호화 처리
+	    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+	    if (mdto.getPw() != null && !mdto.getPw().isEmpty()) {
+	        String hashedPassword = encoder.encode(mdto.getPw());
+	        mdto.setPw(hashedPassword);  // 해시된 비밀번호로 설정
+	    }
+
+	    // 기존 관리자의 정보를 가져와서 lastLogin 값 유지
+	    if (mdto.getId() != null && !mdto.getId().isEmpty()) {
+	        AdminDTO existingAdmin = mapper.selectAdminById(mdto.getId());  // 기존 관리자 정보 조회
+	        if (existingAdmin != null) {
+	            mdto.setLastLogin(existingAdmin.getLastLogin());  // 기존 lastLogin 값을 그대로 사용
+	        } else {
+	            mdto.setLastLogin(null);  // 새 관리자라면 lastLogin을 null로 설정 (필요시 다른 처리)
+	        }
+	    }
+
+	    // 관리자 정보 추가
+	    int result = mapper.join(mdto);
+	    if (result > 0) {
+	        return "redirect:/admin/manageAccount";  // 관리자 목록 페이지로 리다이렉트
+	    }
+	    
+	    // 실패 시, 관리자 추가 페이지로 리다이렉트
 	    return "redirect:/admin/join";
 	}
 	
@@ -121,19 +173,8 @@ public class AdminController {
 	@PostMapping("/idCheck")
 	@ResponseBody
 	public ResponseEntity<Boolean> confirmId(String id) {
-		System.out.println(id);
-		boolean result = true;
-		if(id.trim().isEmpty()) {
-			result = false;
-		} else {
-			if (mapper.idCheck(id)) {
-				result = false;
-			} else {
-				result = true;
-			}
-		}
-		System.out.println("중복" + result);
-		return new ResponseEntity<>(result, HttpStatus.OK);
+	    boolean result = id != null && !id.trim().isEmpty() && !mapper.idCheck(id);
+	    return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 	
 	// 관리자 목록 조회 및 페이징 처리
@@ -156,15 +197,41 @@ public class AdminController {
 	// 관리자 수정 처리
 	@PostMapping("updateAccount")
 	public String updateAccount(@RequestParam("selectedIds") List<String> selectedIds,
-	                             @RequestParam("level") String level,
-	                             @RequestParam("access") String access) {
+	                            @RequestParam Map<String, String> levels,
+	                            @RequestParam Map<String, String> accesses) {
 	    for (String id : selectedIds) {
 	        AdminDTO admin = new AdminDTO();
 	        admin.setId(id);
+	        
+	        // level과 access 값은 각 관리자마다 다르게 전달되므로, 해당 관리자의 값을 가져옵니다.
+	        String level = levels.get("level_" + id);  // "level_${admin.id}"
+	        String access = accesses.get("access_" + id);  // "access_${admin.id}"
+	        
 	        admin.setLevel(level);
 	        admin.setAccess(access);
-	        mapper.updateAdmin(admin);  // DB에서 관리자의 정보 수정
+	        
+	        // 비밀번호 변경이 있을 경우 처리 (비밀번호 처리 로직 추가)
+	        if (admin.getPw() != null && !admin.getPw().isEmpty()) {
+	            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+	            String hashedPassword = encoder.encode(admin.getPw());
+	            admin.setPw(hashedPassword);  // 비밀번호를 해시된 값으로 설정
+	        }
+	        
+	        // 관리자 정보 업데이트
+	        int result = mapper.updateAdmin(admin);
+	        
+	        // 결과에 따른 처리 (실패 시 리다이렉트 혹은 다른 처리를 할 수 있음)
+	        if (result == 0) {
+	            // 업데이트 실패 시
+	            return "redirect:/admin/manageAccount?error=true";
+	        }
 	    }
-	    return "redirect:/admin/manageAccount";  // 수정 후 다시 관리자 목록 페이지로 리다이렉트
+	    
+	    return "redirect:/admin/manageAccount";  // 성공 시 관리자 목록 페이지로 리다이렉트
+	}
+	
+	@GetMapping("test")
+	public String test() {
+	    return "admin/member/test";  // admin/test.jsp 파일을 반환
 	}
 } 
