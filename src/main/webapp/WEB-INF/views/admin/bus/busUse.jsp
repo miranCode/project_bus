@@ -13,20 +13,20 @@
 					<div class="btn-area btn-right">
 						<button type="button" id="busUseApi" class="update_info btn btn-bagic line">노선별 정류장별 승하차 인원 DB 저장</button>
 					</div>
-					<p class="total">Total : <span>${budLineListSize}</span></p>
+					<p class="total">Total : <span>${busUseSize}</span></p>
 					<div class="table">
 						<ul class="flex table-header">
-							<li>no</li>
-							<li>사용일자 <span>USE_YMD</span></li>
-							<li>노선ID<span>RTE_ID</span></li>
-							<li>노선번호<span>RTE_NO</span></li>
-							<li>노선명<span>RTE_NM</span></li>
-							<li>표준버스정류장ID<span>STOPS_ID</span></li>
-							<li>버스정류장ARS번호<span>STOPS_ARS_NO</span></li>
-							<li>역명<span>SBWY_STNS_NM</span></li>
-							<li>승차총승객수<span>GTON_TNOPE</span></li>
-							<li>하차총승객수<span>GTOFF_TNOPE</span></li>
-							<li>등록일자<span>REG_YMD</span></li>
+							<li class="w4per">no</li>
+							<li class="w6per">사용일자 <span>USE_YMD</span></li>
+							<li class="w6per">노선ID<span>RTE_ID</span></li>
+							<li class="w4per">노선번호<span>RTE_NO</span></li>
+							<li class="w10per">노선명<span>RTE_NM</span></li>
+							<li class="w10per">표준버스정류장ID<span>STOPS_ID</span></li>
+							<li class="w10per">버스정류장ARS번호<span>STOPS_ARS_NO</span></li>
+							<li class="w20per">역명<span>SBWY_STNS_NM</span></li>
+							<li class="w10per">승차총승객수<span>GTON_TNOPE</span></li>
+							<li class="w10per">하차총승객수<span>GTOFF_TNOPE</span></li>
+							<li class="w10per">등록일자<span>REG_YMD</span></li>
 						</ul>
 						<ul class="table-body">
 							<c:choose>
@@ -34,9 +34,17 @@
 									<c:forEach var="list" items="${busUseList}" varStatus="status">
 										<li>
 											<ul class="flex ">
-												<li class="w10per">${status.index + 1}</li>
-												<li class="w40per"></li>
-												<li class="w50per"></li>
+												<li class="w4per">${status.index + 1}</li>
+												<li class="w6per">${list.USE_YMD}</li>
+												<li class="w6per">${list.RTE_ID}</li>
+												<li class="w4per">${list.RTE_NO}</li>
+												<li class="w10per">${list.RTE_NM}</li>
+												<li class="w10per">${list.STOPS_ID}</li>
+												<li class="w10per">${list.STOPS_ARS_NO}</li>
+												<li class="w20per">${list.SBWY_STNS_NM}</li>
+												<li class="w10per">${list.GTON_TNOPE}</li>
+												<li class="w10per">${list.GTOFF_TNOPE}</li>
+												<li class="w10per">${list.REG_YMD}</li>
 											</ul>
 										</li>
 									</c:forEach>

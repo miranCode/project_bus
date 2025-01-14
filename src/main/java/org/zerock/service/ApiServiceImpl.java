@@ -95,6 +95,7 @@ public class ApiServiceImpl implements ApiService {
 		return aMapper.busUseList(budto);
 	}
 	
+	// 버스 노선 api 로 받아온 데이터가 있으면 저장하지 않고 없으면 저장한다. 
 	public void saveBusUse() {
 		List<BusUseDTO> busUse = busUseApi();
 		for(BusUseDTO bdto : busUse) {
@@ -112,8 +113,9 @@ public class ApiServiceImpl implements ApiService {
 		
 		List<BusUseDTO> busUseList = new ArrayList<>();
 		// 시작일부터 종료일까지
-		String startDate = "20241201";
-		String endDate = "20250104";
+		// 20241201
+		String startDate = "20241231";
+		String endDate = "20241231";
 		
 		// 날짜 포맷터 설정
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
@@ -129,37 +131,56 @@ public class ApiServiceImpl implements ApiService {
             int startIndex = 1;
     		int endIndex = 1000;
     		Boolean rolling = true;
+    		int forCount = 1;
             while (rolling) {
                 // URL 생성
                 String apiUrl = String.format("http://openapi.seoul.go.kr:8088/7a4a7047727468663533544a6c4747/json/CardBusStatisticsServiceNew/%d/%d/%s", startIndex, endIndex, dateString);
                 String response = restTemplate.getForObject(apiUrl, String.class); // getForObject() 메서드는 서버의 응답 본문을 지정된 responseType 클래스로 변환하여 반환
                 String codeInfo = null;
+                System.out.println("Generated API URL up: " + apiUrl);
+                
                 try {
                     ObjectMapper objectMapper = new ObjectMapper();  
                     JsonNode rootNode = objectMapper.readTree(response); 
                     JsonNode rowNode = rootNode.path("CardBusStatisticsServiceNew").path("row"); 
                     // ObjectMapper를 사용하여 row 배열을 List<BusDTO>로 변환
                     busUseList = objectMapper.convertValue(rowNode, objectMapper.getTypeFactory().constructCollectionType(List.class, BusUseDTO.class));
-                    System.out.println("api 연결 성공");
-                    System.out.println(rowNode);
-                    System.out.println(busUseList);
+                    
+                    System.out.println(">>>>>>>>>>>>>>>>>>> 1" + rootNode);
+                    
                 	int rowCount = rootNode.path("CardBusStatisticsServiceNew").path("list_total_count").asInt();
-                	codeInfo = rootNode.path("RESULT").path("CODE").asText();
-                	System.out.println(rowCount);
+                	codeInfo = rootNode.path("CardBusStatisticsServiceNew").path("RESULT").path("CODE").asText();
+                	
+                	List<BusUseDTO> busUse = busUseList;
+                	System.out.println(startIndex + " / " + endIndex + " / 날짜 " + dateString + "(" + rowCount + ")" + ">>>>>>>>>>>>>>>>>>> 2" + busUse);
+                	
+            		for(BusUseDTO bdto : busUse) {
+            			int result = seBusUse(bdto);
+            			
+            			if(result == 0) {
+            				int inR = aMapper.inBusUse(bdto);
+            				System.out.println("저장" + forCount);
+            			}else {
+            				System.out.println("저장안함, 이미 존재하는 데이터" + forCount);
+            			}
+            			forCount += 1;
+            		}
+                	
+                	
+                	System.out.println("api 연결 성공");
                 }catch (Exception e) {
                 	e.printStackTrace();
                 	System.out.println("api 연결 오류");
 				}
                 // 생성된 API URL 출력
-                System.out.println("Generated API URL: " + apiUrl);
-                System.out.println(codeInfo);
                 // startNum과 endNum을 1000씩 증가
                 startIndex += 1000;
                 endIndex += 1000;
                 
-                if(codeInfo.equals("INFO-200" + dateString)) {
+                if(!codeInfo.equals("INFO-000")) {
                  	rolling = false;
                 }
+                
             }
         }
 		return busUseList;

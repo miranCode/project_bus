@@ -14,10 +14,11 @@ public interface ApiService {
 	List<BusDTO> busLineApi();
 	void saveBusLine();
 	
-	List<BusUseDTO> busUseList(BusUseDTO budto);
-	List<BusUseDTO> busUseApi();
+	
 	int inBusUse(BusUseDTO budto);
 	int seBusUse(BusUseDTO budto);
+	List<BusUseDTO> busUseList(BusUseDTO budto);
+	List<BusUseDTO> busUseApi();
 	void saveBusUse();
 
 }

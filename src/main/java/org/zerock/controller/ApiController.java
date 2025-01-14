@@ -32,18 +32,22 @@ public class ApiController {
 	
 	@GetMapping("saveBusLine")
 	public ResponseEntity<List<BusDTO>> svaBusLine(BusDTO bdto) {
+		
 		List<BusDTO> apiData = new ArrayList<>();
+	    
 	    try {
 	        apiData = aService.busLineApi(); 
 	        System.out.println("API 호출성공");
 	        
 	        // apiData null 이 아니면 저장 
+	        
 	        if(apiData != null && !apiData.isEmpty()){
 	        	aService.saveBusLine();
 	        	return ResponseEntity.ok(apiData);  // JSON 형식으로 응답 반환
 	        } else {
 	            return null;
 	        }
+	        
 	    } catch (Exception e) {
 	        System.out.println("API 호출 중 오류 발생: " + e.getMessage());
 	        e.printStackTrace();
@@ -56,8 +60,8 @@ public class ApiController {
 	public String busUse(BusUseDTO budto, Model model) {
 		List<BusUseDTO> responses = aService.busUseList(budto);
 		
-		model.addAttribute("busUseList", responses);
-		
+		// model.addAttribute("busUseList", responses);
+		model.addAttribute("busUseSize", responses.size());
 		return "admin/bus/busUse";
 	}
 	
@@ -66,13 +70,16 @@ public class ApiController {
 		List<BusUseDTO> apiData = new ArrayList<>();
 		try {
 			apiData = aService.busUseApi(); 
-	        System.out.println("API 호출성공" + apiData );
+	        System.out.println("API 호출성공");
 		}catch (Exception e) {
 			System.out.println("API 호출 중 오류 발생: " + e.getMessage());
 	        e.printStackTrace();
 	        return null;
 		}
+		
+		
 		return ResponseEntity.ok(apiData);  // JSON 형식으로 응답 반환
+		
 	}
 
 }

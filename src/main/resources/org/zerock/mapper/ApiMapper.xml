@@ -30,7 +30,7 @@
 	
 	<select id="seBusUse" resultType="Integer">
 		select count(*) from bususe 
-		where USE_YMD = #{USE_YMD} and RTE_ID = #{RTE_ID} and RTE_NO = #{RTE_NO} and RTE_NM = #{RTE_NM} and STOPS_ID = #{STOPS_ID} and STOPS_ARS_NO = #{STOPS_ARS_NO} and SBWY_STNS_NM = #{SBWY_STNS_NM} adn GTON_TNOPE = #{GTON_TNOPE} and GTOFF_TNOPE = #{GTOFF_TNOPE} and REG_YMD = #{REG_YMD}
+		where USE_YMD = #{USE_YMD} and RTE_ID = #{RTE_ID} and RTE_NO = #{RTE_NO} and RTE_NM = #{RTE_NM} and STOPS_ID = #{STOPS_ID} and STOPS_ARS_NO = #{STOPS_ARS_NO} and SBWY_STNS_NM = #{SBWY_STNS_NM} and GTON_TNOPE = #{GTON_TNOPE} and GTOFF_TNOPE = #{GTOFF_TNOPE} and REG_YMD = #{REG_YMD}
 		
 	</select>
 	<!-- 서울시 버스노선별 정류장별 시간대별 승하차 인원 정보   -->	

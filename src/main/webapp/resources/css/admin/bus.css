@@ -21,7 +21,10 @@ ul.table-header li{font-size:14px;}
 
 ul.table-body li > ul > li{border-top:0 !important;}
 
+.w4per{width:4%;}
+.w6per{width:6%;}
 .w10per{width:10%;}
+.w20per{width:20%;}
 .w40per{width:40%;}
 .w50per{width:50%;}
 
