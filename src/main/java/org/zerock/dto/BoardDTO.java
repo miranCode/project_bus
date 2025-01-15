@@ -9,54 +9,14 @@ public class BoardDTO {
     private String title;   // 게시글 제목
     private String content; // 게시글 내용
     private String email;   // 작성자 이메일
-//    private String regdate; // 작성일자 (문자열 형식으로)
 
-    // Getters and Setters
-    public Long getBno() {
-        return bno;
-    }
+    private String status;
 
-    public void setBno(Long bno) {
-        this.bno = bno;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-	/*
-	 * public String getRegdate() { return regdate; }
-	 * 
-	 * public void setRegdate(String regdate) { this.regdate = regdate; }
-	 */
+  
+    private String memo;
+    
+    private String rteNm; // RTE_NM 필드 추가
+   
     
     private Date regdate; // Date 타입으로 설정
 
@@ -74,9 +34,88 @@ public class BoardDTO {
         }
     }
 
+	public Long getBno() {
+		return bno;
+	}
+
+	public void setBno(Long bno) {
+		this.bno = bno;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getMemo() {
+		return memo;
+	}
+
+	public void setMemo(String memo) {
+		this.memo = memo;
+	}
+
+	public String getRteNm() {
+		return rteNm;
+	}
+
+	public void setRteNm(String rteNm) {
+		this.rteNm = rteNm;
+	}
+
+	public void setRegdate(Date regdate) {
+		this.regdate = regdate;
+	}
+
 	@Override
 	public String toString() {
 		return "BoardDTO [bno=" + bno + ", name=" + name + ", title=" + title + ", content=" + content + ", email="
-				+ email + ", regdate=" + regdate + "]";
+				+ email + ", status=" + status + ", memo=" + memo + ", rteNm=" + rteNm + ", regdate=" + regdate + "]";
 	}
+
+	public String getWriter() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	
+	
 }
+
+

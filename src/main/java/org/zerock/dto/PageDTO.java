@@ -1,77 +1,80 @@
 package org.zerock.dto;
 
 public class PageDTO {
-	
-	private int startPage;
-	private int endPage;
-	private boolean prev,next;
-	
-	private int total;
-	private Criteria cri;
-	
-	public PageDTO(Criteria cri, int total) {
-		
-		this.cri = cri;
-		this.total = total;
-		
-		this.endPage = (int) (Math.ceil(cri.getPageNum()/5.0)) * 5;
-		this.startPage = this.endPage - 4;
-		
-		int realEnd = (int)(Math.ceil((total*1.0) / cri.getAmount()));
-		
-		if(realEnd < this.endPage) {
-			this.endPage = realEnd;
-		}
-		this.prev = this.startPage > 1;
-		this.next = this.endPage < realEnd;
-	}
+    private int page;         // 현재 페이지 번호
+    private int pageSize;     // 한 페이지에 보여줄 게시글 수
+    private int totalCount;   // 총 게시글 수
+    private int totalPages;   // 총 페이지 수
+    private int startPage;    // 페이지 블록의 시작 페이지
+    private int endPage;      // 페이지 블록의 끝 페이지
 
-	public int getStartPage() {
-		return startPage;
-	}
+    
 
-	public void setStartPage(int startPage) {
-		this.startPage = startPage;
-	}
 
-	public int getEndPage() {
-		return endPage;
-	}
+    // 생성자
+    public PageDTO(int page, int pageSize, int totalCount) {
+        this.page = page;
+        this.pageSize = pageSize;
+        this.totalCount = totalCount;
+        
+        // 전체 페이지 수 계산
+        this.totalPages = (int) Math.ceil((double) totalCount / pageSize);
+        
+        // 페이지 블록 계산 (예: 1~10, 11~20, ...)
+        int blockSize = 10; // 페이지 블록 크기
+        int blockStart = (int) (Math.floor((double) page / blockSize) * blockSize) + 1;
+        int blockEnd = Math.min(blockStart + blockSize - 1, totalPages);
+        
+        this.startPage = blockStart;
+        this.endPage = blockEnd;
+    }
 
-	public void setEndPage(int endPage) {
-		this.endPage = endPage;
-	}
+    // Getters and Setters
+    public int getPage() {
+        return page;
+    }
 
-	public boolean isPrev() {
-		return prev;
-	}
+    public void setPage(int page) {
+        this.page = page;
+    }
 
-	public void setPrev(boolean prev) {
-		this.prev = prev;
-	}
+    public int getPageSize() {
+        return pageSize;
+    }
 
-	public boolean isNext() {
-		return next;
-	}
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+    }
 
-	public void setNext(boolean next) {
-		this.next = next;
-	}
+    public int getTotalCount() {
+        return totalCount;
+    }
 
-	public int getTotal() {
-		return total;
-	}
+    public void setTotalCount(int totalCount) {
+        this.totalCount = totalCount;
+    }
 
-	public void setTotal(int total) {
-		this.total = total;
-	}
+    public int getTotalPages() {
+        return totalPages;
+    }
 
-	public Criteria getCri() {
-		return cri;
-	}
+    public void setTotalPages(int totalPages) {
+        this.totalPages = totalPages;
+    }
 
-	public void setCri(Criteria cri) {
-		this.cri = cri;
-	}
-	
+    public int getStartPage() {
+        return startPage;
+    }
+
+    public void setStartPage(int startPage) {
+        this.startPage = startPage;
+    }
+
+    public int getEndPage() {
+        return endPage;
+    }
+
+    public void setEndPage(int endPage) {
+        this.endPage = endPage;
+    }
 }
