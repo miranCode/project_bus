@@ -10,7 +10,7 @@ public class EmailServiceImpl implements EmailService {
 
     private final String host = "smtp.gmail.com"; // Gmail SMTP 서버
     private final String fromEmail = "yongcheol8912@gmail.com"; // 발신자 이메일
-    private final String password = "gcrr hfoh muuz tbxu"; // 앱 비밀번호
+    private final String password = ""; // 앱 비밀번호
 
     @Override
     public void sendEmail(String to, String subject, String text) {
