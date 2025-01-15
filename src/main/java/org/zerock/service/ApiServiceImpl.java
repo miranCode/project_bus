@@ -114,8 +114,8 @@ public class ApiServiceImpl implements ApiService {
 		List<BusUseDTO> busUseList = new ArrayList<>();
 		// 시작일부터 종료일까지
 		// 20241201
-		String startDate = "20241231";
-		String endDate = "20241231";
+		String startDate = "20250102";
+		String endDate = "20250103";
 		
 		// 날짜 포맷터 설정
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");

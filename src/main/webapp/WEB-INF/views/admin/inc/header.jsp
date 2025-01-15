@@ -46,6 +46,7 @@
                 $("#more-gnb").click(function(){
                     $(this).toggleClass("on");
                     $("#gnb").toggleClass("open");
+                    $("body").toggleClass("gnb-open");
                 });
             })
         </script>
@@ -60,7 +61,7 @@
                     <h1 class="logo">
                         <a href="/">
                             에러검열단
-                            <span>버스 노션별 사용자 수 예측 및 불편신고 시스템</span>
+                            <span>버스노선별 사용자수 예측 및 불편신고 시스템</span>
                         </a>
                     </h1>
                     <button id="more-gnb">
@@ -68,6 +69,12 @@
                         <span></span>
                         <span></span>
                     </button>
+                    <div class="utill">
+                         <ul>
+                             <li><a href="/member/logout">LOGOUT</a></li>
+                             <li><a href="/" target="_blank">사용자 페이지</a></li>
+                         </ul>
+                     </div>
                 </div>
                 <!-- 로고 및 유틸 영역 끝 -->
                 <!-- #gng 영역 시작 -->

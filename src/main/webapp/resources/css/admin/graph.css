@@ -1,0 +1,91 @@
+@charset "UTF-8";
+
+.tab-area  button{font-size:12px; margin-right:10px; padding:10px; line-height:1; border-radius:30px;box-shadow: inset 1px -3px 6px rgba(0, 0, 0, 0.1); background:#f5f5f5; border: 1px solid #f5f5f5}
+.tab-area  button:hover,
+.tab-area  button.on{font-weight:800; background:#fff; border-color:#f5f5f5}
+
+.circle-box{position: relative; width: 100%; height: 100%; box-sizing: border-box; border-radius: 100px; /* 원만들기 */ }
+.circle-box > div{
+    position: absolute; 
+    left: 50%; 
+    top:50%; 
+    transform: translate(-50%, -50%);
+    display: block; 
+    width: 60%; 
+    font-weight: bold;
+    border-radius: 50%;
+    background: #fff;
+}
+.circle-box > div > span{
+  position: absolute; 
+  left: 50%; 
+  top:50%; 
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-size: 12px;
+  width: 100%;
+}
+
+.circle-box circle{
+    fill: transparent;
+    stroke: #333; 
+    stroke-width: 10%;
+    stroke-dasharray: 565px; /* 200px일때의 점선 길이 */
+    transform: rotate(-90deg); /* 시작상단으로 돌리기 위해 사용 */
+    transform-origin: center center; /* 반드시 작성 */
+}
+
+body.adm.main div.info-area > div.box:first-child .circle-box svg circle{stroke:  rgb(255, 35, 72);}
+body.adm.main div.info-area > div.box:nth-child(2) .circle-box svg circle{stroke: rgb(71, 157, 255);}
+body.adm.main div.info-area > div.box:nth-child(3) .circle-box svg circle{stroke: rgb(56, 255, 189);}
+body.adm.main div.info-area > div.box:last-child .circle-box svg circle{stroke: rgb(242, 255, 65);}
+
+.animated-circle {animation: drawCircle 3s ease-in-out forwards;}
+
+@keyframes drawCircle {
+  0% {
+      stroke-dashoffset: 565; /* 원이 그려지지 않은 상태 */
+  }
+}
+
+/* bar 그래프 */
+.bar-type{position: relative; width: 100%; padding: 0 0 30px; box-sizing: border-box; margin: 50px auto 0; }
+.bar-type > p{position: absolute; top:-30px; left: 0; font-size: 10px; margin: 0; width: 100%;}
+.bar-type > p span{position: absolute; top: 0; right: 0;}
+.bar-type > p:last-of-type{top:unset; bottom:5px}
+.graph-area{position: relative; height: 250px;}
+.bg-graph{position: absolute; top:0; left: 0; width: 100%; height: 100%;}
+.bg-graph ul{border-bottom:1px solid #ddd;}
+.bg-graph ul li{position: relative; display: flex; justify-content: space-between; height: calc(250px/16); }
+.bg-graph ul li b{position: absolute; top: 0; left: 0; font-size:10px; color:#999; transform: translateY(-50%); width:30px; text-align:center;}
+.bg-graph ul li span{position: absolute; top: 0; right: 0; width:calc(100% - 50px); height: 1px; display: block;background:#eee;}
+.bg-graph ul li:nth-child(odd) span{background:#ddd;}
+
+
+.graph-box{position: relative;  width: 100%; box-sizing: border-box}
+.graph-box .bar-box{position: relative; height: 250px; box-sizing: border-box; width:100%;}
+.graph-box .bar-box ul.bar{
+  display: flex;
+  height: 100%;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding:0 2% 0 5%;
+  width: 100%;
+  box-sizing: border-box;
+}
+.graph-box .bar-box ul.bar li{position: relative; display: block; width: 20px; height:50%; text-align: center; box-sizing: border-box; background:#ddd}
+.graph-box .bar-box ul.bar li div{position: absolute; top:-30px; left:50%; transform: translateX(-50%); font-size: 12px; line-height: 1;}
+.graph-box .bar-box ul.bar li div strong{font-size: 10px;}
+.graph-box .bar-box ul.bar li span{position: absolute; top:100%; left:50%; padding-top: 10%; transform: translateX(-50%); font-size: 12px; width: auto;}
+.graph-box .bar-box ul.bar li:last-of-type{ margin-right: 0;}
+
+
+.animated-bar {
+  animation: bar 3s ease-in-out forwards;
+}
+
+@keyframes bar{
+  0% {
+    height: 0%;
+  }
+}
