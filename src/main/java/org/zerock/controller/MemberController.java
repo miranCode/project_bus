@@ -48,7 +48,10 @@ public class MemberController {
 	            session.setAttribute("id", dbUser.getId());
 	            session.setAttribute("uname", dbUser.getName());
 	            session.setAttribute("phone_num", dbUser.getPhone_number());
-
+	            session.setAttribute("email", dbUser.getEmail());
+	            session.setAttribute("provider", dbUser.getProvider());
+	            session.setAttribute("dob", dbUser.getDob());
+	            
 	            return "redirect:/"; // 로그인 성공 시 메인 페이지로 리다이렉트
 	        } else {
 	            System.out.println("비밀번호가 일치하지 않음");
@@ -124,5 +127,43 @@ public class MemberController {
 	@GetMapping(value = "myinfo")
 	public String myinfo() {
 		return "user/member/myinfo";
+	}
+	
+	@GetMapping(value = "myinfo-edit")
+	public String myinfoedit() {
+		return "user/member/myinfo-edit";
+	}
+	
+	@PostMapping("/update")
+	public String myInfoUpdate(UserDTO userDTO, HttpSession session) {
+		String sessionId = (String) session.getAttribute("id");
+
+	    if (sessionId == null) {
+	        System.out.println("세션에 ID가 존재하지 않습니다.");
+	        return "redirect:/member/login";  // 로그인 페이지로 리다이렉트
+	    }
+
+	    // DTO에 세션 ID 설정
+	    userDTO.setId(sessionId);
+
+	    // 빈 값 처리
+	    if (userDTO.getEmail() == null || userDTO.getEmail().isEmpty()) userDTO.setEmail(null);
+	    if (userDTO.getDob() == null || userDTO.getDob().isEmpty()) userDTO.setDob(null);
+	    if (userDTO.getPhone_number() == null || userDTO.getPhone_number().isEmpty()) userDTO.setPhone_number(null);
+
+	    int result = mapper.updateMyInfo(userDTO);
+	    if (result > 0) {
+	        System.out.println("업데이트 성공!");
+	        
+	        // ✅ 세션 정보 갱신 추가
+	        session.setAttribute("email", userDTO.getEmail());
+	        session.setAttribute("dob", userDTO.getDob());
+	        session.setAttribute("phone_number", userDTO.getPhone_number());
+
+	        return "redirect:/member/myinfo";  // 업데이트 후 리다이렉트
+	    } else {
+	        System.out.println("업데이트 실패!");
+	        return "redirect:/member/myinfo-edit";
+	    }
 	}
 }

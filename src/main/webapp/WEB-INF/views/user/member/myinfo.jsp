@@ -9,35 +9,28 @@
 				<!-- 회원가입 jsp123 -->
             	<!-- #content 영역 시작 -->
 		<div class="login-container">
-          <div class="sign-up-container">
-            <form id="signup-form">
-                <h1>나의 정보</h1>
-                <!-- 이름 입력 -->
-                <label>
-                이름 : 
-                <input id="name" name="name" type="text" value={userinfo.name}>
-                <!-- 이메일(아이디) 입력, 인증-->
-                </label>
-                <label>
-                이메일(아이디) : 
-                <div class="email-wrapper">
-                  <input id="id" name="id" type="email" value={userinfo.email}>
+               <h2 id="myinfo-title">나의 정보</h2>
+          <div class="myinfo-container">
+            <form id="myinfo-form">
+                <div id="myinfo">
+                <i class="xi-user-o"></i> 이름 : <c:if test="${not empty uname}"> ${ uname } </c:if> <c:if test="${empty uname}"> 미등록 </c:if> 
                 </div>
-                </label>
-                생년월일 : 
-                <!-- 생년월일 입력 -->
-                <label>
-                <input id="dob" name="dob" type="text" value={userinfo.dob}>
-              	</label>
-              	<!-- 전화번호 입력 -->
-              	<label>
-              	전화번호 : 
-              	<input id="phone" name="phone" type="text" value={userinfo.phone_number}>
-              	</label>
+                <div id="myinfo">
+                <i class="xi-user-o"></i> 아이디 : <c:if test="${not empty id}"> ${ id } </c:if> <c:if test="${empty id}"> 미등록 </c:if>
+                </div>
+                <div id="myinfo">
+               	<i class="xi-mail-o"></i> 이메일 : <c:if test="${not empty email}"> ${ email } </c:if> <c:if test="${empty email}"> 미등록 </c:if>
+              	</div>
+                <div id="myinfo">
+                <i class="xi-calendar"></i> 생년월일 : <c:if test="${not empty dob}"> ${ dob } </c:if> <c:if test="${empty dob}"> 미등록 </c:if>
+                </div>
+              	<div id="myinfo">
+              	<i class="xi-call"></i> 전화번호 : <c:if test="${not empty phone_number}"> ${ phone_number } </c:if> <c:if test="${empty phone_number}"> 미등록 </c:if>
+              	</div>
               </form>
-              
+              <a href="myinfo-edit" >내 정보 수정</a>
             <div class="sign-up-option">
-                <a href="#">home</a>
+                <a href="/">home</a>
             </div>    
         </div>
         </div>

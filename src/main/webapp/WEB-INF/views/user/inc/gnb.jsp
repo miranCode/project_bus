@@ -12,6 +12,7 @@
                     </c:if>
                     <c:if test="${not empty uname}">
                     	<li><a href="/member/logout">LOGOUT</a></li>
+                    	<li><a href="/member/myinfo">나의 정보</a>
                     </c:if>
                </ul>
              </div>
