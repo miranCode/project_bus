@@ -45,9 +45,12 @@ public class KakaoController {
             UserDTO login = mapper.kloginGo(mdto);
 
             if (login != null) {
-                session.setAttribute("uname", login.getName());
+            	session.setAttribute("uname", login.getName()); // 占쎄쉭占쎈�∽옙肉� 占쎄텢占쎌뒠占쎌쁽 占쎌젟癰귨옙 占쏙옙占쎌삢
                 session.setAttribute("id", login.getId());
                 session.setAttribute("email", login.getEmail());
+                session.setAttribute("dob", login.getDob());
+                session.setAttribute("phone_number", login.getPhone_number());
+                session.setAttribute("provider", login.getProvider());
                 System.out.println("로그인 성공: " + login.getName());
             } else {
                 throw new NullPointerException("회원가입 후 로그인 정보 조회 실패");

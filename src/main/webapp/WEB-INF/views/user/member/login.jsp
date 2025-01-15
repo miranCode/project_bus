@@ -11,7 +11,7 @@
             	<!-- #content 영역 시작 -->
  		<div class="login-container">
           <div class="sign-in-container">
-            <form action="/member/login" method="post" >
+            <form id="login-form" action="/member/login" method="post" >
               <h1>로그인</h1>
               <input name= "id" id="id" type="text" placeholder="Id">
               <input name="pass" id="pass"type="password" placeholder="Password">

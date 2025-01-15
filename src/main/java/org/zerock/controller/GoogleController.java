@@ -16,6 +16,8 @@ import org.zerock.dto.UserDTO;
 import org.zerock.mapper.MemberMapper;
 import org.zerock.service.GoogleService;
 
+import com.mysql.cj.Session;
+
 @Controller
 public class GoogleController {
     
@@ -72,7 +74,11 @@ public class GoogleController {
            session.setAttribute("uname", user.getName()); // 占쎄쉭占쎈�∽옙肉� 占쎄텢占쎌뒠占쎌쁽 占쎌젟癰귨옙 占쏙옙占쎌삢
            session.setAttribute("id", user.getId());
            session.setAttribute("email", user.getEmail());
-
+           session.setAttribute("dob", user.getDob());
+           session.setAttribute("phone_number", user.getPhone_number());
+           session.setAttribute("provider", user.getProvider());
+          
+           
            System.out.println("### User logged in: " + user.getName());
        }
 

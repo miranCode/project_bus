@@ -39,10 +39,12 @@ public class NaverLoginController {
         UserDTO login = mapper.selectNaverMemberById(userInfo.getId());
         System.out.println(userInfo.getId());
         System.out.println(login);
-        session.setAttribute("uname", login.getName());
+        session.setAttribute("uname", login.getName()); // 占쎄쉭占쎈�∽옙肉� 占쎄텢占쎌뒠占쎌쁽 占쎌젟癰귨옙 占쏙옙占쎌삢
         session.setAttribute("id", login.getId());
         session.setAttribute("email", login.getEmail());
-        session.setAttribute("phone_num", login.getPhone_number());
+        session.setAttribute("dob", login.getDob());
+        session.setAttribute("phone_number", login.getPhone_number());
+        session.setAttribute("provider", login.getProvider());
     
         return "redirect:/";
     }

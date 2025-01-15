@@ -9,6 +9,7 @@ public class UserDTO {
 	private String phone_number;
 	private String provider_id;
 	private String email;
+	private String provider;
 	
 	public Long getUserId() {
 		return userId;
@@ -58,10 +59,16 @@ public class UserDTO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	public String getProvider() {
+		return provider;
+	}
+	public void setProvider(String provider) {
+		this.provider = provider;
+	}
 	@Override
 	public String toString() {
 		return "UserDTO [userId=" + userId + ", name=" + name + ", id=" + id + ", pass=" + pass + ", dob=" + dob
-				+ ", phone_number=" + phone_number + ", provider_id=" + provider_id + ", email=" + email + "]";
+				+ ", phone_number=" + phone_number + ", provider=" + provider + ", provider_id=" + provider_id + ", email=" + email + "]";
 	}
 	
 

@@ -29,4 +29,7 @@ public interface MemberMapper {
 	UserDTO findUserByGoogleId(String googleId);
 	
 	void insertUser(UserDTO googledto);
+	
+	int updateMyInfo(UserDTO userDTO);
+	
 }
