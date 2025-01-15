@@ -229,9 +229,4 @@ public class AdminController {
 	    
 	    return "redirect:/admin/manageAccount";  // 성공 시 관리자 목록 페이지로 리다이렉트
 	}
-	
-	@GetMapping("test")
-	public String test() {
-	    return "admin/member/test";  // admin/test.jsp 파일을 반환
-	}
 } 
