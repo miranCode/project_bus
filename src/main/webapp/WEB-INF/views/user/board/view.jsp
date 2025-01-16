@@ -8,7 +8,7 @@
 <jsp:include page="../inc/header.jsp" />
 
 <!-- 스타일 시트 연결 -->
-<link rel="stylesheet" type="text/css" href="/resources/css/user/write.css"/>
+<link rel="stylesheet" type="text/css" href="/resources/css/user/view.css"/>
 <script type="text/javascript" src="/resources/js/user/write.js"></script>
 
 <!-- #content 영역 시작 -->
@@ -21,12 +21,7 @@
         <dl>
             <dt><label for="rteNm">버스 노선</label></dt>
             <dd class="input-box">
-                <select id="rteNm" name="rteNm" required>
-                    <option value="">선택하세요</option>
-                    <c:forEach var="bus" items="${busnumList}">
-                        <option value="${bus.rteNm}">${bus.rteNm}</option>
-                    </c:forEach>
-                </select>
+                <input type="text" name="rteNm" id="rteNm" value="${ board.rteNm }" readonly/>
             </dd>
         </dl>
 
@@ -34,7 +29,7 @@
         <dl>
             <dt><label for="name">이름</label></dt>
             <dd class="input-box">
-                <input type="text" name="name" id="nameInput" value="${sessionScope.uname}" readonly />
+                <input type="text" name="name" id="nameInput" value="${board.name}" readonly />
             </dd>
         </dl>
 
@@ -42,7 +37,7 @@
         <dl>
             <dt><label for="title">제목</label></dt>
             <dd class="input-box">
-                <input type="text" name="title" id="titleInput" required>
+                <input type="text" name="title" id="titleInput" value="${ board.title }" readonly/>
             </dd>
         </dl>
 
@@ -50,7 +45,7 @@
         <dl>
             <dt>내용</dt>
             <dd class="input-box">
-                <textarea id="contentTextarea" name="content" required></textarea>
+                <textarea id="contentTextarea" name="content" readonly>${ board.content }</textarea>
             </dd>
         </dl>
 
@@ -64,9 +59,7 @@
 
         <!-- 버튼 영역 -->
         <div class="btn-area">
-            <button type="submit" id="submitBtn">건의 하기</button>  
             <div class="btn-group">
-                <button type="reset" id="resetBtn">다시 작성</button>
                 <button type="button" class="line" onclick="history.back();">이전페이지</button>
             </div>
         </div>

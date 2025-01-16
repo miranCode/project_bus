@@ -16,4 +16,6 @@ public interface BoardService {
     List<BoardDTO> getAllBusnum();  // 수정된 메서드
     
     BoardDTO getBoard(Long bno);
+    
+    List<BoardDTO> getBoardsByUserId(String userId);
 }

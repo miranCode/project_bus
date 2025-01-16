@@ -19,7 +19,7 @@
        </div>
         <ul>
             <li>
-                <a href="/info">/qna/write</a>
+                <a href="/qna/write">불편사항 접수</a>
             </li>
             <li>
                 <a href=""></a>
