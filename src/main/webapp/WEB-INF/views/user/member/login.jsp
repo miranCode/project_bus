@@ -9,6 +9,7 @@
 <jsp:include page="../inc/header.jsp" />
 				<!-- 회원가입 jsp12 -->
             	<!-- #content 영역 시작 -->
+    
  		<div class="login-container">
           <div class="sign-in-container">
             <form id="login-form" action="/member/login" method="post" >
@@ -41,7 +42,6 @@
             </div>
           </div>
        </div>
-
 				<!-- #content 영역 끝 -->
 <jsp:include page="../inc/footer.jsp" />
 <script type="text/javascript" src="/resources/js/user/login.js"></script>

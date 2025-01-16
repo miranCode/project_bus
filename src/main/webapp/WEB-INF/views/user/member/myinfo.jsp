@@ -27,8 +27,11 @@
               	<div id="myinfo">
               	<i class="xi-call"></i> 전화번호 : <c:if test="${not empty phone_number}"> ${ phone_number } </c:if> <c:if test="${empty phone_number}"> 미등록 </c:if>
               	</div>
+              	<div id="myinfo">
+              		<a href="list">내가 쓴 게시글 보기</a>
+              	</div>
               </form>
-              <a href="myinfo-edit" >내 정보 수정</a>
+              <a class="info-edit-link" href="myinfo-edit" >내 정보 수정</a>
             <div class="sign-up-option">
                 <a href="/">home</a>
             </div>    

@@ -64,7 +64,9 @@
         FROM busnum
     </select>
     
-    
+    <select id="getBoardsByUserId" parameterType="String" resultType="org.zerock.dto.BoardDTO">
+	   SELECT * FROM board WHERE email = #{email} ORDER BY regdate DESC;
+	</select>
 
 
 </mapper>

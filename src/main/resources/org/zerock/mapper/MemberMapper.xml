@@ -38,7 +38,6 @@
 	<update id="updateMyInfo" parameterType="org.zerock.dto.UserDTO">
     	UPDATE users
     <set>
-        <if test="email != null">email = #{email},</if>
         <if test="dob != null">dob = #{dob},</if>
         <if test="phone_number != null">phone_number = #{phone_number},</if>
     </set>

@@ -64,5 +64,10 @@ public class BoardServiceImpl implements BoardService {
     public BoardDTO getBoard(Long bno) {
         return boardMapper.findByBno(bno);
     }
-
+    
+    @Override
+    public List<BoardDTO> getBoardsByUserId(String userId) {
+        // 해당 userId로 작성한 게시글만 반환하는 쿼리 호출
+        return boardMapper.getBoardsByUserId(userId);
+    }
 }

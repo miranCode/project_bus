@@ -29,7 +29,7 @@ public interface BoardMapper {
 
     BoardDTO findByBno(Long bno);
     
-
+    List<BoardDTO> getBoardsByUserId(String userId);
 }
 
 

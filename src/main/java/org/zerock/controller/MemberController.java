@@ -1,5 +1,7 @@
 package org.zerock.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,12 +9,16 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.zerock.dto.BoardDTO;
+import org.zerock.dto.PageDTO;
 import org.zerock.dto.UserDTO;
 import org.zerock.mapper.MemberMapper;
+import org.zerock.service.BoardService;
 import org.zerock.service.MailSender;
 @Controller
 @RequestMapping("/member/*")
@@ -22,12 +28,21 @@ public class MemberController {
 	MemberMapper mapper;
 	
 	@Autowired
+	private BoardService boardService;
+	
+	private static final int PAGE_SIZE = 10;
+	@Autowired
 	private MailSender mailSender;
 	
 	//로그인
 	@GetMapping(value = "login")
-	public String login() {
-		return "user/member/login";
+	public String login(HttpSession session) {
+	    // 이미 로그인된 경우 메인 페이지로 리다이렉트
+	    if (session.getAttribute("id") != null) {
+	        System.out.println("이미 로그인된 사용자입니다. 메인 페이지로 이동합니다.");
+	        return "redirect:/";
+	    }
+	    return "user/member/login";
 	}
 	
 	@PostMapping(value = "login")
@@ -47,7 +62,7 @@ public class MemberController {
 	            // 세션에 사용자 정보 저장
 	            session.setAttribute("id", dbUser.getId());
 	            session.setAttribute("uname", dbUser.getName());
-	            session.setAttribute("phone_num", dbUser.getPhone_number());
+	            session.setAttribute("phone_number", dbUser.getPhone_number());
 	            session.setAttribute("email", dbUser.getEmail());
 	            session.setAttribute("provider", dbUser.getProvider());
 	            session.setAttribute("dob", dbUser.getDob());
@@ -147,7 +162,6 @@ public class MemberController {
 	    userDTO.setId(sessionId);
 
 	    // 빈 값 처리
-	    if (userDTO.getEmail() == null || userDTO.getEmail().isEmpty()) userDTO.setEmail(null);
 	    if (userDTO.getDob() == null || userDTO.getDob().isEmpty()) userDTO.setDob(null);
 	    if (userDTO.getPhone_number() == null || userDTO.getPhone_number().isEmpty()) userDTO.setPhone_number(null);
 
@@ -156,7 +170,6 @@ public class MemberController {
 	        System.out.println("업데이트 성공!");
 	        
 	        // ✅ 세션 정보 갱신 추가
-	        session.setAttribute("email", userDTO.getEmail());
 	        session.setAttribute("dob", userDTO.getDob());
 	        session.setAttribute("phone_number", userDTO.getPhone_number());
 
@@ -166,4 +179,32 @@ public class MemberController {
 	        return "redirect:/member/myinfo-edit";
 	    }
 	}
+	
+    @GetMapping("/list")
+    public String getBoardList(HttpSession session, Model model) {
+        // 세션에서 로그인한 사용자 정보 가져오기
+    	String currentUserEmail = (String) session.getAttribute("email");
+
+        if (currentUserEmail == null) {
+            // 로그인되지 않은 상태일 경우 로그인 페이지로 리다이렉트
+            return "redirect:/member/login";
+        }
+
+        // 로그인한 사용자의 게시글만 가져오기
+        List<BoardDTO> boardList = boardService.getBoardsByUserId(currentUserEmail);
+
+        // 게시글 리스트와 사용자 이름 전달
+        model.addAttribute("boardList", boardList);
+        model.addAttribute("uname", session.getAttribute("uname"));
+        
+        return "user/board/list";  // 게시글 목록 페이지로 이동
+    }
+    
+    @GetMapping("/view/{bno}")
+    public String view(@PathVariable Long bno, Model model) {
+        BoardDTO boardDTO = boardService.getDetail(bno);
+        System.out.println("BoardDTO: " + boardDTO);
+        model.addAttribute("board", boardDTO);
+        return "user/board/view";
+    }
 }
