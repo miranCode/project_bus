@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.zerock.mapper.MainMapper">
+	<select id="seTime" resultType="org.zerock.dto.BusTimeDTO">
+		select TRFC_MNS_TYPE_NM, 
+			sum(HR_0_ON)/ 31 as HR_0_ON,
+		    sum(HR_1_ON)/ 31 as HR_1_ON,
+		    sum(HR_2_ON)/ 31 as HR_2_ON,
+		    sum(HR_3_ON)/ 31 as HR_3_ON,
+		    sum(HR_4_ON)/ 31 as HR_4_ON,
+		    sum(HR_5_ON)/ 31 as HR_5_ON,
+		    sum(HR_6_ON)/ 31 as HR_6_ON,
+		    sum(HR_7_ON)/ 31 as HR_7_ON,
+			sum(HR_8_ON)/ 31 as HR_8_ON,
+			sum(HR_9_ON)/ 31 as HR_9_ON,
+			sum(HR_10_ON)/ 31 as HR_10_ON,
+			sum(HR_11_ON)/ 31 as HR_11_ON,
+			sum(HR_12_ON)/ 31 as HR_12_ON,
+			sum(HR_13_ON)/ 31 as HR_13_ON,
+			sum(HR_14_ON)/ 31 as HR_14_ON,
+			sum(HR_15_ON)/ 31 as HR_15_ON,
+			sum(HR_16_ON)/ 31 as HR_16_ON,
+			sum(HR_17_ON)/ 31 as HR_17_ON,
+			sum(HR_18_ON)/ 31 as HR_18_ON,
+			sum(HR_19_ON)/ 31 as HR_19_ON,
+			sum(HR_20_ON)/ 31 as HR_20_ON,
+			sum(HR_21_ON)/ 31 as HR_21_ON,
+			sum(HR_22_ON)/ 31 as HR_22_ON,
+			sum(HR_23_ON)/ 31 as HR_23_ON 
+			from busTimeUse group by TRFC_MNS_TYPE_NM;
+	</select>
+
+
+</mapper>

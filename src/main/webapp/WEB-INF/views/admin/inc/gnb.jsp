@@ -2,6 +2,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!-- #gng 영역 시작 -->
 <nav id="gnb">
+	<button id="more-gnb">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
     <div>
         <ul>
         	<li>

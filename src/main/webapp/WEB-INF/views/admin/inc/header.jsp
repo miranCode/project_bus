@@ -64,11 +64,6 @@
                             <span>버스노선별 사용자수 예측 및 불편신고 시스템</span>
                         </a>
                     </h1>
-                    <button id="more-gnb">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </button>
                     <div class="utill">
                          <ul>
                              <li><a href="/member/logout">LOGOUT</a></li>
