@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,54 +18,71 @@ import org.zerock.service.NaverLoginService;
 @Controller
 public class NaverLoginController {
 
-	@Autowired
+    @Autowired
     private NaverLoginService naverLoginService;
-	
-	@Autowired
-	private NaverLoginMapper mapper;
+    
+    @Autowired
+    private NaverLoginMapper mapper;
 
     @GetMapping("/naver/login")
     public String loginWithNaver() {
-    	System.out.println("aaaa");
-    	System.out.println(naverLoginService.getAuthorizationUrl());
-    	System.out.println("bbbb");
-    	
         return "redirect:" + naverLoginService.getAuthorizationUrl();
     }
 
     @GetMapping("/naver/callback")
-    public String callback(@RequestParam String code, @RequestParam String state, HttpSession session) {
-        String accessToken = naverLoginService.getAccessToken(code, state);
-        UserDTO userInfo = naverLoginService.getUserInfo(accessToken);
-        UserDTO login = mapper.selectNaverMemberById(userInfo.getId());
-        System.out.println(userInfo.getId());
-        System.out.println(login);
-        session.setAttribute("uname", login.getName()); // 占쎄쉭占쎈�∽옙肉� 占쎄텢占쎌뒠占쎌쁽 占쎌젟癰귨옙 占쏙옙占쎌삢
-        session.setAttribute("id", login.getId());
-        session.setAttribute("email", login.getEmail());
-        session.setAttribute("dob", login.getDob());
-        session.setAttribute("phone_number", login.getPhone_number());
-        session.setAttribute("provider", login.getProvider());
-    
-        return "redirect:/";
+    public String callback(@RequestParam String code, @RequestParam String state, HttpSession session, Model model) {
+        try {
+            String accessToken = naverLoginService.getAccessToken(code, state);
+            UserDTO userInfo = naverLoginService.getUserInfo(accessToken);
+
+            // 사용자 정보 DB 조회
+            UserDTO login = mapper.selectNaverMemberById(userInfo.getId());
+
+            if (login != null) {
+                // 비활성화 계정 체크
+                if (!login.getIsActive()) {
+                    model.addAttribute("alertMessage", "이 계정은 비활성화 상태입니다. 관리자에게 문의하세요.");
+                    return "user/member/login";
+                }
+
+                // 활성 사용자 로그인 처리
+                session.setAttribute("uname", login.getName());
+                session.setAttribute("id", login.getId());
+                session.setAttribute("email", login.getEmail());
+                session.setAttribute("dob", login.getDob());
+                session.setAttribute("phone_number", login.getPhone_number());
+                session.setAttribute("provider", login.getProvider());
+                session.setAttribute("created_at", login.getFormattedCreatedAt());
+                System.out.println("로그인 성공: " + login.getName());
+                return "redirect:/";
+            } else {
+                model.addAttribute("alertMessage", "사용자 정보를 찾을 수 없습니다.");
+                return "user/member/login";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("alertMessage", "로그인 중 오류가 발생했습니다.");
+            return "user/member/login";
+        }
     }
 
     @PostMapping("/naver/loginfo")
     public ResponseEntity<String> handleNaverLoginInfo(@RequestBody UserDTO loginfo, HttpSession session) {
         try {
-            // loginfo가 null인 경우
             if (loginfo == null) {
-                System.out.println("Error: loginfo is null");
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("loginfo is null.");
             }
 
-            System.out.println("Raw loginfo object: " + loginfo);
+            // DB에서 사용자 정보 가져오기
+            UserDTO login = mapper.selectNaverMemberById(loginfo.getId());
 
-            // 로그인 처리
-            boolean isSuccess = naverLoginService.processNaverLogin(loginfo);
-
-            // 로그인 성공 여부에 따라 세션에 정보 저장
-            if (isSuccess) {
+            if (login != null) {
+                if (!login.getIsActive()) {
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("이 계정은 비활성화 상태입니다. 관리자에게 문의하세요.");
+                }
+                
+                session.setAttribute("uname", login.getName());
+                session.setAttribute("id", login.getId());
                 return ResponseEntity.status(HttpStatus.OK).body("Login successful");
             } else {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Login failed");
@@ -75,7 +93,4 @@ public class NaverLoginController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error occurred: " + e.getMessage());
         }
     }
-
-
-
 }

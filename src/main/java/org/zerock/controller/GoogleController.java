@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,8 +16,6 @@ import org.zerock.dto.GoogleOAuthDTO;
 import org.zerock.dto.UserDTO;
 import org.zerock.mapper.MemberMapper;
 import org.zerock.service.GoogleService;
-
-import com.mysql.cj.Session;
 
 @Controller
 public class GoogleController {
@@ -45,44 +44,46 @@ public class GoogleController {
     }
     
     @RequestMapping(value = "/google/userinfo", method = RequestMethod.GET)
-    public String googleLogin(@RequestParam(value = "code", required = false) String code, HttpServletRequest request) throws Exception {
-        System.out.println("######### Authorization Code: " + code);
-        
-        // 1. Access Token 揶쏉옙占쎌죬占쎌궎疫뀐옙
-        String accessToken = service.getAccessToken(code);
-        System.out.println("### Access Token ####: " + accessToken);
+    public String googleLogin(@RequestParam(value = "code", required = false) String code, HttpServletRequest request, Model model) {
+        try {
+            System.out.println("######### Authorization Code: " + code);
+            
+            // 1. Access Token 발급
+            String accessToken = service.getAccessToken(code);
+            System.out.println("### Access Token ####: " + accessToken);
 
-        // 2. 占쎄텢占쎌뒠占쎌쁽 占쎌젟癰귨옙 揶쏉옙占쎌죬占쎌궎疫뀐옙
-        HashMap<String, Object> userInfo = service.getUserInfo(accessToken);
-        System.out.println("### User Info ####: " + userInfo);
-        System.out.println("### ID ####: " + userInfo.get("id"));
-        System.out.println("### Name ####: " + userInfo.get("name"));
-        System.out.println("### Email ####: " + userInfo.get("email"));
-        
-        // 3. 占쎄텢占쎌뒠占쎌쁽 占쎌젟癰귣�占쏙옙 疫꿸퀡而뀐옙�몵嚥∽옙 �빊遺쏙옙 嚥≪뮇彛� (占쎈툡占쎌뒄占쎈뻻)
-        // 占쎌굙: 占쎌돳占쎌뜚揶쏉옙占쎌뿯, 占쎄쉭占쎈�� 占쏙옙占쎌삢, �뵳�됰뼄占쎌뵠占쎌젂占쎈�� 占쎈쾻
-       boolean userExists =  service.saveUser(userInfo);
-       System.out.println(userExists);
-       
-       if (userExists) {
-           // 占쎄텢占쎌뒠占쎌쁽 占쎌젟癰귣떯占� 占쏙옙占쎌삢占쎈┷占쎈�椰꾧퀡援�, 占쎌뵠沃섓옙 鈺곕똻�삺占쎈릭占쎈뮉 野껋럩�뒭 占쎄쉭占쎈�∽옙肉� 占쏙옙占쎌삢
-           String googleId = (String) userInfo.get("id");
-           UserDTO user = service.findUserByGoogleId(googleId);
+            // 2. 사용자 정보 가져오기
+            HashMap<String, Object> userInfo = service.getUserInfo(accessToken);
+            System.out.println("### User Info ####: " + userInfo);
 
-           // 占쎄쉭占쎈�∽옙肉� 占쎄텢占쎌뒠占쎌쁽 占쎌젟癰귨옙 占쏙옙占쎌삢
-           HttpSession session = request.getSession();
-           session.setAttribute("uname", user.getName()); // 占쎄쉭占쎈�∽옙肉� 占쎄텢占쎌뒠占쎌쁽 占쎌젟癰귨옙 占쏙옙占쎌삢
-           session.setAttribute("id", user.getId());
-           session.setAttribute("email", user.getEmail());
-           session.setAttribute("dob", user.getDob());
-           session.setAttribute("phone_number", user.getPhone_number());
-           session.setAttribute("provider", user.getProvider());
-          
-           
-           System.out.println("### User logged in: " + user.getName());
-       }
+            // 3. 사용자 정보 DB 저장 및 로그인 처리
+            boolean userExists = service.saveUser(userInfo);
+            
+            if (!userExists) {
+                // 계정 비활성화 시 알림 후 로그인 페이지로 리다이렉트
+                model.addAttribute("alertMessage", "이 계정은 비활성화 상태입니다. 관리자에게 문의하세요.");
+                return "user/member/login";
+            }
 
-       //push error
-       return "redirect:/";
+            // 4. 사용자 정보 세션에 저장
+            String googleId = (String) userInfo.get("id");
+            UserDTO user = service.findUserByGoogleId(googleId);
+
+            HttpSession session = request.getSession();
+            session.setAttribute("uname", user.getName());
+            session.setAttribute("id", user.getId());
+            session.setAttribute("email", user.getEmail());
+            session.setAttribute("dob", user.getDob());
+            session.setAttribute("phone_number", user.getPhone_number());
+            session.setAttribute("provider", user.getProvider());
+            session.setAttribute("created_at", user.getFormattedCreatedAt());
+            
+            System.out.println("### User logged in: " + user.getName());
+            return "redirect:/"; // 로그인 성공 시 메인 페이지 이동
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("alertMessage", "로그인 중 오류가 발생했습니다.");
+            return "user/member/login"; // 오류 발생 시 로그인 페이지로 이동
+        }
     }
 }

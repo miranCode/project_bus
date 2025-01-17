@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="org.zerock.mapper.UserMapper">
+  	
+    <!-- 모든 사용자와 게시글 수 조회 -->
+    <select id="findAllUsersWithPostCount" resultType="org.zerock.dto.UserDTO">
+        SELECT u.id,
+               u.name,
+               u.email,
+               u.created_at,
+               u.is_active AS isActive,
+               COUNT(b.email) AS postCount
+        FROM users u
+        LEFT JOIN board b ON u.email = b.email
+        GROUP BY u.email
+    </select>
+
+    <!-- 특정 사용자 정보 조회 -->
+    <select id="findUserById" resultType="org.zerock.dto.UserDTO">
+        SELECT id, name, email, is_active AS isActive
+        FROM users
+        WHERE email = #{email}
+    </select>
+
+    <!-- 사용자 상태 업데이트 (정지/해제) -->
+    <update id="updateUserStatus">
+        UPDATE users 
+        SET is_active = #{isActive}
+        WHERE email = #{email}
+    </update>
+
+</mapper>

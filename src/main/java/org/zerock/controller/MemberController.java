@@ -48,30 +48,37 @@ public class MemberController {
 	@PostMapping(value = "login")
 	public String loginPro(UserDTO mdto, HttpSession session, Model model) {
 	    System.out.println("사용자 입력 정보: " + mdto);
-
 	    // DB에서 사용자 정보 조회
 	    UserDTO dbUser = mapper.login(mdto); // id로 사용자 정보 가져오기
-
+	    System.out.println("db에 저장된 정보: " + dbUser);
 	    if (dbUser != null) {
-	        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-
-	        // 암호화된 비밀번호 비교
-	        if (encoder.matches(mdto.getPass(), dbUser.getPass())) {
-	            System.out.println("로그인 성공: " + dbUser);
-
-	            // 세션에 사용자 정보 저장
-	            session.setAttribute("id", dbUser.getId());
-	            session.setAttribute("uname", dbUser.getName());
-	            session.setAttribute("phone_number", dbUser.getPhone_number());
-	            session.setAttribute("email", dbUser.getEmail());
-	            session.setAttribute("provider", dbUser.getProvider());
-	            session.setAttribute("dob", dbUser.getDob());
-	            
-	            return "redirect:/"; // 로그인 성공 시 메인 페이지로 리다이렉트
+	        // DB에서 가져온 isActive 값으로 비활성화 체크
+	        if (!dbUser.getIsActive()) {  // isActive가 false일 경우
+	            System.out.println("사용자가 비활성화 상태입니다.");
+	            model.addAttribute("alertMessage", "이 계정은 비활성화 상태입니다. 관리자에게 문의하세요.");
+	            return "user/member/login"; // 로그인 페이지로 리다이렉트
 	        } else {
-	            System.out.println("비밀번호가 일치하지 않음");
-	            model.addAttribute("loginError", "아이디 또는 비밀번호가 올바르지 않습니다.");
-	            return "user/member/login"; // 로그인 실패 시 로그인 페이지로
+	            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+	            // 암호화된 비밀번호 비교
+	            if (encoder.matches(mdto.getPass(), dbUser.getPass())) {
+	                System.out.println("로그인 성공: " + dbUser);
+
+	                // 세션에 사용자 정보 저장
+	                session.setAttribute("id", dbUser.getId());
+	                session.setAttribute("uname", dbUser.getName());
+	                session.setAttribute("phone_number", dbUser.getPhone_number());
+	                session.setAttribute("email", dbUser.getEmail());
+	                session.setAttribute("provider", dbUser.getProvider());
+	                session.setAttribute("dob", dbUser.getDob());
+	                session.setAttribute("is_active", dbUser.getIsActive()); // DB에서 가져온 isActive 상태 저장
+
+	                return "redirect:/"; // 로그인 성공 시 메인 페이지로 리다이렉트
+	            } else {
+	                System.out.println("비밀번호가 일치하지 않음");
+	                model.addAttribute("alertMessage", "아이디 또는 비밀번호가 올바르지 않습니다.");
+	                return "user/member/login"; // 로그인 실패 시 로그인 페이지로
+	            }
 	        }
 	    } else {
 	        System.out.println("DB에 사용자 정보 없음");
@@ -79,6 +86,7 @@ public class MemberController {
 	        return "user/member/login"; // 로그인 실패 시 로그인 페이지로
 	    }
 	}
+
 
 	//회원가입
 	@GetMapping("/join")

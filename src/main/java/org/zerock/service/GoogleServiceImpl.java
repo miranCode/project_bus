@@ -154,19 +154,21 @@ public class GoogleServiceImpl implements GoogleService {
         // Mapper�몴占� 占쎈꽰占쎈퉸 DB占쎈퓠占쎄퐣 google_id嚥∽옙 占쎄텢占쎌뒠占쎌쁽 鈺곌퀬�돳
         UserDTO existingUser = memberMapper.findUserByGoogleId(googleId);
 
-        if (existingUser == null) {
-            // google_id揶쏉옙 占쎈씨占쎌몵筌롳옙 占쎄퉱 占쎄텢占쎌뒠占쎌쁽 占쎈쾻嚥∽옙
-        	memberMapper.insertUser(memberdto);
-            return true; // 占쎄퉱 占쎄텢占쎌뒠占쎌쁽 占쎈쾻嚥∽옙 占쎌끏�뙴占�
-        } else {
-            // google_id揶쏉옙 鈺곕똻�삺占쎈릭筌롳옙 占쎌뵠筌롫뗄�뵬�⑨옙 占쎌뵠�뵳袁⑹뱽 �뜮袁㏉꺍
-            if (existingUser.getId().equals(googleId)) {
-                // 占쎌뵠�뵳袁㏓궢 占쎌뵠筌롫뗄�뵬占쎌뵠 占쎌뵬燁살꼹釉�筌롳옙 嚥≪뮄�젃占쎌뵥 占쎄쉐�⑨옙
-                return true; // 嚥≪뮄�젃占쎌뵥 占쎄쉐�⑨옙
-            } else {
-                // 占쎌뵠筌롫뗄�뵬占쎌뵠占쎄돌 占쎌뵠�뵳袁⑹뵠 占쎌뵬燁살꼹釉�筌욑옙 占쎈륫占쎌몵筌롳옙 嚥≪뮄�젃占쎌뵥 占쎈뼄占쎈솭
-                return false; // 嚥≪뮄�젃占쎌뵥 占쎈뼄占쎈솭
+        if (existingUser != null) {
+            if (!existingUser.getIsActive()) {
+                // 계정이 비활성화된 경우
+                System.out.println("### 계정이 비활성화되었습니다. ###");
+                return false;
             }
+            return true;
+        } else {
+            // 신규 사용자라면 저장 (비활성화 체크 필요 없음)
+            UserDTO newUser = new UserDTO();
+            newUser.setId(googleId);
+            newUser.setName((String) userInfo.get("name"));
+            newUser.setEmail((String) userInfo.get("email"));
+            memberMapper.insertUser(existingUser);
+            return true;
         }
     }
     

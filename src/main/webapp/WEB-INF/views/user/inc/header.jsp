@@ -27,7 +27,10 @@
         <!-- 내부 링크 -->
         <script type="text/javascript" src="/resources/js/jquery-3.7.1.min.js"></script>
 		<title><%= pageTitle %></title>
-		<script> 
+		<script>
+			<c:if test="${not empty alertMessage}">
+	        	alert("${alertMessage}");
+	    	</c:if>
             // 페이지가 로딩된 후 다시 불러온다. 그래서 제이쿼리는 위에  있어도 괜찮다. 
             $(document).ready(function(){ 
                 // 화면의 제일 위로 올라가기

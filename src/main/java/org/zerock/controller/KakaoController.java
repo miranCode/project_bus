@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.zerock.dto.UserDTO;
@@ -22,7 +23,7 @@ public class KakaoController {
     private KakaoService service;
 
     @GetMapping(value="/auth/kakao/callback")
-    public String kakaoLogin(UserDTO mdto, @RequestParam(value = "code", required = false) String code, HttpSession session) throws Exception {
+    public String kakaoLogin(UserDTO mdto, @RequestParam(value = "code", required = false) String code, HttpSession session,  Model model) throws Exception {
 
         String access_Token = service.getAccessToken(code);
         HashMap<String, Object> userInfo = service.getUserInfo(access_Token);
@@ -43,14 +44,21 @@ public class KakaoController {
 
             // 회원가입 후 로그인 정보 재조회
             UserDTO login = mapper.kloginGo(mdto);
+            System.out.println("카카오 회원 정보:" + login);
 
             if (login != null) {
+            	if (!login.getIsActive()) {  // isActive가 false일 경우
+    	            System.out.println("사용자가 비활성화 상태입니다.");
+    	            model.addAttribute("alertMessage", "이 계정은 비활성화 상태입니다. 관리자에게 문의하세요.");
+    	            return "user/member/login"; // 로그인 페이지로 리다이렉트
+    	        }
             	session.setAttribute("uname", login.getName()); // 占쎄쉭占쎈�∽옙肉� 占쎄텢占쎌뒠占쎌쁽 占쎌젟癰귨옙 占쏙옙占쎌삢
                 session.setAttribute("id", login.getId());
                 session.setAttribute("email", login.getEmail());
                 session.setAttribute("dob", login.getDob());
                 session.setAttribute("phone_number", login.getPhone_number());
                 session.setAttribute("provider", login.getProvider());
+                session.setAttribute("created_at", login.getFormattedCreatedAt());
                 System.out.println("로그인 성공: " + login.getName());
             } else {
                 throw new NullPointerException("회원가입 후 로그인 정보 조회 실패");
