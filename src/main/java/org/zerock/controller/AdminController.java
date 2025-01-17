@@ -20,8 +20,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.zerock.dto.AdminDTO;
+import org.zerock.dto.BoardDTO;
 import org.zerock.dto.BusTimeDTO;
 import org.zerock.mapper.AdminMapper;
+import org.zerock.mapper.ApiMapper;
+import org.zerock.mapper.BoardMapper;
+import org.zerock.service.BoardService;
 import org.zerock.service.MainService;
 
 @Controller
@@ -34,14 +38,37 @@ public class AdminController {
 	@Autowired
 	MainService mService;
 	
+	@Autowired
+	BoardMapper bMapper;
+	
+	@Autowired
+	ApiMapper aMapper;
 	
 	// admin main
 	@GetMapping(value="/")
 	public String home(BusTimeDTO BTdto, Model model) {
+		System.out.println("aaaa");
 		try {
 			List<BusTimeDTO> BTList = mService.seTime();
-			System.out.println(BTdto);
+			List<BoardDTO> mList = bMapper.mainList();
+			
+			List<Map<String, Object>> sCount = bMapper.sCount();
+			List<Map<String, Object>> period = aMapper.period();
+			List<Map<String, Object>> mBUList = aMapper.mBUList();
+			
+			int totalcount = bMapper.selectTotalCount();
+			int dateCount = aMapper.dateCount();
+			int useCount = aMapper.useCount();
+			
+			
 			model.addAttribute("busTimeList", BTList);
+			model.addAttribute("boardList", mList);
+			model.addAttribute("boardS", sCount);
+			model.addAttribute("totalcount", totalcount);
+			model.addAttribute("period", period);
+			model.addAttribute("dateCount", dateCount);
+			model.addAttribute("useCount", useCount);
+			model.addAttribute("mBUList", mBUList);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

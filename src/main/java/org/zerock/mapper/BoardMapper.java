@@ -1,6 +1,7 @@
 package org.zerock.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.zerock.dto.BoardDTO;
@@ -30,6 +31,10 @@ public interface BoardMapper {
     BoardDTO findByBno(Long bno);
     
     List<BoardDTO> getBoardsByUserId(String userId);
+    
+    List<BoardDTO> mainList();
+    
+    List<Map<String, Object>> sCount();
 }
 
 

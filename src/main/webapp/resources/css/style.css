@@ -111,6 +111,7 @@ textarea{border:1px solid #ddd; padding:10px; box-sizing:border-box;}
 .txt.titsub{font-size: 30px;}
 .txt.sub{font-size: 20px;}
 .txt.small{font-size: 14px;}
+.txt-12{font-size: 12px;}
 .txt-center{text-align: center;}
 .txt.bold{font-weight: 600;}
 .txt.bolder{font-weight: 800;}
@@ -119,6 +120,7 @@ textarea{border:1px solid #ddd; padding:10px; box-sizing:border-box;}
 .txt-primary{color: rgb(73, 73, 238)}
 .txt-green{color: #0ac73e;}
 .txt-red{color: red;}
+.txt-blue{color: #007bff;}
 .txt-gray{color: #999;}
 .txt-yellow{color: yellow;}
 .copy{font-size: 14px; color:#999}

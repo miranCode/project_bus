@@ -2,6 +2,7 @@ package org.zerock.mapper;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.zerock.dto.ApiDTO;
@@ -25,7 +26,17 @@ public interface ApiMapper {
 	public int seBusUse(BusUseDTO budto); //
 	public List<BusUseDTO> busUseList(BusUseDTO budto);
 	
-	// 날짜정보 시작일 ~ 종료일
-	public List<Date> period();
+	// 날짜정보 시작일 ~ 종료일	
+	public List<Map<String, Object>> period();
+	
+	// 날짜 카운터 
+	public int dateCount();
+	
+	// 기간 전체 사용객 카운터 
+	public int useCount();
+	
+	// 요일별 버스 노선별 평균
+	public List<Map<String, Object>> mBUList();
+	
 
 }

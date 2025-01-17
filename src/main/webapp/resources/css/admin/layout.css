@@ -21,8 +21,8 @@ body{
 #wrap{position: relative; margin:0 auto 0; background: rgba(255,255,255,0.7); overflow:hidden; min-height:100vh;}
 
 /* header */
-#header{position: fixed; width:100%;}
-div.header-top{position: relative; height:80px; box-sizing: border-box; z-index:1; background:#fcfcfc;} 
+#header{position: fixed; width:100%; z-index:1;}
+div.header-top{position: relative; height:80px; box-sizing: border-box; z-index:100; background:#fcfcfc;} 
 /* container */
 #container{padding:100px 4% 80px 120px; box-sizing: border-box;  transition: all 0.5s;}
 
