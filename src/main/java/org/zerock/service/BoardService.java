@@ -18,4 +18,14 @@ public interface BoardService {
     BoardDTO getBoard(Long bno);
     
     List<BoardDTO> getBoardsByUserId(String userId);
+    
+    
+
+    
+    
+    List<BoardDTO> statusList(int page, int pageSize, String sort, String order);
+   
+    List<BoardDTO> getBoardList(String sort, String order);
+   
+
 }

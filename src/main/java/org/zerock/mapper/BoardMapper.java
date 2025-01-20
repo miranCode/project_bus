@@ -35,9 +35,16 @@ public interface BoardMapper {
     List<BoardDTO> mainList();
     
     List<Map<String, Object>> sCount();
+    
+    List<BoardDTO> selectBoards(int offset, int pageSize, String sort, String order);
+	List<BoardDTO> selectBoardList(Map<String, Object> params);
+	List<BoardDTO> getBoardList(String sort, String order);
+	List<BoardDTO> getBoardList(Map<String, Object> params);
+
 }
 
 
+	
 
 
     

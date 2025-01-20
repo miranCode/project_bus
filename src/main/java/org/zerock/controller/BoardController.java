@@ -29,16 +29,39 @@ public class BoardController {
 
     private static final int PAGE_SIZE = 10;
 
-    // 게시글 목록
     @GetMapping("/list")
-    public String list(@RequestParam(value = "page", defaultValue = "1") Integer page, Model model) {
-        List<BoardDTO> boardList = boardService.getList(page, PAGE_SIZE);
-        int totalCount = boardService.getTotalCount();
-        PageDTO pageDTO = boardService.getPageDTO(page, PAGE_SIZE);
-        model.addAttribute("boardList", boardList);
-        model.addAttribute("pageDTO", pageDTO);
-        return "admin/board/list";
-    }
+	public String list(@RequestParam(value = "page", defaultValue = "1") Integer page,
+	                   @RequestParam(value = "sort", required = false) String sort, // sort는 required=false로 변경
+	                   @RequestParam(value = "order", required = false) String order, // order도 required=false로 변경
+	                   Model model) {
+
+	    // 기본 게시판 목록 불러오기 (정렬하지 않음)
+	    List<BoardDTO> boardList = boardService.getList(page, PAGE_SIZE);
+	    int totalCount = boardService.getTotalCount();
+	    PageDTO pageDTO = boardService.getPageDTO(page, PAGE_SIZE);
+
+	    // 사용자가 정렬을 클릭했을 때만 정렬된 목록을 가져옴
+	    if (sort != null && order != null) {
+	        // 정렬된 게시판 목록 불러오기
+	        List<BoardDTO> boardList1 = boardService.getBoardList(sort, order);
+	        System.out.println("실행: 정렬된 목록" + boardList1); // 로그 추가
+
+	        // boardList를 정렬된 boardList1으로 덮어쓰기
+	        if (boardList1 != null) {
+	            boardList = boardList1;
+	        }
+	    }
+
+	    // 로그 추가: sort, order 값 확인
+	    System.out.println("Received sort: " + sort + ", order: " + order); 
+
+	    // 모델에 데이터 추가
+	    model.addAttribute("boardList", boardList);
+	    model.addAttribute("order", order); // 현재 정렬 방향
+	    model.addAttribute("pageDTO", pageDTO);
+
+	    return "admin/board/list"; // JSP로 결과 반환
+	}
 
     // 게시글 상세보기
     @GetMapping("/view/{bno}")

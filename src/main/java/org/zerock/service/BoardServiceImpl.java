@@ -1,6 +1,8 @@
 package org.zerock.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -70,4 +72,22 @@ public class BoardServiceImpl implements BoardService {
         // 해당 userId로 작성한 게시글만 반환하는 쿼리 호출
         return boardMapper.getBoardsByUserId(userId);
     }
+    
+     
+    
+    public List<BoardDTO> statusList(int page, int pageSize, String sort, String order) {
+        int offset = (page - 1) * pageSize;
+        return boardMapper.selectBoards(offset, pageSize, sort, order);
+    }
+    
+    @Override
+    public List<BoardDTO> getBoardList(String sort, String order) {
+        // sort와 order를 Map에 넣어서 전달
+        Map<String, Object> params = new HashMap<>();
+        params.put("sort", sort);
+        params.put("order", order);
+
+        return boardMapper.getBoardList(params);  // 수정된 메서드 호출
+    }
+
 }
