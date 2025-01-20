@@ -21,7 +21,7 @@
                 </ul>
             </li>
             <li>
-                <a href="/admin/"><i class="xi-users"></i><span>회원관리</span></a>
+                <a href="/admin/users"><i class="xi-users"></i><span>회원관리</span></a>
             </li>
             <li>
                 <a href="/qna/list"><i class="xi-bars"></i><span>불편사항신고</span></a>

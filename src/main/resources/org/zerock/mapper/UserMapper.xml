@@ -7,7 +7,9 @@
   	
     <!-- 모든 사용자와 게시글 수 조회 -->
     <select id="findAllUsersWithPostCount" resultType="org.zerock.dto.UserDTO">
-        SELECT u.id,
+        SELECT 
+        	   u.userId,
+        	   u.id,
                u.name,
                u.email,
                u.created_at,
@@ -20,9 +22,9 @@
 
     <!-- 특정 사용자 정보 조회 -->
     <select id="findUserById" resultType="org.zerock.dto.UserDTO">
-        SELECT id, name, email, is_active AS isActive
+        SELECT userId, id, name, email, is_active AS isActive
         FROM users
-        WHERE email = #{email}
+        WHERE userId = #{userId}
     </select>
 
     <!-- 사용자 상태 업데이트 (정지/해제) -->
