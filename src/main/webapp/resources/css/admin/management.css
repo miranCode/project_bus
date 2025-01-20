@@ -1,0 +1,173 @@
+/* General body styles */
+body.list {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Table styling */
+/* 테이블 둥글게 처리 */
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 10px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    border-radius: 10px; /* 테이블 모서리 둥글게 */
+    overflow: hidden; /* 테이블 안의 내용이 넘칠 경우 숨김 처리 */
+}
+
+/* 테이블 셀 둥글게 처리 */
+th, td {
+    padding: 15px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 5px; /* 셀 모서리 둥글게 */
+}
+
+/* Header row styles */
+th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* 처리상태 텍스트 스타일 */
+td:nth-child(5) span {
+    padding: 5px 10px;
+    border-radius: 5px; /* 처리상태 텍스트 둥글게 */
+}
+
+
+/* Alternate row colors for better readability */
+tbody tr:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+
+/* Hover effect for table rows */
+tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Link styles in the '제목' column */
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Heading style */
+h1 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+
+/* Adjust column widths */
+th:nth-child(1), td:nth-child(1) {
+    width: 10%; /* 번호 */
+}
+th:nth-child(3), td:nth-child(3) {
+    width: 15%; /* 작성자 */
+}
+
+th:nth-child(4), td:nth-child(4) {
+    width: 15%; /* 등록일 */
+}
+/* 테이블 처리상태 열에 여백 추가 */
+th:nth-child(5), td:nth-child(5) {
+    padding: 15px; /* 기본 여백을 다른 열들과 동일하게 설정 */
+    text-align: center;
+}
+
+/* 처리상태 색상 스타일 */
+th:nth-child(5) {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+/* 처리상태 텍스트 스타일 */
+td:nth-child(5) span {
+    padding: 5px 10px; /* 여백 추가 */
+    border-radius: 5px; /* 라운드 처리 */
+}
+
+/* 처리상태에 따라 색상 설정 */
+td:nth-child(5) span {
+    display: inline-block; /* 텍스트와 배경이 잘 보이도록 처리 */
+}
+
+
+
+
+/* h2 제목 스타일 */
+h2 {
+    font-size: 28px; /* 글자 크기 */
+    font-weight: bold; /* 글자 굵게 */
+    color: #333; /* 글자 색 */
+    text-align: center; /* 가운데 정렬 */
+    margin-bottom: 20px; /* 아래쪽 여백 */
+    padding: 10px 0; /* 상하 패딩 */
+}
+
+
+
+
+
+/* Pagination container */
+.pagination {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Pagination links */
+.pagination a, .pagination span {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 0 5px;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Hover effect for pagination links */
+.pagination a:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+/* Disabled state for pagination */
+.pagination .disabled {
+    background-color: #ddd;
+    color: #aaa;
+    pointer-events: none;
+}
+
+/* Current page style */
+.pagination .current-page {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+}
+
+/* Previous and Next button styles */
+.pagination .prev, .pagination .next {
+    background-color: #007bff;
+    color: white;
+}
+
+/* Disabled previous and next buttons */
+.pagination .disabled.prev, .pagination .disabled.next {
+    background-color: #ddd;
+    color: #aaa;
+    pointer-events: none;
+}

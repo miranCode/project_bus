@@ -1,15 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html>
-<head>
-	 <title>회원 관리</title>
-	 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<% 
+    // 페이지 제목과 body 클래스 설정
+    request.setAttribute("pageTitle", "회원 관리(관리자용)");
+    request.setAttribute("bodyClass", "users");
+%>
+
+<jsp:include page="../inc/header.jsp" />
+
+<link rel="stylesheet" type="text/css" href="/resources/css/admin/management.css"/>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 	<h1>회원 목록</h1>
     <table border="1">
         <thead>
@@ -30,7 +34,7 @@
                     <td>${user.name}</td>
                     <td>${user.email}</td>
                     <td>
-                        <a href="${pageContext.request.contextPath}/admin/users/${user.email}/posts">${user.postCount}</a>
+                        <a href="${pageContext.request.contextPath}/admin/users/${user.userId}/posts">${user.postCount}</a>
                     </td>
                     <td>${user.created_at }</td>
                     <td>${user.isActive ? '활성' : '정지'}</td>
@@ -71,5 +75,4 @@
     }
 </script>
 
-</body>
-</html>
+<jsp:include page="../inc/footer.jsp" />
