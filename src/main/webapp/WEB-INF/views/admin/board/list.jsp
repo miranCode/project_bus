@@ -22,7 +22,15 @@
             <th>제목</th>
             <th>작성자</th>
             <th>등록일</th>
-            <th>처리상태</th> 
+                            <th>
+    <!-- 처리상태 클릭 시 정렬 기준과 방향을 바꿔서 정렬 -->
+    <a href="?sort=status&order=${order == 'asc' ? 'desc' : 'asc'}">
+        처리상태
+        <c:if test="${order == 'asc'}">↑</c:if>
+        <c:if test="${order == 'desc'}">↓</c:if>
+    </a>
+</th>
+             
         </tr>
     </thead>
     <tbody>
