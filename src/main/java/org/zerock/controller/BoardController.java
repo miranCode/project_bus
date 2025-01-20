@@ -51,6 +51,16 @@ public class BoardController {
 	            boardList = boardList1;
 	        }
 	    }
+	    if (sort != null && order != null) {
+	        // 정렬된 게시판 목록 불러오기
+	        List<BoardDTO> boardList2 = boardService.getBoardList2(sort, order);
+	        System.out.println("실행: 정렬된 목록" + boardList2); // 로그 추가
+
+	        // boardList를 정렬된 boardList1으로 덮어쓰기
+	        if (boardList2 != null) {
+	            boardList = boardList2;
+	        }
+	    }
 
 	    // 로그 추가: sort, order 값 확인
 	    System.out.println("Received sort: " + sort + ", order: " + order); 

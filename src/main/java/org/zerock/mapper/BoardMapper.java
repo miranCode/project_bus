@@ -23,9 +23,6 @@ public interface BoardMapper {
     BoardDTO selectByBno(Long bno);
     
     void updateStatusAndMemo(@Param("bno") Long bno, @Param("status") String status, @Param("memo") String memo);
-
-//    List<BoardDTO> selectAllBusnum();
-
     List<BoardDTO> selectAllBusnum();
 
     BoardDTO findByBno(Long bno);
@@ -40,6 +37,8 @@ public interface BoardMapper {
 	List<BoardDTO> selectBoardList(Map<String, Object> params);
 	List<BoardDTO> getBoardList(String sort, String order);
 	List<BoardDTO> getBoardList(Map<String, Object> params);
+	List<BoardDTO> getBoardList2(String sort, String order);
+	List<BoardDTO> getBoardList2(Map<String, Object> params);
 
 }
 

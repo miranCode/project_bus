@@ -26,6 +26,6 @@ public interface BoardService {
     List<BoardDTO> statusList(int page, int pageSize, String sort, String order);
    
     List<BoardDTO> getBoardList(String sort, String order);
-   
+    List<BoardDTO> getBoardList2(String sort, String order);
 
 }

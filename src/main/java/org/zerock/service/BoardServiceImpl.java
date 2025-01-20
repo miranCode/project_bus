@@ -89,5 +89,15 @@ public class BoardServiceImpl implements BoardService {
 
         return boardMapper.getBoardList(params);  // 수정된 메서드 호출
     }
+    
+    @Override
+    public List<BoardDTO> getBoardList2(String sort, String order) {
+        // sort와 order를 Map에 넣어서 전달
+        Map<String, Object> params = new HashMap<>();
+        params.put("sort", sort);
+        params.put("order", order);
+
+        return boardMapper.getBoardList(params);  // 수정된 메서드 호출
+    }
 
 }
