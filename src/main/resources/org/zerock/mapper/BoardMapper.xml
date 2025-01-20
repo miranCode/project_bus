@@ -84,8 +84,7 @@
 	</select>
 
 
-    <!-- 게시판 목록을 처리상태 기준으로 정렬 -->
-    <select id="getBoardList" resultType="org.zerock.dto.BoardDTO">
+   <select id="getBoardList" resultType="org.zerock.dto.BoardDTO">
         SELECT * FROM board
         ORDER BY 
             <choose>
@@ -93,13 +92,28 @@
                     status
                 </when>
                 <otherwise>
-                    created_date
+                    bno
                 </otherwise>
             </choose>
         <if test="order == 'asc'">ASC</if>
         <if test="order == 'desc'">DESC</if>
     </select>
-
+    
+    
+     <select id="getBoardList2" resultType="org.zerock.dto.BoardDTO">
+        SELECT * FROM board
+        ORDER BY 
+            <choose>
+                <when test="sort == 'bno'">
+                    bno
+                </when>
+                <otherwise>
+                    name
+                </otherwise>
+            </choose>
+        <if test="order == 'asc'">ASC</if>
+        <if test="order == 'desc'">DESC</if>
+    </select>
 
 
 
