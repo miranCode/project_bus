@@ -25,6 +25,7 @@ import org.zerock.dto.BusTimeDTO;
 import org.zerock.mapper.AdminMapper;
 import org.zerock.mapper.ApiMapper;
 import org.zerock.mapper.BoardMapper;
+import org.zerock.mapper.MainMapper;
 import org.zerock.service.BoardService;
 import org.zerock.service.MainService;
 
@@ -44,6 +45,9 @@ public class AdminController {
 	@Autowired
 	ApiMapper aMapper;
 	
+	@Autowired
+	MainMapper mMapper;
+	
 	// admin main
 	@GetMapping(value="/")
 	public String home(BusTimeDTO BTdto, Model model) {
@@ -55,6 +59,7 @@ public class AdminController {
 			List<Map<String, Object>> sCount = bMapper.sCount();
 			List<Map<String, Object>> period = aMapper.period();
 			List<Map<String, Object>> mBUList = aMapper.mBUList();
+			List<Map<String, Object>> routeTurn = mMapper.routeTurn();
 			
 			int totalcount = bMapper.selectTotalCount();
 			int dateCount = aMapper.dateCount();
@@ -69,6 +74,7 @@ public class AdminController {
 			model.addAttribute("dateCount", dateCount);
 			model.addAttribute("useCount", useCount);
 			model.addAttribute("mBUList", mBUList);
+			model.addAttribute("routeTurn", routeTurn);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

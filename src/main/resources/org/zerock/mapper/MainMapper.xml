@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.zerock.mapper.MainMapper">
-	<select id="seTime" resultType="org.zerock.dto.BusTimeDTO">
+	<select id="seTime" resultType="java.util.Map">
 		select TRFC_MNS_TYPE_NM, 
 			sum(HR_0_ON)/ 31 as HR_0_ON,
 		    sum(HR_1_ON)/ 31 as HR_1_ON,
@@ -28,8 +28,18 @@
 			sum(HR_20_ON)/ 31 as HR_20_ON,
 			sum(HR_21_ON)/ 31 as HR_21_ON,
 			sum(HR_22_ON)/ 31 as HR_22_ON,
-			sum(HR_23_ON)/ 31 as HR_23_ON 
+			sum(HR_23_ON)/ 31 as HR_23_ON,
+			(SUM(HR_0_ON) + SUM(HR_1_ON) + SUM(HR_2_ON) + SUM(HR_3_ON) + 
+		     SUM(HR_4_ON) + SUM(HR_5_ON) + SUM(HR_6_ON) + SUM(HR_7_ON) + 
+		     SUM(HR_8_ON) + SUM(HR_9_ON) + SUM(HR_10_ON) + SUM(HR_11_ON) + 
+		     SUM(HR_12_ON) + SUM(HR_13_ON) + SUM(HR_14_ON) + SUM(HR_15_ON) + 
+		     SUM(HR_16_ON) + SUM(HR_17_ON) + SUM(HR_18_ON) + SUM(HR_19_ON) + 
+		     SUM(HR_20_ON) + SUM(HR_21_ON) + SUM(HR_22_ON) + SUM(HR_23_ON)) / 31 AS HR
 			from busTimeUse group by TRFC_MNS_TYPE_NM;
+	</select>
+	
+	<select id="routeTurn" resultType="java.util.Map">
+		select USE_YMD, RTE_NM, count(RTE_ID) as countN, sum(GTON_TNOPE) as sumN from bususe group by USE_YMD, RTE_ID;
 	</select>
 
 

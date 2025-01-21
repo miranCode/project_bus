@@ -16,7 +16,7 @@
 <style>
 	div.section{margin-top:50px; padding-top:40px; border-top:5px solid #f5f5f5; box-sizing: border-box;}
 	div.section:first-of-type{margin-top:0;}
-	div.box{padding: 30px; box-sizing: border-box; border-radius: 9px; border:5px solid #f5f5f5;}
+	div.box{padding: 30px 30px 10px; box-sizing: border-box; border-radius: 9px; border:5px solid #f5f5f5;}
 	div.box a{color:#666; font-size: 12px; padding: 5px; border-bottom:1px solid #ddd; line-height:1.3}
 	div.box a:hover{color:#007bff; border-color:#007bff;}
 	div.box p.tit-area {font-weight:800; margin-bottom:20px; line-height:1.3; font-size:16px !important;}
@@ -32,7 +32,7 @@
 	ul.main_borad li a ul li:last-child{color:#999;}
 	
 	ul.main_borad li a:hover{border-color:#eee; box-shadow: inset 1px -3px 6px rgba(0, 0, 0, 0.1); color:#222; font-weight: 800}
-	div.count-area{margin-top:20px; padding-top:20px; border-top:5px solid #f5f5f5;}
+	div.count-area{margin-top:30px; padding-top:35px; border-top:5px solid #f5f5f5;}
 	div.count-area > p{font-size:14px !important;}
 	div.count-area p b{color:#007bff}
 	div.count-area div.flex p{font-size:14px; padding:0 8px; text-align:center; border-right:3px solid #ddd; border-left:3px solid #ddd; line-height:1; margin-bottom:10px}
@@ -41,12 +41,23 @@
 	div.count-area div.flex > div:first-of-type .circle-box svg circle.animated-circle{stroke:  red;}
 	div.count-area div.flex > div:nth-of-type(2) .circle-box svg circle.animated-circle{stroke:  #007bff;}
 	div.count-area div.flex > div:last-of-type .circle-box svg circle.animated-circle{stroke:  #0ac73e;}
+	
 	div.info-area > div.box{width:49%;margin-bottom:2%;}
 	div.info-area > div.box:nth-child(n + 3){margin-bottom:0}
 	div.info-area > div.box div.left{width:60%; margin-right: 5%;}
 	div.info-area > div.box div.left p{font-size:14px;}
 	div.info-area > div.box div.right{width: 35%;}
+	div.info-area > div.box div.bottom{width:100%;}
 	
+	p.txt-12{margin-bottom:5px}
+	
+	div.sec03 ul.main-list{}
+	div.sec03 ul.main-list > li{border:2px solid #f5f5f5; border-radius: 9px; padding:5px; box-sizing: border-box; margin-top: 5px;}
+	div.sec03 ul.main-list > li > ul.flex > li{color: #666; font-size: 14px}
+	
+	div.sec03 ul.flex{justify-content: space-between; align-items: center;}
+	div.sec03 ul.flex li{font-size: 12px; color:#999; width: calc(100% / 7); text-align: center; line-height: 1.3;}
+	div.sec03 ul.flex li span{display: block;}
 </style>
 <script> 
 	// 페이지가 로딩된 후 다시 불러온다. 그래서 제이쿼리는 위에  있어도 괜찮다. 
@@ -110,7 +121,7 @@
 						</div>
 						<div class="info-area flex flex-wrap ju-between right">
 							<!-- -->
-							<div class="box flex">
+							<div class="box flex ">
 									<div class="left">
 										<p class="tit-area">
 											<span>
@@ -118,11 +129,12 @@
 											</span>
 											서울 인구 <b class="txt-blue"><fmt:formatNumber value="9331828" pattern="#,##0"/></b>
 										</p>
+										
 										<p class="tit-area">
 											<span>
 												기준 : ${period[0].startD} ~ ${period[0].endD} (${dateCount}일)
 											</span>
-											일 평균 버스 이용객
+											일 평균 버스 사용자수
 											<b class="txt-blue">
 												<fmt:formatNumber value="${ (useCount / dateCount) }" pattern="#,##0"/>
 											</b>
@@ -151,32 +163,49 @@
 								</div>
 							<!--  -->
 							<c:forEach var="list" items="${mBUList}">
-								<div class="box">
+								<div class="box ">
 									<div class="">
 										<p class="tit-area">
 											<span>
-												기준 : ${period[0].startD} ~ ${period[0].endD} (${list.bus0}일)
+												기준 : ${period[0].startD} ~ ${period[0].endD} (${dateCount}일)
 											</span>
-											${list.day_status} 평균 버스이용객수 		
+											버스 사용자수
 											<b class="txt-blue">
-												<fmt:formatNumber value="${list.allcount / list.bus0}" pattern="#,##0"/>
+												<fmt:formatNumber value="${ useCount }" pattern="#,##0"/>
+											</b>
+											
+										</p>
+										<p class="tit-area">
+											<span>
+												기준 : ${period[0].startD} ~ ${period[0].endD} (<fmt:formatNumber value="${list.daycount}" pattern="#,##0"/>일)
+											</span>
+											${list.day_status} 버스 사용자수 		
+											<b class="txt-blue"> 
+												<fmt:formatNumber value="${list.allcount}" pattern="#,##0.00"/>
+												( <fmt:formatNumber value="${ (list.allcount*0.1 / useCount*0.1 ) * 10000.0 }" pattern="#,##0.00"/>% )
 											</b>									
 										</p>
 									</div>
-									<div class="flex ju-between">
+									<div class="flex ju-between bottom">
 										<c:forEach var="item" begin="1" end="6">
+											<c:set var="bName" value="bus${item}" />
 											<div style="width:15%; ">	
-												<p class="txt-12">
-													<span>-</span>
-													<fmt:formatNumber value="00" pattern="#,##0.00"/>
+												<p class="txt-12 txt-center">
+													<span>${item == 1 ? '서울간선' : item == 2 ? '서울지선' : item == 3 ? '서울심야': item == 4 ? '서울순환': item == 5 ? '서울마을' : '서울광역'}</span>
 												</p>
 												<div class="circle-box ">
 													<div class="">
-													    <span>30%</span>
+													    <span><fmt:formatNumber value="${ list[bName] *0.1 / list.allcount *0.1 * 10000}" pattern="#,##0.00"/>%</span>
 													</div>
 													<svg  viewBox="0 0 200 200" width="100%" height="100%">
+														<defs>
+															<linearGradient id="gradient3" x1="0%" y1="0%" x2="100%" y2="100%">
+															    <stop offset="20%" style="stop-color: #007bff; stop-opacity: 1" />
+																<stop offset="100%" style="stop-color: #c8e2ff; stop-opacity: 1" />
+															</linearGradient>
+														 </defs>
 													    <circle cx="100" cy="100" r="90" class="circle-bg-gray" />
-													    <circle cx="100" cy="100" r="90" class="circle animated-circle" />
+													    <circle cx="100" cy="100" r="90" stroke="url(#gradient1)"  class="circle animated-circle" stroke-dasharray="565.48" stroke-dashoffset="${565.48 - ((list[bName] *0.1 / list.allcount *0.1) * 56500.48)}" />
 												    </svg>
 												</div>
 											</div>
@@ -230,7 +259,11 @@
 					                                	<c:set var="fieldName" value="HR_${i}_ON" />
 													    <li class="animated-bar" style="height:calc(${list[fieldName]} / 160000 * 100%)">
 														    <span><fmt:formatNumber value="${i}" pattern="00"/></span>
-														    <div><fmt:formatNumber value="${list[fieldName]}" pattern="#,##0"/> <strong>명</strong></div>
+														    <div>
+														    	<fmt:formatNumber value="${ list[fieldName] / list.HR * 100 } " pattern="#,##0.00"/>%
+														    	<br /> 
+														    	<strong><fmt:formatNumber value="${list[fieldName]}" pattern="#,##0"/>명</strong>
+														    </div>
 													    </li>
 													</c:forEach>
 				                                </ul>
@@ -241,6 +274,32 @@
 			                </c:forEach>
 			                </div>
 		                </div>
+					</div>
+					<div class="section sec03">
+						<ul class="flex">
+							<li>NO</li>
+							<li>노선명</li>
+							<li>정류장수</li>
+							<li>평일<span>사용수 / 번잡시간(인원) </span></li>
+							<li>토요일<span>사용수 / 번잡시간(인원) </span></li>
+							<li>일(공휴일)<span>사용수 / 번잡시간(인원) </span></li>
+							<li>불만접수 현황</li>
+						</ul>
+						<ul class="main-list">
+							<c:forEach var="list" items="${routeTurn}" varStatus="status">
+							<li>
+								<ul class="flex">
+									<li>${status.index + 1}</li>
+									<li>${list.RTE_NM}</li>
+									<li>${list.countN}</li>
+									<li></li>
+									<li></li>
+									<li></li>
+									<li></li>
+								</ul>
+							</li>
+							</c:forEach>
+						</ul>
 					</div>
 				</div>  
 				<!-- #content 영역 끝 -->

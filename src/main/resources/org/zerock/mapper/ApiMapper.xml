@@ -50,7 +50,7 @@
 	</select>
 	<!-- 기간 사용자 수 -->
 	<select id="useCount"  resultType="Integer">
-		select sum(GTON_TNOPE) from bususe;
+		select sum(GTON_TNOPE) + 0.0 from bususe;
 	</select>
 	<select id="mBUList" resultType="java.util.Map">
 		WITH bus_data AS (
@@ -71,18 +71,18 @@
 		        bususe bu
 		    JOIN 
 		        busnum bn ON bu.RTE_NO = bn.RTE_NM
-		    GROUP BY day_status, TRFC_MNS_TYPE_NM, date  -- 일자별로 그룹화하여 각 날짜에 대한 탑승객 수를 구합니다.
+		    GROUP BY day_status, TRFC_MNS_TYPE_NM, date
 		)
 		SELECT 
 		    day_status,
-		    FLOOR(count(day_status) / 6) as bus0,
-		    sum(탑승객) as allcount,
-		    sum(CASE WHEN TRFC_MNS_TYPE_NM = "서울간선버스" THEN 탑승객 ELSE 0 END) AS bus1,
-		    sum(CASE WHEN TRFC_MNS_TYPE_NM = "서울지선버스" THEN 탑승객 ELSE 0 END) AS bus2,
-		    sum(CASE WHEN TRFC_MNS_TYPE_NM = "서울심야버스" THEN 탑승객 ELSE 0 END) AS bus3,
-		    sum(CASE WHEN TRFC_MNS_TYPE_NM = "서울순환버스" THEN 탑승객 ELSE 0 END) AS bus4,
-		    sum(CASE WHEN TRFC_MNS_TYPE_NM = "서울마을버스" THEN 탑승객 ELSE 0 END) AS bus5,
-		    sum(CASE WHEN TRFC_MNS_TYPE_NM = "서울광역버스" THEN 탑승객 ELSE 0 END) AS bus6
+		    ROUND(count(day_status) / 6.0, 2) as daycount,  
+		    sum(탑승객)as allcount,  
+		    sum(CASE WHEN TRFC_MNS_TYPE_NM = "서울간선버스" THEN 탑승객 ELSE 0 END) + 0.0  AS bus1,
+		    sum(CASE WHEN TRFC_MNS_TYPE_NM = "서울지선버스" THEN 탑승객 ELSE 0 END) + 0.0 AS bus2,
+		    sum(CASE WHEN TRFC_MNS_TYPE_NM = "서울심야버스" THEN 탑승객 ELSE 0 END) + 0.0 AS bus3,
+		    sum(CASE WHEN TRFC_MNS_TYPE_NM = "서울순환버스" THEN 탑승객 ELSE 0 END) + 0.0 AS bus4,
+		    sum(CASE WHEN TRFC_MNS_TYPE_NM = "서울마을버스" THEN 탑승객 ELSE 0 END) + 0.0 AS bus5,
+		    sum(CASE WHEN TRFC_MNS_TYPE_NM = "서울광역버스" THEN 탑승객 ELSE 0 END) + 0.0 AS bus6
 		FROM bus_data
 		GROUP BY day_status;
 	</select>
