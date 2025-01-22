@@ -15,6 +15,39 @@
 
 <h2>불편 신고 접수 현황 (관리자 용)</h2>
 
+
+<div class="page-container">
+    <!-- 왼쪽: Form Container -->
+    <div class="form-container">
+        <form action="/qna/list" method="get">
+            <label for="rteNm">노선별 접수 상황  : </label>
+            <select id="rteNm" name="rteNm" required>
+                <option value="">선택하세요</option>
+                <c:forEach var="bus" items="${busnumList}">
+                    <option value="${bus.rteNm}" ${bus.rteNm == rteNm ? 'selected' : ''}>${bus.rteNm}</option>
+                </c:forEach>
+            </select>
+            <button type="submit" style="display: none;">확인</button>
+        </form>
+        <p class="result-text" id="resultText"></p>
+        <c:if test="${not empty count}">
+            <p class="result-text">'${rteNm}'번 불편신고 접수량: ${count}</p>
+        </c:if>
+    </div>
+
+    <!-- 오른쪽: Count Container -->
+    <div class="count-container">
+        <div class="count-label">미처리 게시글 수:</div>
+        <div class="count-circle">${count1}</div>
+
+        <div class="count-label">처리중 게시글 수:</div>
+        <div class="count-circle">${count2}</div>
+
+        <div class="count-label">완료 게시글 수:</div>
+        <div class="count-circle">${count3}</div>
+    </div>
+</div>
+
 <table border="1" cellpadding="10">
     <thead>
         <tr>

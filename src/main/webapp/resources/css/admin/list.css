@@ -176,3 +176,154 @@ h2 {
     color: #aaa;
     pointer-events: none;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Form container styles */
+.form-container {
+    display: flex;
+    align-items: center;
+    gap: 50px; /* Spacing between select and result */
+    flex-grow: 1;
+  
+}
+
+/* Style for the result text */
+.result-text {
+    font-size: 20px;
+    color: #4A90E2; /* 회색과 파랑의 조합 */
+    margin-left: 20px;
+    font-weight: bold;
+}
+
+
+/* Style for the result text when it appears dynamically */
+#resultTextDynamic {
+    font-size: 16px;
+    color: green;
+    margin-left: 10px;
+    font-weight: bold;
+}
+
+/* Styling for select element */
+select {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Additional styling for the form */
+label {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* Flex container for both left and right alignment */
+.page-container {
+    display: flex;
+    justify-content: space-between; /* Distribute items to the left and right */
+    align-items: center;
+    margin-top: 20px;
+}
+
+/* Count container (Right side) */
+.count-container {
+    display: flex;
+    justify-content: flex-end; /* Align count items to the right */
+    gap: 30px; /* Space between count items */
+    margin-top: 20px;
+    align-items: center; /* Align items vertically in the center */
+}
+
+/* Count label style */
+.count-label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Circle count style */
+.count-circle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px; /* Increased size for better visibility */
+    height: 60px; /* Increased size for better visibility */
+    background: linear-gradient(45deg, #007BFF, #9B4DCA); /* Blue to Purple Gradient */
+    color: white;
+    font-size: 20px; /* Increased font size */
+    font-weight: bold;
+    border-radius: 50%; /* Make the element circular */
+    text-align: center;
+    line-height: 60px; /* Center the number vertically */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); /* Stronger shadow */
+    transition: all 0.3s ease; /* Smooth transition for hover effect */
+    cursor: pointer; /* Change cursor to pointer on hover */
+    transform: scale(1); /* Reset scale transformation */
+}
+
+/* Hover effect - When mouse is over the circle */
+.count-circle:hover {
+    background-color: #0056b3; /* Change background color */
+    transform: scale(1.1); /* Slightly enlarge the circle */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Bigger shadow for hover */
+}
+
+/* Animation effect - Circle fade-in */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Apply the fade-in animation to the circles */
+.count-circle {
+    animation: fadeIn 0.5s ease-out forwards; /* Fade-in effect */
+}
+
+/* Responsive Design for smaller screens */
+@media (max-width: 768px) {
+    .page-container {
+        flex-direction: column; /* Stack elements vertically on smaller screens */
+        align-items: flex-start; /* Align to the left */
+    }
+
+    .count-container {
+        margin-top: 15px; /* Add some space between count container and form */
+        gap: 20px; /* Adjust spacing on smaller screens */
+    }
+
+    .form-container {
+        margin-bottom: 10px; /* Add space between form and result */
+    }
+}
