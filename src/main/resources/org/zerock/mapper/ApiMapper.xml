@@ -45,7 +45,7 @@
 			select min(DATE_FORMAT(USE_YMD, '%y.%m.%d')) as startD, max(DATE_FORMAT(USE_YMD, '%y.%m.%d')) as endD
 			from bususe
 		)select 
-			DATEDIFF(endD, startD)
+			DATEDIFF(endD, startD) + 1
 			from days;
 	</select>
 	<!-- 기간 사용자 수 -->
@@ -61,6 +61,7 @@
 		        CASE
 		            WHEN DAYOFWEEK(USE_YMD) = 1 THEN '공휴일'
 		            WHEN DAYOFWEEK(USE_YMD) = 7 THEN '토요일'
+		            when DATE_FORMAT(USE_YMD, '%y.%m.%d') = '25.01.01' THEN '공휴일'
 		            ELSE '평일'
 		        END AS day_status,
 		        CASE
@@ -85,5 +86,53 @@
 		    sum(CASE WHEN TRFC_MNS_TYPE_NM = "서울광역버스" THEN 탑승객 ELSE 0 END) + 0.0 AS bus6
 		FROM bus_data
 		GROUP BY day_status;
+	</select>
+	
+	<insert id="inRoute" parameterType="org.zerock.dto.RouteturnDTO">
+	    <if test="BUS_OPR != 0 and BUS_OPR != 0.0">
+	        insert into routeturn(
+	            CRTR_DD, RTE_ID, STOPS_ID, BUS_OPR, 
+	            BUS_OPR_00, BUS_OPR_01, BUS_OPR_02, BUS_OPR_03, BUS_OPR_04, BUS_OPR_05, 
+	            BUS_OPR_06, BUS_OPR_07, BUS_OPR_08, BUS_OPR_09, BUS_OPR_10, BUS_OPR_11,
+	            BUS_OPR_12, BUS_OPR_13, BUS_OPR_14, BUS_OPR_15, BUS_OPR_16, BUS_OPR_17, 
+	            BUS_OPR_18, BUS_OPR_19, BUS_OPR_20, BUS_OPR_21, BUS_OPR_22, BUS_OPR_23,
+	            STOPS_SEQ, setNum
+	        )
+	        values (
+	            #{CRTR_DD}, #{RTE_ID}, #{STOPS_ID}, #{BUS_OPR}, 
+	            #{BUS_OPR_00}, #{BUS_OPR_01}, #{BUS_OPR_02}, #{BUS_OPR_03}, #{BUS_OPR_04}, #{BUS_OPR_05},
+	            #{BUS_OPR_06}, #{BUS_OPR_07}, #{BUS_OPR_08}, #{BUS_OPR_09}, #{BUS_OPR_10}, #{BUS_OPR_11},
+	            #{BUS_OPR_12}, #{BUS_OPR_13}, #{BUS_OPR_14}, #{BUS_OPR_15}, #{BUS_OPR_16}, #{BUS_OPR_17},
+	            #{BUS_OPR_18}, #{BUS_OPR_19}, #{BUS_OPR_20}, #{BUS_OPR_21}, #{BUS_OPR_22}, #{BUS_OPR_23},
+	            #{STOPS_SEQ}, #{setNum}
+	        );
+	    </if>
+	</insert>
+	<select id="seRoute"  resultType="Integer">
+		select count(*) from routeturn where CRTR_DD = #{CRTR_DD} and RTE_ID = #{RTE_ID}
+	</select>
+	<select id="RouteList"  resultType="java.util.Map">
+		select DATE_FORMAT(ro.CRTR_DD, '%y.%m.%d') as date, 
+			CASE
+		        WHEN DAYOFWEEK(ro.CRTR_DD) = 1 THEN '일요일'
+		        WHEN DAYOFWEEK(ro.CRTR_DD) = 2 THEN '월요일'
+		        WHEN DAYOFWEEK(ro.CRTR_DD) = 3 THEN '화요일'
+		        WHEN DAYOFWEEK(ro.CRTR_DD) = 4 THEN '수요일'
+		        WHEN DAYOFWEEK(ro.CRTR_DD) = 5 THEN '목요일'
+		        WHEN DAYOFWEEK(ro.CRTR_DD) = 6 THEN '금요일'
+		        WHEN DAYOFWEEK(ro.CRTR_DD) = 7 THEN '토요일'
+		    END AS week,
+			CASE
+				WHEN DAYOFWEEK(ro.CRTR_DD) = 1 THEN '공휴일'
+				WHEN DAYOFWEEK(ro.CRTR_DD) = 7 THEN '토요일'
+				ELSE '평일'
+			END AS day,
+			ro.RTE_ID as busid, 
+		    bn.RTE_NM as busname, 
+		    BUS_OPR as line,
+		    TRFC_MNS_TYPE_NM as busct
+			from routeturn ro
+		    join busnum bn on ro.RTE_ID = bn.tb_RTE_ID
+		    group by bn.RTE_NM;
 	</select>
 </mapper>

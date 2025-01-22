@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.zerock.dto.ApiDTO;
 import org.zerock.dto.BusDTO;
 import org.zerock.dto.BusUseDTO;
+import org.zerock.dto.RouteturnDTO;
 
 @Mapper 
 public interface ApiMapper {
@@ -38,5 +39,11 @@ public interface ApiMapper {
 	// 요일별 버스 노선별 평균
 	public List<Map<String, Object>> mBUList();
 	
+	// 날짜 노선아이디 별 운행횟수 
+	public List<Map<String, Object>> RouteList();
+	
+	// 저장 및 중복확인 
+	public int inRoute(RouteturnDTO dto); // 저장되면 1을 반환
+	public int seRoute(RouteturnDTO dto); // 이미 저장된 값이 있으면 1을 반환 
 
 }

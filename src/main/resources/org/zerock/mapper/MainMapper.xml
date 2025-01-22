@@ -39,7 +39,17 @@
 	</select>
 	
 	<select id="routeTurn" resultType="java.util.Map">
-		select USE_YMD, RTE_NM, count(RTE_ID) as countN, sum(GTON_TNOPE) as sumN from bususe group by USE_YMD, RTE_ID;
+		select  
+			RTE_NO, 
+		    kind, 
+		    count(bu.RTE_ID) as countN, 
+			sum(GTON_TNOPE) as sumN,
+		    TRFC_MNS_TYPE_NM as type
+		from bususe bu
+		join busnum bn on bn.RTE_ID = bu.RTE_ID
+		where TRFC_MNS_TYPE_NM != '서울심야버스' and TRFC_MNS_TYPE_NM != '서울순환버스' and TRFC_MNS_TYPE_NM != '서울광역버스'
+		group by kind, bu.RTE_ID 
+		order by bu.RTE_ID;
 	</select>
 
 
