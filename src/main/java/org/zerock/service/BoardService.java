@@ -28,7 +28,7 @@ public interface BoardService {
 
 	List<BoardDTO> statusList(int page, int pageSize, String sort, String order);
 
-	List<BoardDTO> getBoardList(String sort, String order);
+	List<BoardDTO> getBoardList(String sort, String order, int page, int page_size);
 
 	List<BoardDTO> getBoardList2(String sort, String order);
 
@@ -43,4 +43,11 @@ public interface BoardService {
 	int getStatusCount2(String status);
 
 	int getStatusCount3(String status);
+
+	List<BoardDTO> getAllBoards(); // 전체 게시글 가져오기
+
+	List<BoardDTO> getBoardsByStatus(String status); // 특정 상태의 게시글 가져오기
+
+	int getCountByStatus(String status); // 특
+
 }

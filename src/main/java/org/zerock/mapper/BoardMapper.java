@@ -64,4 +64,10 @@ public interface BoardMapper {
 	int countByStatus2(String status);
 
 	int countByStatus3(String status);
+
+	List<BoardDTO> findAllBoards(); // 전체 게시글 가져오기
+
+	List<BoardDTO> findBoardsByStatus(String status); // 특정 상태의 게시글 가져오기
+
+	int countBoardsByStatus(String status);
 }
