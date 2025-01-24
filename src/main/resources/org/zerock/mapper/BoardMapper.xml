@@ -90,8 +90,7 @@
 		WHEN status = '미처리' THEN 1
 		WHEN status = '처리중' THEN 2
 		WHEN status = '완료' THEN 3
-		ELSE 4 -- 다른 상태가 있을
-		경우 처리
+		ELSE 4
 		END;
 	</select>
 
