@@ -25,7 +25,7 @@ public class ApiServiceImpl implements ApiService {
 	@Autowired
 	ApiMapper aMapper;
 	
-	// 버스 노선
+	// 踰꾩뒪 �끂�꽑
 	@Override
 	public int inBusLine(BusDTO bdto) {
 		return aMapper.inBusLine(bdto);
@@ -41,40 +41,40 @@ public class ApiServiceImpl implements ApiService {
 		return aMapper.busLineList(bdto);
 	}
 	
-	// 버스 노선 api 로 받아온 데이터가 있으면 저장하지 않고 없으면 저장한다. 
+	// 踰꾩뒪 �끂�꽑 api 濡� 諛쏆븘�삩 �뜲�씠�꽣媛� �엳�쑝硫� ���옣�븯吏� �븡怨� �뾾�쑝硫� ���옣�븳�떎. 
 	public void saveBusLine() {
 		List<BusDTO> busLine = busLineApi();
 		for(BusDTO bdto : busLine) {
 			int result = seBusLine(bdto);
 			if(result == 0) {
 				int inR = aMapper.inBusLine(bdto);
-				System.out.println("저장" + inR);
+				System.out.println("���옣" + inR);
 			}else {
-				System.out.println("저장안함, 이미 존재하는 데이터");
+				System.out.println("���옣�븞�븿, �씠誘� 議댁옱�븯�뒗 �뜲�씠�꽣");
 			}
 		}
 	}
 	
-	// 버스 노선 api 연결한다. 
+	// 踰꾩뒪 �끂�꽑 api �뿰寃고븳�떎. 
 	public List<BusDTO> busLineApi(){
-		// api 주소 
+		// api 二쇱냼 
 		String apiUrl = "http://openapi.seoul.go.kr:8088/7a4a7047727468663533544a6c4747/json/busRoute/1/683/";
-		// API 호출
-		String response = restTemplate.getForObject(apiUrl, String.class); // getForObject() 메서드는 서버의 응답 본문을 지정된 responseType 클래스로 변환하여 반환
+		// API �샇異�
+		String response = restTemplate.getForObject(apiUrl, String.class); // getForObject() 硫붿꽌�뱶�뒗 �꽌踰꾩쓽 �쓳�떟 蹂몃Ц�쓣 吏��젙�맂 responseType �겢�옒�뒪濡� 蹂��솚�븯�뿬 諛섑솚
 		
 		List<BusDTO> busLineList = new ArrayList<>();
 		
 		try {
-			// JSON 응답을 ObjectMapper를 사용하여 List<BusDTO>로 변환
-            ObjectMapper objectMapper = new ObjectMapper();  // JSON 응답을 JsonNode로 변환
-            JsonNode rootNode = objectMapper.readTree(response); // JSON에서 "busRoute" -> "row" 배열에 접근
-            JsonNode rowNode = rootNode.path("busRoute").path("row"); // rowNode는 배열이므로, 이를 List<BusDTO>로 변환
+			// JSON �쓳�떟�쓣 ObjectMapper瑜� �궗�슜�븯�뿬 List<BusDTO>濡� 蹂��솚
+            ObjectMapper objectMapper = new ObjectMapper();  // JSON �쓳�떟�쓣 JsonNode濡� 蹂��솚
+            JsonNode rootNode = objectMapper.readTree(response); // JSON�뿉�꽌 "busRoute" -> "row" 諛곗뿴�뿉 �젒洹�
+            JsonNode rowNode = rootNode.path("busRoute").path("row"); // rowNode�뒗 諛곗뿴�씠誘�濡�, �씠瑜� List<BusDTO>濡� 蹂��솚
             
-            // ObjectMapper를 사용하여 row 배열을 List<BusDTO>로 변환
+            // ObjectMapper瑜� �궗�슜�븯�뿬 row 諛곗뿴�쓣 List<BusDTO>濡� 蹂��솚
             busLineList = objectMapper.convertValue(rowNode, objectMapper.getTypeFactory().constructCollectionType(List.class, BusDTO.class));
 		}catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("api 연결 오류");
+			System.out.println("api �뿰寃� �삤瑜�");
 		}
 		return busLineList;
 	}
@@ -90,21 +90,21 @@ public class ApiServiceImpl implements ApiService {
 		return aMapper.seBusUse(budto);
 	}
 	
-	// 버스노선별 정류장별 승하차 인원
+	// 踰꾩뒪�끂�꽑蹂� �젙瑜섏옣蹂� �듅�븯李� �씤�썝
 	public List<BusUseDTO> busUseList(BusUseDTO budto) {
 		return aMapper.busUseList(budto);
 	}
 	
-	// 버스 노선 api 로 받아온 데이터가 있으면 저장하지 않고 없으면 저장한다. 
+	// 踰꾩뒪 �끂�꽑 api 濡� 諛쏆븘�삩 �뜲�씠�꽣媛� �엳�쑝硫� ���옣�븯吏� �븡怨� �뾾�쑝硫� ���옣�븳�떎. 
 	public void saveBusUse() {
 		List<BusUseDTO> busUse = busUseApi();
 		for(BusUseDTO bdto : busUse) {
 			int result = seBusUse(bdto);
 			if(result == 0) {
 				int inR = aMapper.inBusUse(bdto);
-				System.out.println("저장" + inR);
+				System.out.println("���옣" + inR);
 			}else {
-				System.out.println("저장안함, 이미 존재하는 데이터");
+				System.out.println("���옣�븞�븿, �씠誘� 議댁옱�븯�뒗 �뜲�씠�꽣");
 			}
 		}
 	}
@@ -112,20 +112,20 @@ public class ApiServiceImpl implements ApiService {
 	public List<BusUseDTO> busUseApi(){
 		
 		List<BusUseDTO> busUseList = new ArrayList<>();
-		// 시작일부터 종료일까지
+		// �떆�옉�씪遺��꽣 醫낅즺�씪源뚯�
 		// 20241201
-		String startDate = "20250102";
-		String endDate = "20250103";
+		String startDate = "20250113";
+		String endDate = "20250113";
 		
-		// 날짜 포맷터 설정
+		// �궇吏� �룷留룻꽣 �꽕�젙
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
 
-        // LocalDate로 변환
+        // LocalDate濡� 蹂��솚
         LocalDate start = LocalDate.parse(startDate, formatter);
         LocalDate end = LocalDate.parse(endDate, formatter);
         
         for (LocalDate date = start; !date.isAfter(end); date = date.plusDays(1)) {
-        	// 날짜를 문자열로 변환 (yyyyMMdd 형식)
+        	// �궇吏쒕�� 臾몄옄�뿴濡� 蹂��솚 (yyyyMMdd �삎�떇)
             String dateString = date.format(formatter);
             
             int startIndex = 1;
@@ -133,9 +133,9 @@ public class ApiServiceImpl implements ApiService {
     		Boolean rolling = true;
     		int forCount = 1;
             while (rolling) {
-                // URL 생성
+                // URL �깮�꽦
                 String apiUrl = String.format("http://openapi.seoul.go.kr:8088/7a4a7047727468663533544a6c4747/json/CardBusStatisticsServiceNew/%d/%d/%s", startIndex, endIndex, dateString);
-                String response = restTemplate.getForObject(apiUrl, String.class); // getForObject() 메서드는 서버의 응답 본문을 지정된 responseType 클래스로 변환하여 반환
+                String response = restTemplate.getForObject(apiUrl, String.class); // getForObject() 硫붿꽌�뱶�뒗 �꽌踰꾩쓽 �쓳�떟 蹂몃Ц�쓣 吏��젙�맂 responseType �겢�옒�뒪濡� 蹂��솚�븯�뿬 諛섑솚
                 String codeInfo = null;
                 System.out.println("Generated API URL up: " + apiUrl);
                 
@@ -143,7 +143,7 @@ public class ApiServiceImpl implements ApiService {
                     ObjectMapper objectMapper = new ObjectMapper();  
                     JsonNode rootNode = objectMapper.readTree(response); 
                     JsonNode rowNode = rootNode.path("CardBusStatisticsServiceNew").path("row"); 
-                    // ObjectMapper를 사용하여 row 배열을 List<BusDTO>로 변환
+                    // ObjectMapper瑜� �궗�슜�븯�뿬 row 諛곗뿴�쓣 List<BusDTO>濡� 蹂��솚
                     busUseList = objectMapper.convertValue(rowNode, objectMapper.getTypeFactory().constructCollectionType(List.class, BusUseDTO.class));
                     
                     System.out.println(">>>>>>>>>>>>>>>>>>> 1" + rootNode);
@@ -152,28 +152,28 @@ public class ApiServiceImpl implements ApiService {
                 	codeInfo = rootNode.path("CardBusStatisticsServiceNew").path("RESULT").path("CODE").asText();
                 	
                 	List<BusUseDTO> busUse = busUseList;
-                	System.out.println(startIndex + " / " + endIndex + " / 날짜 " + dateString + "(" + rowCount + ")" + ">>>>>>>>>>>>>>>>>>> 2" + busUse);
+                	System.out.println(startIndex + " / " + endIndex + " / �궇吏� " + dateString + "(" + rowCount + ")" + ">>>>>>>>>>>>>>>>>>> 2" + busUse);
                 	
             		for(BusUseDTO bdto : busUse) {
             			int result = seBusUse(bdto);
             			
             			if(result == 0) {
             				int inR = aMapper.inBusUse(bdto);
-            				System.out.println("저장" + forCount);
+            				System.out.println("���옣" + forCount);
             			}else {
-            				System.out.println("저장안함, 이미 존재하는 데이터" + forCount);
+            				System.out.println("���옣�븞�븿, �씠誘� 議댁옱�븯�뒗 �뜲�씠�꽣" + forCount);
             			}
             			forCount += 1;
             		}
                 	
                 	
-                	System.out.println("api 연결 성공");
+                	System.out.println("api �뿰寃� �꽦怨�");
                 }catch (Exception e) {
                 	e.printStackTrace();
-                	System.out.println("api 연결 오류");
+                	System.out.println("api �뿰寃� �삤瑜�");
 				}
-                // 생성된 API URL 출력
-                // startNum과 endNum을 1000씩 증가
+                // �깮�꽦�맂 API URL 異쒕젰
+                // startNum怨� endNum�쓣 1000�뵫 利앷�
                 startIndex += 1000;
                 endIndex += 1000;
                 
