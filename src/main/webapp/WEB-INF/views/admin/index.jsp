@@ -292,11 +292,11 @@
 									<li>${list.RTE_NO}<span>${list.kind} / ${list.type}</span></li>
 									<li>${list.countN}</li>
 									<li>
-										(<fmt:formatNumber value="${list.sumN}" pattern="#,##0.00"/>/kind 숫자 * 08:00 버스 type 별 %)
+										<fmt:formatNumber value="${list.calculated_value}" pattern="#,##0"/>명
 									 	/ 08:00
 									 </li>
 									<li>
-										(<fmt:formatNumber value="${list.sumN}" pattern="#,##0.00"/>/kind 숫자 * 8:00 버스 type 별 %)
+										<fmt:formatNumber value="${list.calculated_value_18}" pattern="#,##0"/>명
 									 	/ 18:00
 									 </li>
 									<li></li>
