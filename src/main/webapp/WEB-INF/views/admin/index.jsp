@@ -51,6 +51,7 @@
 	
 	p.txt-12{margin-bottom:5px}
 	
+	
 	div.sec03 ul.main-list{}
 	div.sec03 ul.main-list > li{border:2px solid #f5f5f5; border-radius: 9px; padding:5px; box-sizing: border-box; margin-top: 5px;}
 	div.sec03 ul.main-list > li > ul.flex > li{color: #666; font-size: 14px}
@@ -58,16 +59,22 @@
 	div.sec03 ul.flex{justify-content: space-between; align-items: center;}
 	div.sec03 ul.flex li{font-size: 12px; color:#999; width: calc(100% / 7); text-align: center; line-height: 1.3;}
 	div.sec03 ul.flex li span{display: block; font-size: 12px;}
+	
+	div.sec03 .tab-area ul.tabs.flex{margin-bottom: 30px; justify-content: flex-start;}
+	div.sec03 .tab-area ul.tabs.flex li{width: auto;}
 </style>
 <script> 
 	// 페이지가 로딩된 후 다시 불러온다. 그래서 제이쿼리는 위에  있어도 괜찮다. 
 	$(document).ready(function(){ 
-		$("ul.tabs > li:first").addClass("on");
-	    $(".tab-box:first").addClass("on");
-		$("ul.tabs > li").click(function name() {
+		
+		$(".tab-area").each(function() {
+			$(this).find("ul.tabs > li:first").addClass("on");
+			$(this).find(".tab-content > .tab-box:first").addClass("on");
+		});
+	    $("ul.tabs > li").click(function name() {
 			var idx = $(this).index();
 			$(this).addClass("on").siblings().removeClass("on");
-			$(this).parents().siblings().find(".tab-box").eq(idx).addClass("on").siblings().removeClass("on");
+			$(this).parents('.tabs').siblings().find(".tab-box").eq(idx).addClass("on").siblings().removeClass("on");
 		});
 	});
 </script>
@@ -122,45 +129,45 @@
 						<div class="info-area flex flex-wrap ju-between right">
 							<!-- -->
 							<div class="box flex ">
-									<div class="left">
-										<p class="tit-area">
-											<span>
-												기준 : 24.12
-											</span>
-											서울 인구 <b class="txt-blue"><fmt:formatNumber value="9331828" pattern="#,##0"/></b>
-										</p>
+								<div class="left">
+									<p class="tit-area">
+										<span>
+											기준 : 24.12
+										</span>
+										서울 인구 <b class="txt-blue"><fmt:formatNumber value="9331828" pattern="#,##0"/></b>
+									</p>
+									
+									<p class="tit-area">
+										<span>
+											기준 : ${period[0].startD} ~ ${period[0].endD} (${dateCount}일)
+										</span>
+										일 평균 버스 사용자수
+										<b class="txt-blue">
+											<fmt:formatNumber value="${ (useCount / dateCount) }" pattern="#,##0"/>
+										</b>
 										
-										<p class="tit-area">
-											<span>
-												기준 : ${period[0].startD} ~ ${period[0].endD} (${dateCount}일)
-											</span>
-											일 평균 버스 사용자수
-											<b class="txt-blue">
-												<fmt:formatNumber value="${ (useCount / dateCount) }" pattern="#,##0"/>
-											</b>
-											
-										</p>
-									</div>
-									<div class="right">
-										<div class="circle-box ">
-											<div class="">
-											    <span>
-											    	<fmt:formatNumber value="${ ((useCount / dateCount) / 9331828) * 100 }" pattern="#,##0.00"/>%
-											    </span>
-											</div>
-											<svg  viewBox="0 0 200 200" width="100%" height="100%">
-												<defs>
-													<linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
-													    <stop offset="20%" style="stop-color: #007bff; stop-opacity: 1" />
-														<stop offset="100%" style="stop-color: #c8e2ff; stop-opacity: 1" />
-													</linearGradient>
-												 </defs>
-											    <circle cx="100" cy="100" r="90" class="circle-bg-gray" />
-											    <circle cx="100" cy="100" r="90" stroke="url(#gradient1)" fill="none" class="circle animated-circle" stroke-dasharray="565.48" stroke-dashoffset="${565.48 - (((useCount / dateCount) / 9331828) * 565.48)}" />
-										    </svg>
+									</p>
+								</div>
+								<div class="right">
+									<div class="circle-box ">
+										<div class="">
+										    <span>
+										    	<fmt:formatNumber value="${ ((useCount / dateCount) / 9331828) * 100 }" pattern="#,##0.00"/>%
+										    </span>
 										</div>
+										<svg  viewBox="0 0 200 200" width="100%" height="100%">
+											<defs>
+												<linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+												    <stop offset="20%" style="stop-color: #007bff; stop-opacity: 1" />
+													<stop offset="100%" style="stop-color: #c8e2ff; stop-opacity: 1" />
+												</linearGradient>
+											 </defs>
+										    <circle cx="100" cy="100" r="90" class="circle-bg-gray" />
+										    <circle cx="100" cy="100" r="90" stroke="url(#gradient1)" fill="none" class="circle animated-circle" stroke-dasharray="565.48" stroke-dashoffset="${565.48 - (((useCount / dateCount) / 9331828) * 565.48)}" />
+									    </svg>
 									</div>
 								</div>
+							</div>
 							<!--  -->
 							<c:forEach var="list" items="${mBUList}">
 								<div class="box ">
@@ -276,34 +283,49 @@
 		                </div>
 					</div>
 					<div class="section sec03">
-						<ul class="flex">
-							<li>NO</li>
-							<li>노선명(버스종류)</li>
-							<li>정류장수</li>
-							<li>사용수예측 / MAX AM </li>
-							<li>사용수예측 / MAX PM </li>
-							<li>불만접수 현황</li>
-						</ul>
-						<ul class="main-list">
-							<c:forEach var="list" items="${routeTurn}" varStatus="status">
-							<li>
-								<ul class="flex">
-									<li>${status.index + 1}</li>
-									<li>${list.RTE_NO}<span>${list.kind} / ${list.type}</span></li>
-									<li>${list.countN}</li>
-									<li>
-										<fmt:formatNumber value="${list.calculated_value}" pattern="#,##0"/>명
-									 	/ 08:00
-									 </li>
-									<li>
-										<fmt:formatNumber value="${list.calculated_value_18}" pattern="#,##0"/>명
-									 	/ 18:00
-									 </li>
-									<li></li>
-								</ul>
-							</li>
-							</c:forEach>
-						</ul>
+						<div class="tab-area">
+							<ul class="tabs flex ju-start">
+								<li>서울간선버스</li>
+								<li>서울지선버스</li>
+								<li>서울마을버스</li>
+							</ul>
+							<div class="tab-content">
+								<c:forEach var="i" begin="0" end="2">
+									<div class="tab-box">
+										<ul class="flex">
+											<li>no</li>
+											<li>노선명(버스종류)</li>
+											<li>사용수예측 / MAX AM </li>
+											<li>사용수예측 / MAX PM </li>
+											<li>불만접수 현황</li>
+										</ul>
+										<ul class="main-list">
+											<c:forEach var="list" items="${routeTurn}" > 
+												<c:set var="type" value="${i == 0 ? '서울간선버스' : (i == 1 ? '서울지선버스' : (i == 2 ? '서울마을버스' : ''))}" />
+												<c:if test="${list.type == type}" >
+													<c:set var="no" value="${no + 1}" />
+													<li>
+														<ul class="flex">
+															<li>${no}</li>
+															<li>${list.RTE_NO}<span>${list.kind} / ${list.type}</span></li>
+															<li>
+																약 <fmt:formatNumber value="${list.calculated_value}" pattern="#,##0"/>명
+															 	/ 08:00
+															 </li>
+															<li>
+																약 <fmt:formatNumber value="${list.calculated_value_18}" pattern="#,##0"/>명
+															 	/ 18:00
+															 </li>
+															<li></li>
+														</ul>
+													</li>
+												</c:if>
+											</c:forEach>
+										</ul>
+									</div>
+								</c:forEach>
+							</div>
+						</div>
 					</div>
 				</div>  
 				<!-- #content 영역 끝 -->

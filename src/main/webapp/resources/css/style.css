@@ -96,6 +96,7 @@ textarea{border:1px solid #ddd; padding:10px; box-sizing:border-box;}
 .flex.ju-end{justify-content: end;}
 .flex.ju-around{justify-content: space-around;}
 .flex.ju-evenly{justify-content: space-evenly;}
+.flex.ju-start{justify-content:flex-start;}
 .flex.column{flex-direction: column}
 .flex.column-reverse{flex-direction: column-reverse}
 .flex.row{flex-direction: row}

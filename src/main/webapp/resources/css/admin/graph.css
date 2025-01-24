@@ -17,7 +17,7 @@ ul.tabs li{
 	cursor: pointer;
 }
 ul.tabs li:hover,
-ul.tabs li.on{font-weight:800; background:#fff; border-color:#f5f5f5; color:#007bff;}
+ul.tabs li.on{font-weight:800; background:#fff; border-color:#f5f5f5; color:#007bff !important;}
 
 .tab-content > div{display:none;}
 .tab-content > div.on{display:block}
