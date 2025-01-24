@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -17,7 +19,7 @@ import org.zerock.service.ApiService;
 
 
 
-@Controller // Controller: 클라이언트 요청을 받고 응답을 반환.
+@Controller // Controller: �겢�씪�씠�뼵�듃 �슂泥��쓣 諛쏄퀬 �쓳�떟�쓣 諛섑솚.
 @RequestMapping("bus")
 public class ApiController {
 	
@@ -25,7 +27,11 @@ public class ApiController {
 	ApiService aService;
 	
 	@GetMapping("busLine")
-	public String busLine(BusDTO bdto, Model model) {
+	public String busLine(BusDTO bdto, Model model, HttpSession session) {
+		// 세션에서 로그인된 사용자 확인
+	    if (session.getAttribute("id") == null) {
+	        return "redirect:/admin/login";  // 로그인되지 않았다면 로그인 페이지로 리다이렉트
+	    }
 		List<BusDTO> responses = aService.busLineList(bdto);
 		model.addAttribute("budLineListSize", responses.size());
 		model.addAttribute("budLineList", responses);
@@ -39,19 +45,19 @@ public class ApiController {
 	    
 	    try {
 	        apiData = aService.busLineApi(); 
-	        System.out.println("API 호출성공");
+	        System.out.println("API �샇異쒖꽦怨�");
 	        
-	        // apiData null 이 아니면 저장 
+	        // apiData null �씠 �븘�땲硫� ���옣 
 	        
 	        if(apiData != null && !apiData.isEmpty()){
 	        	aService.saveBusLine();
-	        	return ResponseEntity.ok(apiData);  // JSON 형식으로 응답 반환
+	        	return ResponseEntity.ok(apiData);  // JSON �삎�떇�쑝濡� �쓳�떟 諛섑솚
 	        } else {
 	            return null;
 	        }
 	        
 	    } catch (Exception e) {
-	        System.out.println("API 호출 중 오류 발생: " + e.getMessage());
+	        System.out.println("API �샇異� 以� �삤瑜� 諛쒖깮: " + e.getMessage());
 	        e.printStackTrace();
 	        return null;
 	    }
@@ -59,7 +65,11 @@ public class ApiController {
 	
 	// 
 	@GetMapping("busUse")
-	public String busUse(BusUseDTO budto, Model model) {
+	public String busUse(BusUseDTO budto, Model model, HttpSession session) {
+		// 세션에서 로그인된 사용자 확인
+	    if (session.getAttribute("id") == null) {
+	        return "redirect:/admin/login";  // 로그인되지 않았다면 로그인 페이지로 리다이렉트
+	    }
 		List<BusUseDTO> responses = aService.busUseList(budto);
 		
 		model.addAttribute("busUseList", responses);
@@ -72,19 +82,23 @@ public class ApiController {
 		List<BusUseDTO> apiData = new ArrayList<>();
 		try {
 			apiData = aService.busUseApi(); 
-	        System.out.println("API 호출성공");
+	        System.out.println("API �샇異쒖꽦怨�");
 		}catch (Exception e) {
-			System.out.println("API 호출 중 오류 발생: " + e.getMessage());
+			System.out.println("API �샇異� 以� �삤瑜� 諛쒖깮: " + e.getMessage());
 	        e.printStackTrace();
 	        return null;
 		}
 		
 		
-		return ResponseEntity.ok(apiData);  // JSON 형식으로 응답 반환
+		return ResponseEntity.ok(apiData);  // JSON �삎�떇�쑝濡� �쓳�떟 諛섑솚
 		
 	}
 	@GetMapping("route")
-	public String route(Model model) {
+	public String route(Model model, HttpSession session) {
+		// 세션에서 로그인된 사용자 확인
+	    if (session.getAttribute("id") == null) {
+	        return "redirect:/admin/login";  // 로그인되지 않았다면 로그인 페이지로 리다이렉트
+	    }
 		List<Map<String, Object>> responses = aService.RouteList();
 		
 		model.addAttribute("routeList", responses);
@@ -97,15 +111,15 @@ public class ApiController {
 		List<RouteturnDTO> apiData = new ArrayList<>();
 		try {
 			apiData = aService.routeApi(); 
-	        System.out.println("API 호출성공");
+	        System.out.println("API �샇異쒖꽦怨�");
 		}catch (Exception e) {
-			System.out.println("API 호출 중 오류 발생: " + e.getMessage());
+			System.out.println("API �샇異� 以� �삤瑜� 諛쒖깮: " + e.getMessage());
 	        e.printStackTrace();
 	        return null;
 		}
 		
 		
-		return ResponseEntity.ok(apiData);  // JSON 형식으로 응답 반환
+		return ResponseEntity.ok(apiData);  // JSON �삎�떇�쑝濡� �쓳�떟 諛섑솚
 		
 	}
 
