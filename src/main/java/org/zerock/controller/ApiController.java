@@ -2,6 +2,7 @@ package org.zerock.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.zerock.dto.BusDTO;
 import org.zerock.dto.BusUseDTO;
+import org.zerock.dto.RouteturnDTO;
 import org.zerock.service.ApiService;
 
 
@@ -60,8 +62,8 @@ public class ApiController {
 	public String busUse(BusUseDTO budto, Model model) {
 		List<BusUseDTO> responses = aService.busUseList(budto);
 		
-		// model.addAttribute("busUseList", responses);
-		model.addAttribute("busUseSize", responses.size());
+		model.addAttribute("busUseList", responses);
+		model.addAttribute("roSize", responses.size());
 		return "admin/bus/busUse";
 	}
 	
@@ -70,6 +72,31 @@ public class ApiController {
 		List<BusUseDTO> apiData = new ArrayList<>();
 		try {
 			apiData = aService.busUseApi(); 
+	        System.out.println("API 호출성공");
+		}catch (Exception e) {
+			System.out.println("API 호출 중 오류 발생: " + e.getMessage());
+	        e.printStackTrace();
+	        return null;
+		}
+		
+		
+		return ResponseEntity.ok(apiData);  // JSON 형식으로 응답 반환
+		
+	}
+	@GetMapping("route")
+	public String route(Model model) {
+		List<Map<String, Object>> responses = aService.RouteList();
+		
+		model.addAttribute("routeList", responses);
+		model.addAttribute("routeSize", responses.size());
+		return "admin/bus/routeList";
+	}
+	
+	@GetMapping("saveRoute")
+	public ResponseEntity<List<RouteturnDTO>> saveRouteTurn(RouteturnDTO dto) {
+		List<RouteturnDTO> apiData = new ArrayList<>();
+		try {
+			apiData = aService.routeApi(); 
 	        System.out.println("API 호출성공");
 		}catch (Exception e) {
 			System.out.println("API 호출 중 오류 발생: " + e.getMessage());

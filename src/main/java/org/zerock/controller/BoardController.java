@@ -1,6 +1,8 @@
 package org.zerock.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.dto.BoardDTO;
 import org.zerock.dto.PageDTO;
@@ -32,9 +35,11 @@ public class BoardController {
     @GetMapping("/list")
 	public String list(@RequestParam(value = "page", defaultValue = "1") Integer page,
 	                   @RequestParam(value = "sort", required = false) String sort, // sort는 required=false로 변경
-	                   @RequestParam(value = "order", required = false) String order, // order도 required=false로 변경
+	                   @RequestParam(value = "order", required = false) String order,
+	                   @RequestParam(value = "rteNm", required = false) String rteNm,
+						@RequestParam(value = "status", required = false) String status,// order도 required=false로 변경
 	                   Model model) {
-
+    	
 	    // 기본 게시판 목록 불러오기 (정렬하지 않음)
 	    List<BoardDTO> boardList = boardService.getList(page, PAGE_SIZE);
 	    int totalCount = boardService.getTotalCount();
@@ -62,16 +67,55 @@ public class BoardController {
 	        }
 	    }
 
-	    // 로그 추가: sort, order 값 확인
-	    System.out.println("Received sort: " + sort + ", order: " + order); 
-
 	    // 모델에 데이터 추가
 	    model.addAttribute("boardList", boardList);
 	    model.addAttribute("order", order); // 현재 정렬 방향
 	    model.addAttribute("pageDTO", pageDTO);
+	    
+	    int count1 = boardService.getStatusCount1(status);
+        model.addAttribute("count1", count1);
+        model.addAttribute("status", status); // 상태 값 모델에 추가
+        int count2 = boardService.getStatusCount2(status);
+        model.addAttribute("count2", count2);
+        model.addAttribute("status", status); // 상태 값 모델에 추가
+        int count3 = boardService.getStatusCount3(status);
+        model.addAttribute("count3", count3);
+        model.addAttribute("status", status); // 상태 값 모델에 추가
+        
+        // 모든 버스 노선 리스트 가져오기
+        List<BoardDTO> busnumList = boardService.getAllBusnum();
+        model.addAttribute("busnumList", busnumList);
+        model.addAttribute("rteNm", rteNm); // 선택된 rteNm 값을 모델에 추가
+        System.out.print("rteNm:" + rteNm);
 
+        // rteNm이 null이거나 빈 값인 경우, 기본 페이지를 렌더링
+        if (rteNm == null || rteNm.isEmpty()) {
+            model.addAttribute("showModal", true);
+            return "admin/board/list";
+        }
+
+        // 선택된 rteNm의 게시글 수 카운트
+        int count = boardService.getRteNmCount(rteNm);
+        model.addAttribute("count", count);
+        System.out.print("count:" + count);
+	    
+	    
+	
 	    return "admin/board/list"; // JSP로 결과 반환
 	}
+    
+    
+    @GetMapping("/list1")
+    @ResponseBody
+    public Map<String, Object> getBoardCount(@RequestParam String rteNm) {
+        System.out.println("Received rteNm: " + rteNm); // 디버깅용 로그
+        int count = boardService.getRteNmCount(rteNm);
+        Map<String, Object> response = new HashMap<>();
+        response.put("count", count);
+        System.out.println("count count: " + count); // 디버깅용 로그
+        return response;
+    }
+
 
     // 게시글 상세보기
     @GetMapping("/view/{bno}")
@@ -98,14 +142,7 @@ public class BoardController {
         model.addAttribute("busnumList", busnumList);
         return "user/board/write";
     }
-    // 게시글 작성 처리
-//    @PostMapping("/write")
-//    public String write(@ModelAttribute BoardDTO boardDTO) {
-//        boardService.register(boardDTO);
-//        System.out.println("BoardDTO: " + boardDTO);
-//        return "redirect:/qna/list";
-//    }
-//    
+
 
 
     
@@ -118,7 +155,6 @@ public class BoardController {
     }
 
 
-//        private final BoardService boardService;
         private final EmailService emailService;
 
         public BoardController(BoardService boardService, EmailService emailService) {
@@ -126,29 +162,6 @@ public class BoardController {
             this.emailService = emailService;
         }
 
-//        @PostMapping("/write")
-//        public String write(@ModelAttribute BoardDTO boardDTO, Model model) {
-//            try {
-//                // 게시글 등록
-//                boardService.register(boardDTO);
-//
-//                // 이메일 발송
-//                String emailContent = "안녕하세요 " + boardDTO.getName() + "님,\n\n"
-//                                    + "다음과 같은 건의사항이 접수되었습니다:\n\n"
-//                                    + "제목: " + boardDTO.getTitle() + "\n"
-//                                    + "내용: " + boardDTO.getContent() + "\n\n"
-//                                    + "감사합니다.";
-//                emailService.sendEmail(boardDTO.getEmail(), "건의사항 접수 확인", emailContent);
-//
-//                // 성공 메시지 추가 (선택 사항)
-//                model.addAttribute("message", "건의사항이 성공적으로 접수되었습니다.");
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//                model.addAttribute("errorMessage", "건의사항 접수 중 문제가 발생했습니다.");
-//            }
-//
-//            return "redirect:/"; // 목록 페이지로 이동
-//        }
         @PostMapping("/write")
         public String write(@ModelAttribute BoardDTO boardDTO, RedirectAttributes redirectAttributes) {
             try {
@@ -171,9 +184,9 @@ public class BoardController {
             }
             return "redirect:/"; // 목록 페이지로 이동
         }
-
-
-
+  
+        
+     
     }
 
     

@@ -2,8 +2,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <% 
-    request.setAttribute("pageTitle", "사용자 불편사항 접수");
-    request.setAttribute("bodyClass", "write");
+    request.setAttribute("write", "사용자 불편사항 접수");
+    request.setAttribute("write", "write");
 %>
 <jsp:include page="../inc/header.jsp" />
 
@@ -15,7 +15,7 @@
 
 <form name="writeFrm" method="post" action="${pageContext.request.contextPath}/qna/write">
     <fieldset>
-        <h1>불편 신고 작성</h1>
+        <h2>불편 신고 작성</h2>
 
         <!-- 버스 노선 선택 -->
         <dl>

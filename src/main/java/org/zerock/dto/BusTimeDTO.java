@@ -1,7 +1,7 @@
 package org.zerock.dto;
 
 public class BusTimeDTO {
-	
+	//12334
 	private String USE_YM;
 	private String RTE_NO ;
 	private String RTE_NM;

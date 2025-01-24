@@ -4,11 +4,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class BoardDTO {
-    private Long bno;       // 게시글 번호
-    private String name;    // 작성자 이름
-    private String title;   // 게시글 제목
-    private String content; // 게시글 내용
-    private String email;   // 작성자 이메일
+    private Long bno;       // 게시글 번호1
+    private String name;    // 작성자 이름2
+    private String title;   // 게시글 제목3
+    private String content; // 게시글 내용4
+    private String email;   // 작성자 이메일5
 
     private String status;
 
@@ -117,5 +117,3 @@ public class BoardDTO {
 	
 	
 }
-
-

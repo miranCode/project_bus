@@ -32,7 +32,7 @@
 	ul.main_borad li a ul li:last-child{color:#999;}
 	
 	ul.main_borad li a:hover{border-color:#eee; box-shadow: inset 1px -3px 6px rgba(0, 0, 0, 0.1); color:#222; font-weight: 800}
-	div.count-area{margin-top:30px; padding-top:35px; border-top:5px solid #f5f5f5;}
+	div.count-area{margin-top:30px; padding:20px 0 15px; border-top:5px solid #f5f5f5;}
 	div.count-area > p{font-size:14px !important;}
 	div.count-area p b{color:#007bff}
 	div.count-area div.flex p{font-size:14px; padding:0 8px; text-align:center; border-right:3px solid #ddd; border-left:3px solid #ddd; line-height:1; margin-bottom:10px}
@@ -57,7 +57,7 @@
 	
 	div.sec03 ul.flex{justify-content: space-between; align-items: center;}
 	div.sec03 ul.flex li{font-size: 12px; color:#999; width: calc(100% / 7); text-align: center; line-height: 1.3;}
-	div.sec03 ul.flex li span{display: block;}
+	div.sec03 ul.flex li span{display: block; font-size: 12px;}
 </style>
 <script> 
 	// 페이지가 로딩된 후 다시 불러온다. 그래서 제이쿼리는 위에  있어도 괜찮다. 
@@ -278,11 +278,10 @@
 					<div class="section sec03">
 						<ul class="flex">
 							<li>NO</li>
-							<li>노선명</li>
+							<li>노선명(버스종류)</li>
 							<li>정류장수</li>
-							<li>평일<span>사용수 / 번잡시간(인원) </span></li>
-							<li>토요일<span>사용수 / 번잡시간(인원) </span></li>
-							<li>일(공휴일)<span>사용수 / 번잡시간(인원) </span></li>
+							<li>사용수예측 / MAX AM </li>
+							<li>사용수예측 / MAX PM </li>
 							<li>불만접수 현황</li>
 						</ul>
 						<ul class="main-list">
@@ -290,11 +289,16 @@
 							<li>
 								<ul class="flex">
 									<li>${status.index + 1}</li>
-									<li>${list.RTE_NM}</li>
+									<li>${list.RTE_NO}<span>${list.kind} / ${list.type}</span></li>
 									<li>${list.countN}</li>
-									<li></li>
-									<li></li>
-									<li></li>
+									<li>
+										<fmt:formatNumber value="${list.calculated_value}" pattern="#,##0"/>명
+									 	/ 08:00
+									 </li>
+									<li>
+										<fmt:formatNumber value="${list.calculated_value_18}" pattern="#,##0"/>명
+									 	/ 18:00
+									 </li>
 									<li></li>
 								</ul>
 							</li>
