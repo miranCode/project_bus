@@ -77,11 +77,15 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<BoardDTO> getBoardList(String sort, String order) {
+	public List<BoardDTO> getBoardList(String sort, String order, int page, int page_size) {
 		// sort와 order를 Map에 넣어서 전달
+		int offset = (page - 1) * page_size;
+
 		Map<String, Object> params = new HashMap<>();
 		params.put("sort", sort);
 		params.put("order", order);
+		params.put("offset", offset);
+		params.put("limit", page_size);
 
 		return boardMapper.getBoardList(params); // 수정된 메서드 호출
 	}
@@ -126,4 +130,18 @@ public class BoardServiceImpl implements BoardService {
 		return boardMapper.countByStatus3(status); // 상태별 게시글 수 카운트
 	}
 
+	@Override
+	public List<BoardDTO> getAllBoards() {
+		return boardMapper.findAllBoards();
+	}
+
+	@Override
+	public List<BoardDTO> getBoardsByStatus(String status) {
+		return boardMapper.findBoardsByStatus(status);
+	}
+
+	@Override
+	public int getCountByStatus(String status) {
+		return boardMapper.countBoardsByStatus(status);
+	}
 }

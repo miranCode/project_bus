@@ -11,8 +11,10 @@
 
 	<!-- 게시글 등록 -->
 	<insert id="insert" parameterType="org.zerock.dto.BoardDTO">
-		INSERT INTO board (name, title, content, email, rte_nm)
-		VALUES (#{name}, #{title}, #{content}, #{email}, #{rteNm})
+		INSERT INTO board (name,
+		title, content, email, rte_nm)
+		VALUES (#{name}, #{title}, #{content},
+		#{email}, #{rteNm})
 	</insert>
 
 
@@ -20,7 +22,8 @@
 	<select id="selectList" resultType="org.zerock.dto.BoardDTO">
 		SELECT *
 		FROM board
-		ORDER BY bno DESC
+		ORDER BY
+		bno DESC
 		LIMIT #{offset}, #{limit};
 	</select>
 
@@ -43,13 +46,15 @@
 
 	<!-- 게시글 총 개수 조회 -->
 	<select id="selectTotalCount" resultType="int">
-		SELECT COUNT(*) FROM board
+		SELECT COUNT(*) FROM
+		board
 	</select>
 
 	<!-- 게시글 상태 업데이트 -->
 	<update id="updateStatus" parameterType="map">
 		UPDATE board
-		SET status = #{status}
+		SET status =
+		#{status}
 		WHERE bno = #{bno};
 	</update>
 
@@ -68,11 +73,13 @@
 
 	<select id="getBoardsByUserId" parameterType="String"
 		resultType="org.zerock.dto.BoardDTO">
-		SELECT * FROM board WHERE email = #{email} ORDER BY regdate DESC;
+		SELECT * FROM board WHERE email = #{email} ORDER BY regdate
+		DESC;
 	</select>
 
 	<select id="mainList" resultType="org.zerock.dto.BoardDTO">
-		SELECT * FROM board ORDER BY regdate DESC;
+		SELECT * FROM board ORDER BY
+		regdate DESC;
 	</select>
 
 	<select id="sCount" resultType="java.util.Map">
@@ -83,7 +90,8 @@
 		WHEN status = '미처리' THEN 1
 		WHEN status = '처리중' THEN 2
 		WHEN status = '완료' THEN 3
-		ELSE 4 -- 다른 상태가 있을 경우 처리
+		ELSE 4 -- 다른 상태가 있을
+		경우 처리
 		END;
 	</select>
 
@@ -101,7 +109,9 @@
 		</choose>
 		<if test="order == 'asc'">ASC</if>
 		<if test="order == 'desc'">DESC</if>
+		LIMIT #{offset}, #{limit}
 	</select>
+
 
 
 	<select id="getBoardList2" resultType="org.zerock.dto.BoardDTO">
@@ -120,7 +130,8 @@
 	</select>
 	<select id="countByRteNm" resultType="org.zerock.dto.BoardDTO">
 		SELECT RTE_NM AS rteNm
-		FROM busnum;
+		FROM
+		busnum;
 	</select>
 
 
@@ -130,7 +141,8 @@
 
 
 	<select id="getRteNmCount" resultType="int">
-		SELECT COUNT(*) FROM board WHERE rte_nm = #{bus.rteNm}
+		SELECT COUNT(*) FROM board
+		WHERE rte_nm = #{bus.rteNm}
 	</select>
 
 	<select id="countByStatus1" resultType="int">
@@ -149,6 +161,28 @@
 		SELECT COUNT(*)
 		FROM board
 		WHERE status = '완료'
+	</select>
+
+
+	<select id="findAllBoards" resultType="org.zerock.dto.BoardDTO">
+		SELECT *
+		FROM board
+	</select>
+
+	<!-- 특정 상태의 게시글 가져오기 -->
+	<select id="findBoardsByStatus" parameterType="string"
+		resultType="org.zerock.dto.BoardDTO">
+		SELECT *
+		FROM board
+		WHERE status = #{status}
+	</select>
+
+	<!-- 특정 상태의 게시글 수 계산 -->
+	<select id="countBoardsByStatus" parameterType="string"
+		resultType="int">
+		SELECT COUNT(*)
+		FROM board
+		WHERE status = #{status}
 	</select>
 
 
