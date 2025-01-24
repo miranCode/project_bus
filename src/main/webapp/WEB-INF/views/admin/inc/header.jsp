@@ -66,7 +66,7 @@
                     </h1>
                     <div class="utill">
                          <ul>
-                             <li><a href="/member/logout">LOGOUT</a></li>
+                             <li><a href="/admin/logout">LOGOUT</a></li>
                              <li><a href="/" target="_blank">사용자 페이지</a></li>
                          </ul>
                      </div>

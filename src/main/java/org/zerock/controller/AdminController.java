@@ -48,10 +48,22 @@ public class AdminController {
 	@Autowired
 	MainMapper mMapper;
 	
+	// 로그인 여부를 체크하는 메서드 추가
+	private boolean isLoggedIn(HttpSession session) {
+	    return session.getAttribute("id") != null;
+	}
+
+	
 	// admin main
 	@GetMapping(value="/")
-	public String home(BusTimeDTO BTdto, Model model) {
+	public String home(HttpSession session, BusTimeDTO BTdto, Model model) {
 		System.out.println("aaaa");
+		
+		 // 세션에서 로그인 여부 확인
+	    if (session.getAttribute("id") == null) {
+	        return "redirect:/admin/login";  // 로그인되지 않았다면 로그인 페이지로 리다이렉트
+	    }
+		
 		try {
 			List<BusTimeDTO> BTList = mService.seTime();
 			List<BoardDTO> mList = bMapper.mainList();
@@ -78,13 +90,13 @@ public class AdminController {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("controller 문제");
+			System.out.println("controller 臾몄젣");
 		}
 		
 		return "admin/index";
 	}
 	
-	// �α���
+	// 占싸깍옙占쏙옙
 	@GetMapping(value="login")
 	public String loginGo() {
 		return "admin/member/login";
@@ -99,126 +111,137 @@ public class AdminController {
 		AdminDTO login = mapper.login(mdto);
 		
 		if (login != null) {
-	        // �Է��� ��й�ȣ�� DB�� ����� ��й�ȣ ��
+	        // 占쌉뤄옙占쏙옙 占쏙옙橘占싫ｏ옙占� DB占쏙옙 占쏙옙占쏙옙占� 占쏙옙橘占싫� 占쏙옙
 	        if (encoder.matches(mdto.getPw(), login.getPw())) {
-	        	// �α��� ���� ��, ���� �ð����� lastLogin ����
-                login.setLastLogin(new Date());  // ���� �ð����� ����
-                mapper.updateLastLogin(login);  // DB�� lastLogin ������Ʈ
+	        	// 占싸깍옙占쏙옙 占쏙옙占쏙옙 占쏙옙, 占쏙옙占쏙옙 占시곤옙占쏙옙占쏙옙 lastLogin 占쏙옙占쏙옙
+                login.setLastLogin(new Date());  // 占쏙옙占쏙옙 占시곤옙占쏙옙占쏙옙 占쏙옙占쏙옙
+                mapper.updateLastLogin(login);  // DB占쏙옙 lastLogin 占쏙옙占쏙옙占쏙옙트
                 
-                // ������ ���Ѱ� �α��� ���� ó��
+                // 占쏙옙占쏙옙占쏙옙 占쏙옙占싼곤옙 占싸깍옙占쏙옙 占쏙옙占쏙옙 처占쏙옙
                 if ("BLOCKED".equals(login.getAccess())) {
-                    model.addAttribute("loginError", "�α��� ���ܵ� �����Դϴ�.");
-                    return "admin/member/login";  // ���ܵ� ������ ��� �α��� ���� ó��
+                    model.addAttribute("loginError", "占싸깍옙占쏙옙 占쏙옙占쌤듸옙 占쏙옙占쏙옙占쌉니댐옙.");
+                    return "admin/member/login";  // 占쏙옙占쌤듸옙 占쏙옙占쏙옙占쏙옙 占쏙옙占� 占싸깍옙占쏙옙 占쏙옙占쏙옙 처占쏙옙
                 }
-	            // ��й�ȣ�� ��ġ�ϸ� �α��� ����
+	            // 占쏙옙橘占싫ｏ옙占� 占쏙옙치占싹몌옙 占싸깍옙占쏙옙 占쏙옙占쏙옙
 	            session.setAttribute("id", login.getId());
 	            session.setAttribute("name", login.getName());
 	            session.setAttribute("level", login.getLevel());
-	            session.setMaxInactiveInterval(10 * 60);  // 10��(600��)
-	            return "redirect:/admin/test";  // �α��� �� ��ú���� �����̷�Ʈ
+	            session.setMaxInactiveInterval(10 * 60);  // 10占쏙옙(600占쏙옙)
+	            return "redirect:/admin/";  // 占싸깍옙占쏙옙 占쏙옙 占쏙옙첬占쏙옙占쏙옙 占쏙옙占쏙옙占싱뤄옙트
 	        } else {
-	            // ��й�ȣ ����ġ �� �α��� ���� ó��
-	            model.addAttribute("loginError", "��й�ȣ�� ��ġ���� �ʽ��ϴ�.");
-	            return "admin/member/login";  // �α��� �������� ����
+	            // 占쏙옙橘占싫� 占쏙옙占쏙옙치 占쏙옙 占싸깍옙占쏙옙 占쏙옙占쏙옙 처占쏙옙
+	            model.addAttribute("loginError", "占쏙옙橘占싫ｏ옙占� 占쏙옙치占쏙옙占쏙옙 占십쏙옙占싹댐옙.");
+	            return "admin/member/login";  // 占싸깍옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙
 	        }
 	    } else {
-	        // ���̵� ��ġ���� ������ �α��� ���� ó��
-	        model.addAttribute("loginError", "��ġ�ϴ� ������ �����ϴ�.");
-	        return "admin/member/login";  // �α��� �������� ����
+	        // 占쏙옙占싱듸옙 占쏙옙치占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占싸깍옙占쏙옙 占쏙옙占쏙옙 처占쏙옙
+	        model.addAttribute("loginError", "占쏙옙치占싹댐옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占싹댐옙.");
+	        return "admin/member/login";  // 占싸깍옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙
 	    }
 		
 	}
 	
 	@GetMapping(value="logout")
 	public String logout(HttpSession session) {
-	    session.invalidate();  // ���� ��ȿȭ
-	    return "redirect:/admin/login";  // �α׾ƿ� �� �α��� �������� �����̷�Ʈ
+	    session.invalidate();  
+	    System.out.println("로그아웃 작동");
+	    return "redirect:/admin/login";  
 	}
 	
 	
-	// ������ �߰� (GET ���, �� ȭ�鸸 ó��)
+	// 占쏙옙占쏙옙占쏙옙 占쌩곤옙 (GET 占쏙옙占�, 占쏙옙 화占썽만 처占쏙옙)
 	@GetMapping(value="join")
-	public String join(@RequestParam(value = "id", required = false) String id, Model model) {
-	    if (id != null) {
-	        // id�� ���� ��� �ش� �������� ���� ��ȸ
-	        AdminDTO admin = mapper.selectAdminById(id);
-	        model.addAttribute("admin", admin); // ������ ������ �𵨿� �߰�
+	public String join(@RequestParam(value = "id", required = false) String id, Model model, HttpSession session) {
+		if (session.getAttribute("id") == null) {
+	        return "redirect:/admin/login";  // 로그인되지 않았다면 로그인 페이지로 리다이렉트
 	    }
-	    return "admin/member/addAdmin";  // ������ �߰� ȭ��
+	    if (id != null) {
+	        // id占쏙옙 占쏙옙占쏙옙 占쏙옙占� 占쌔댐옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙회
+	        AdminDTO admin = mapper.selectAdminById(id);
+	        model.addAttribute("admin", admin); // 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏜델울옙 占쌩곤옙
+	    }
+	    return "admin/member/addAdmin";  // 占쏙옙占쏙옙占쏙옙 占쌩곤옙 화占쏙옙
 	}
 	
 	@PostMapping(value="join")
-	public String join(@ModelAttribute AdminDTO mdto, Model model) {
+	public String join(@ModelAttribute AdminDTO mdto, Model model, HttpSession session) {
+		if (session.getAttribute("id") == null) {
+	        return "redirect:/admin/login";  // 로그인되지 않았다면 로그인 페이지로 리다이렉트
+	    }
 	    if (mdto.getId() != null && !mdto.getId().isEmpty()) {
-	        // ���� �������� ������ �����ϴ� ����
+	        // 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占싹댐옙 占쏙옙占쏙옙
 	        int result = mapper.updateAdmin(mdto);
 	        
 	        if (result > 0) {
-	            return "redirect:/admin/manageAccount";  // ���� �� ������ ��� �������� �����̷�Ʈ
+	            return "redirect:/admin/manageAccount";  // 占쏙옙占쏙옙 占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占� 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占싱뤄옙트
 	        }
 	    }
 
-	    // �� �����ڸ� �߰��ϴ� ���� (���� ID �ߺ� �˻� �� �߰�)
+	    // 占쏙옙 占쏙옙占쏙옙占쌘몌옙 占쌩곤옙占싹댐옙 占쏙옙占쏙옙 (占쏙옙占쏙옙 ID 占쌩븝옙 占싯삼옙 占쏙옙 占쌩곤옙)
 	    if (mapper.idCheck(mdto.getId())) {
-	        model.addAttribute("idError", "�̹� �����ϴ� ID�Դϴ�.");
-	        return "admin/member/addAdmin";  // �ߺ� ID�� ���� ��� ������ �߰� �������� �ٽ� �����̷�Ʈ
+	        model.addAttribute("idError", "占싱뱄옙 占쏙옙占쏙옙占싹댐옙 ID占쌉니댐옙.");
+	        return "admin/member/addAdmin";  // 占쌩븝옙 ID占쏙옙 占쏙옙占쏙옙 占쏙옙占� 占쏙옙占쏙옙占쏙옙 占쌩곤옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쌕쏙옙 占쏙옙占쏙옙占싱뤄옙트
 	    }
 
-	    // ��й�ȣ ��ȣȭ ó��
+	    // 占쏙옙橘占싫� 占쏙옙호화 처占쏙옙
 	    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 	    if (mdto.getPw() != null && !mdto.getPw().isEmpty()) {
 	        String hashedPassword = encoder.encode(mdto.getPw());
-	        mdto.setPw(hashedPassword);  // �ؽõ� ��й�ȣ�� ����
+	        mdto.setPw(hashedPassword);  // 占쌔시듸옙 占쏙옙橘占싫ｏ옙占� 占쏙옙占쏙옙
 	    }
 
-	    // �� ������ ���� �߰�
+	    // 占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쌩곤옙
 	    int result = mapper.join(mdto);
 	    if (result > 0) {
-	        return "redirect:/admin/manageAccount";  // ������ ��� �������� �����̷�Ʈ
+	        return "redirect:/admin/manageAccount";  // 占쏙옙占쏙옙占쏙옙 占쏙옙占� 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占싱뤄옙트
 	    }
 	    
-	    // ���� ��, ������ �߰� �������� �����̷�Ʈ
+	    // 占쏙옙占쏙옙 占쏙옙, 占쏙옙占쏙옙占쏙옙 占쌩곤옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占싱뤄옙트
 	    return "redirect:/admin/join";
 	}
 
 
-	// ������ �߰� ó�� (POST ���)
+	// 占쏙옙占쏙옙占쏙옙 占쌩곤옙 처占쏙옙 (POST 占쏙옙占�)
 	@PostMapping("/admin/joinPro")
-	public String joinPro(@ModelAttribute AdminDTO mdto, Model model) {
-	    // ID �ߺ� üũ
+	public String joinPro(@ModelAttribute AdminDTO mdto, Model model, HttpSession session) {
+		if (session.getAttribute("id") == null) {
+	        return "redirect:/admin/login";  // 로그인되지 않았다면 로그인 페이지로 리다이렉트
+	    }
+		
+	    // ID 占쌩븝옙 체크
 	    if (mapper.idCheck(mdto.getId())) {
-	        model.addAttribute("idError", "�̹� �����ϴ� ID�Դϴ�.");
-	        return "admin/member/addAdmin";  // �ߺ� ID�� ���� ��� ������ �߰� �������� �ٽ� �����̷�Ʈ
+	        model.addAttribute("idError", "占싱뱄옙 占쏙옙占쏙옙占싹댐옙 ID占쌉니댐옙.");
+	        return "admin/member/addAdmin";  // 占쌩븝옙 ID占쏙옙 占쏙옙占쏙옙 占쏙옙占� 占쏙옙占쏙옙占쏙옙 占쌩곤옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쌕쏙옙 占쏙옙占쏙옙占싱뤄옙트
 	    }
 
-	    // ��й�ȣ ��ȣȭ ó��
+	    // 占쏙옙橘占싫� 占쏙옙호화 처占쏙옙
 	    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 	    if (mdto.getPw() != null && !mdto.getPw().isEmpty()) {
 	        String hashedPassword = encoder.encode(mdto.getPw());
-	        mdto.setPw(hashedPassword);  // �ؽõ� ��й�ȣ�� ����
+	        mdto.setPw(hashedPassword);  // 占쌔시듸옙 占쏙옙橘占싫ｏ옙占� 占쏙옙占쏙옙
 	    }
 
-	    // ���� �������� ������ �����ͼ� lastLogin �� ����
+	    // 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占싶쇽옙 lastLogin 占쏙옙 占쏙옙占쏙옙
 	    if (mdto.getId() != null && !mdto.getId().isEmpty()) {
-	        AdminDTO existingAdmin = mapper.selectAdminById(mdto.getId());  // ���� ������ ���� ��ȸ
+	        AdminDTO existingAdmin = mapper.selectAdminById(mdto.getId());  // 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙회
 	        if (existingAdmin != null) {
-	            mdto.setLastLogin(existingAdmin.getLastLogin());  // ���� lastLogin ���� �״�� ���
+	            mdto.setLastLogin(existingAdmin.getLastLogin());  // 占쏙옙占쏙옙 lastLogin 占쏙옙占쏙옙 占쌓댐옙占� 占쏙옙占�
 	        } else {
-	            mdto.setLastLogin(null);  // �� �����ڶ�� lastLogin�� null�� ���� (�ʿ�� �ٸ� ó��)
+	            mdto.setLastLogin(null);  // 占쏙옙 占쏙옙占쏙옙占쌘띰옙占� lastLogin占쏙옙 null占쏙옙 占쏙옙占쏙옙 (占십울옙占� 占쌕몌옙 처占쏙옙)
 	        }
 	    }
 
-	    // ������ ���� �߰�
+	    // 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쌩곤옙
 	    int result = mapper.join(mdto);
 	    if (result > 0) {
-	        return "redirect:/admin/manageAccount";  // ������ ��� �������� �����̷�Ʈ
+	        return "redirect:/admin/manageAccount";  // 占쏙옙占쏙옙占쏙옙 占쏙옙占� 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占싱뤄옙트
 	    }
 	    
-	    // ���� ��, ������ �߰� �������� �����̷�Ʈ
+	    // 占쏙옙占쏙옙 占쏙옙, 占쏙옙占쏙옙占쏙옙 占쌩곤옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占싱뤄옙트
 	    return "redirect:/admin/join";
 	}
 	
-	//Id �ߺ� Ȯ��
+	//Id 占쌩븝옙 확占쏙옙
 	@PostMapping("/idCheck")
 	@ResponseBody
 	public ResponseEntity<Boolean> confirmId(String id) {
@@ -226,56 +249,64 @@ public class AdminController {
 	    return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 	
-	// ������ ��� ��ȸ �� ����¡ ó��
+	// 占쏙옙占쏙옙占쏙옙 占쏙옙占� 占쏙옙회 占쏙옙 占쏙옙占쏙옙징 처占쏙옙
 	@GetMapping("manageAccount")
-	public String manageAccounts(@RequestParam(value = "page", defaultValue = "1") int currentPage, Model model) {
-	    int pageSize = 10;  // �� �������� ������ ������ ��
-	    int startRow = (currentPage - 1) * pageSize;  // ���� �� ��ȣ
+	public String manageAccounts(@RequestParam(value = "page", defaultValue = "1") int currentPage, Model model, HttpSession session) {
+		if (!isLoggedIn(session)) {
+	        return "redirect:/admin/login";  // 로그인되지 않았다면 로그인 페이지로 리다이렉트
+	    }
+		
+	    int pageSize = 10;  // 占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙
+	    int startRow = (currentPage - 1) * pageSize;  // 占쏙옙占쏙옙 占쏙옙 占쏙옙호
 
-	    List<AdminDTO> adminList = mapper.selectAdminList(startRow, pageSize);  // ������ ��� ��ȸ
-	    int totalAdminCount = mapper.countAdmin();  // ��ü ������ ��
-	    int totalPage = (int) Math.ceil((double) totalAdminCount / pageSize);  // ��ü ������ ��
+	    List<AdminDTO> adminList = mapper.selectAdminList(startRow, pageSize);  // 占쏙옙占쏙옙占쏙옙 占쏙옙占� 占쏙옙회
+	    int totalAdminCount = mapper.countAdmin();  // 占쏙옙체 占쏙옙占쏙옙占쏙옙 占쏙옙
+	    int totalPage = (int) Math.ceil((double) totalAdminCount / pageSize);  // 占쏙옙체 占쏙옙占쏙옙占쏙옙 占쏙옙
 
 	    model.addAttribute("adminList", adminList);
 	    model.addAttribute("currentPage", currentPage);
 	    model.addAttribute("totalPage", totalPage);
 	    
-	    return "admin/member/manageAccount";  // ������ ��� �������� �̵�
+	    return "admin/member/manageAccount";  // 占쏙옙占쏙옙占쏙옙 占쏙옙占� 占쏙옙占쏙옙占쏙옙占쏙옙 占싱듸옙
 	}
 	
-	// ������ ���� ó��
+	// 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 처占쏙옙
 	@PostMapping("updateAccount")
 	public String updateAccount(@RequestParam("selectedIds") List<String> selectedIds,
 	                            @RequestParam Map<String, String> levels,
-	                            @RequestParam Map<String, String> accesses) {
+	                            @RequestParam Map<String, String> accesses,
+	                            HttpSession session) {
+		if (!isLoggedIn(session)) {
+	        return "redirect:/admin/login";  // 로그인되지 않았다면 로그인 페이지로 리다이렉트
+	    }
 	    for (String id : selectedIds) {
 	        AdminDTO admin = new AdminDTO();
 	        admin.setId(id);
 	        
-	        // level�� access ���� �� �����ڸ��� �ٸ��� ���޵ǹǷ�, �ش� �������� ���� �����ɴϴ�.
+	        // level占쏙옙 access 占쏙옙占쏙옙 占쏙옙 占쏙옙占쏙옙占쌘몌옙占쏙옙 占쌕몌옙占쏙옙 占쏙옙占쌨되므뤄옙, 占쌔댐옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙占심니댐옙.
 	        String level = levels.get("level_" + id);  // "level_${admin.id}"
 	        String access = accesses.get("access_" + id);  // "access_${admin.id}"
 	        
 	        admin.setLevel(level);
 	        admin.setAccess(access);
 	        
-	        // ��й�ȣ ������ ���� ��� ó�� (��й�ȣ ó�� ���� �߰�)
+	        // 占쏙옙橘占싫� 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占� 처占쏙옙 (占쏙옙橘占싫� 처占쏙옙 占쏙옙占쏙옙 占쌩곤옙)
 	        if (admin.getPw() != null && !admin.getPw().isEmpty()) {
 	            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 	            String hashedPassword = encoder.encode(admin.getPw());
-	            admin.setPw(hashedPassword);  // ��й�ȣ�� �ؽõ� ������ ����
+	            admin.setPw(hashedPassword);  // 占쏙옙橘占싫ｏ옙占� 占쌔시듸옙 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙
 	        }
 	        
-	        // ������ ���� ������Ʈ
+	        // 占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙 占쏙옙占쏙옙占쏙옙트
 	        int result = mapper.updateAdmin(admin);
 	        
-	        // ����� ���� ó�� (���� �� �����̷�Ʈ Ȥ�� �ٸ� ó���� �� �� ����)
+	        // 占쏙옙占쏙옙占� 占쏙옙占쏙옙 처占쏙옙 (占쏙옙占쏙옙 占쏙옙 占쏙옙占쏙옙占싱뤄옙트 혹占쏙옙 占쌕몌옙 처占쏙옙占쏙옙 占쏙옙 占쏙옙 占쏙옙占쏙옙)
 	        if (result == 0) {
-	            // ������Ʈ ���� ��
+	            // 占쏙옙占쏙옙占쏙옙트 占쏙옙占쏙옙 占쏙옙
 	            return "redirect:/admin/manageAccount?error=true";
 	        }
 	    }
 	    
-	    return "redirect:/admin/manageAccount";  // ���� �� ������ ��� �������� �����̷�Ʈ
+	    return "redirect:/admin/manageAccount";  // 占쏙옙占쏙옙 占쏙옙 占쏙옙占쏙옙占쏙옙 占쏙옙占� 占쏙옙占쏙옙占쏙옙占쏙옙 占쏙옙占쏙옙占싱뤄옙트
 	}
 } 
