@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <% 
 	request.setAttribute("pageTitle", "사용자 로그인");
-    request.setAttribute("bodyClass", "member");
+    request.setAttribute("bodyClass", "member login");
 %>
 
 <jsp:include page="../inc/header.jsp" />
@@ -21,7 +21,7 @@
           </div>
           <div class="sign-in-option">
             <div>
-              <input class="auto_login" type="checkbox"> 자동 로그인
+              <input id="auto" name="auto" class="auto_login" type="checkbox" /> <label for="auto">자동 로그인</label>
             </div>
             <div>
               <a href="join">회원가입</a>

@@ -19,11 +19,13 @@
        </div>
         <ul>
             <li>
-                <a href="/qna/write">불편사항 접수</a>
+                <a href="/qna/write">버스 불편사항 접수하기</a>
             </li>
-            <li>
-                <a href=""></a>
-            </li>
+            <c:if test="${not empty uname}">
+	            <li>
+	                <a href="/member/list">나의 불편사항 접수 현황</a>
+	            </li>
+            </c:if>
         </ul>
     </div>
 </nav>

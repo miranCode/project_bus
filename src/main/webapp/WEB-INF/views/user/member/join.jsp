@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <% 
 	request.setAttribute("pageTitle", "사용자 회원가입");
-    request.setAttribute("bodyClass", "member");
+    request.setAttribute("bodyClass", "member join");
 %>
 <jsp:include page="../inc/header.jsp" />
 				<!-- 회원가입 jsp123 -->

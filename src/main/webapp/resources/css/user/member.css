@@ -13,6 +13,8 @@ body.member #wrap{
   overflow: hidden;  
 }
 
+body.member.login #header{display:none;}
+
 #container{
   width: 100%;
   height: 100vh;
@@ -33,13 +35,13 @@ body.member #wrap{
   width: 768px;
   min-height: 480px;
   overflow: hidden;
-  padding: 30px 30px;
+  padding:50px 80px 30px ;
+  background: rgba(255, 255, 255, 0.2);
 }
 #login-form, #signup-form {
   background: #ebecf0;
   display: flex;
   flex-direction: column;
-  padding: 0 50px;
   height: 100%;
   width: 100%;
   justify-content: center;
@@ -56,13 +58,13 @@ body.member #wrap{
   background: #eee;
   padding: 16px;
   margin: 8px 0;
-  width: 65%;
+  width: 100%;
   border: 0;
   outline: none;
   border-radius: 20px;
   box-shadow: inset 7px 2px 10px #babebc, inset -5px -5px 12px #fff;
 }
-body button {
+body.member #container button {
   border-radius: 20px;
   border: none;
   outline: none;
@@ -75,13 +77,22 @@ body button {
   cursor: pointer;
   transition: transform 80ms ease-in;
 }
+
+body.member.join #container button{
+	padding: 8px 12px;
+}
+
 .form_btn {
   box-shadow: -5px -5px 10px #fff, 5px 5px 8px #babebc;
+  padding: 15px 45px !important;
   justify-content: center;
   align-items: center;
+  width:100%;
 }
-.form_btn:active {
+.form_btn:active,
+.form_btn:hover {
   box-shadow: inset 1px 1px 2px #babebc, inset -1px -1px 2px #fff;
+  color:#007bff ;
 }
 .sign-in-container {
   position: relative;
@@ -125,41 +136,51 @@ p {
   box-shadow: -5px -5px 10px #fff, 5px 5px 8px #babebc;
   cursor: pointer;
 }
-.social-links div:active {
+.social-links div:active,
+.social-links div:hover {
   box-shadow: inset 1px 1px 2px #babebc, inset -1px -1px 2px #fff;
+  color:#007bff ;
 }
 .social-links a {
   color: #000;
+  display:block;
+  width:100%; 
+  height:100%;
+  text-align:center;
 }
+.social-links a i{ line-height:50px}
 .sign-in-option {
-  display: flex;
-  width: 100%;
-  justify-content: space-between; /* 양쪽 끝 정렬 */
-  align-items: center; /* 세로 중앙 정렬 */
-  padding: 10px 80px; /* 여백 추가 */
-  margin-bottom: 20px;
-  font-size: 13px;
+	position:relative;
+	display: flex;
+	width: 100%;
+	justify-content: space-between; /* 양쪽 끝 정렬 */
+	align-items: center; /* 세로 중앙 정렬 */
+	padding: 10px 0; /* 여백 추가 */
+	font-size: 13px;
 }
 
 .sign-in-option a {
   text-decoration: none; /* 하이퍼링크 밑줄 제거 */
   color: inherit; /* 부모 요소의 글자색 상속 */
   margin-left: 10px; /* 링크 간격 유지 */
+  padding-left:10px;
+  border-left:1px solid #ddd;
 }
+.sign-in-option a:first-child{border-left:0}
 
 .sign-in-option a:visited,
-.sign-in-option a:hover,
 .sign-in-option a:active {
   color: inherit; /* 방문, 호버, 클릭 시 글자색 유지 */
   text-decoration: none; /* 밑줄 제거 */
 }
+.sign-in-option a:hover{color:#007bff }
 
 #login-span {
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-  width: 80%; /* 전체 너비 사용 */
+  width: 100%; /* 전체 너비 사용 */
   text-align: center;
   padding: 10px 0px;
 }
@@ -168,7 +189,7 @@ p {
 #login-span::after {
   content: "";
   flex: 1; /* 선의 길이를 유동적으로 조정 */
-  border-top: 1px solid #000; /* 선의 색상과 두께 설정 */
+  border-top: 1px solid #ddd; /* 선의 색상과 두께 설정 */
   margin: 0 10px; /* 선과 텍스트 사이 여백 */
 }
 
@@ -190,7 +211,7 @@ p {
 }
 .Auth_btn, .Auth_btn2 {
   position: absolute;
-  right: 110px; /* 오른쪽 끝에 위치 */
+  right: 0; /* 오른쪽 끝에 위치 */
   top: 30%; /* 세로 중앙 정렬 */
   transform: translateY(-50%); /* 정확한 세로 중앙 정렬 */
   padding: 10px 20px;
@@ -202,8 +223,10 @@ p {
   z-index: 1; /* 버튼이 입력 필드 위로 오게 설정 */
 }
 
-.Auth_btn:active {
+.Auth_btn:active,
+.Auth_btn:hover {
   box-shadow: inset 1px 1px 2px #babebc, inset -1px -1px 2px #fff;
+  color:#007bff ;
 }
 
 .email-code{
@@ -225,11 +248,14 @@ p {
   text-decoration: none; /* 하이퍼링크 밑줄 제거 */
   color: inherit; /* 부모 요소의 글자색 상속 */
 }
-
+.sign-up-option a:hover{color:#007bff; bordre-bottom:1px solid #ddd;}
 #timer{
 	position: absolute;
-	top : 30%;
-	right : 70px;
+    top: 50%;
+    right: 143px;
+    transform: translateY(-50%);
+    font-size: 14px;
+    color: red;
 }
 
 form #myinfo-form{

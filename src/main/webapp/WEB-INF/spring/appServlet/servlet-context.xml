@@ -23,6 +23,8 @@
 	
 	<context:component-scan base-package="org.zerock.controller" />
 	
+	<beans:import resource="classpath:config/cors-config.xml"/>
+
 	
 	
 </beans:beans>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- 
+	<cors>
+		<mapping path="/**" allowed-origins="*"/>
+	</cors>
+	 !-->
+	<!-- 아래는 특정 도메인 허용 !-->
+	
+    <mvc:cors>
+        <mvc:mapping path="/**" allowed-origins="http://localhost:8080"/>
+    </mvc:cors>
+    
+    
+ 
+    <!-- 아래는 여러 특정 도메인 허용
+    <cors>
+        <mapping path="/**" allowed-origins="http://localhost:1841, http://localhost:1234, http://localhost:5678"/>
+    </cors>
+    
+    -->
+    
+</beans:beans>
