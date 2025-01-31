@@ -67,12 +67,12 @@ public class ApiController {
 	@GetMapping("busUse")
 	public String busUse(BusUseDTO budto, Model model, HttpSession session) {
 		// 세션에서 로그인된 사용자 확인
-	    if (session.getAttribute("id") == null) {
-	        return "redirect:/admin/login";  // 로그인되지 않았다면 로그인 페이지로 리다이렉트
-	    }
+	    //if (session.getAttribute("id") == null) {
+	    //    return "redirect:/admin/login";  // 로그인되지 않았다면 로그인 페이지로 리다이렉트
+	    //}
 		List<BusUseDTO> responses = aService.busUseList(budto);
 		
-		model.addAttribute("busUseList", responses);
+		//model.addAttribute("busUseList", responses);
 		model.addAttribute("roSize", responses.size());
 		return "admin/bus/busUse";
 	}
@@ -82,15 +82,15 @@ public class ApiController {
 		List<BusUseDTO> apiData = new ArrayList<>();
 		try {
 			apiData = aService.busUseApi(); 
-	        System.out.println("API �샇異쒖꽦怨�");
+	        System.out.println("API 연결 성공");
 		}catch (Exception e) {
-			System.out.println("API �샇異� 以� �삤瑜� 諛쒖깮: " + e.getMessage());
+			System.out.println("API 실패: " + e.getMessage());
 	        e.printStackTrace();
 	        return null;
 		}
 		
 		
-		return ResponseEntity.ok(apiData);  // JSON �삎�떇�쑝濡� �쓳�떟 諛섑솚
+		return ResponseEntity.ok(apiData);  
 		
 	}
 	@GetMapping("route")

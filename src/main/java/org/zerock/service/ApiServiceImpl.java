@@ -95,21 +95,19 @@ public class ApiServiceImpl implements ApiService {
 		return aMapper.seBusUse(budto);
 	}
 	
-	// 踰꾩뒪�끂�꽑蹂� �젙瑜섏옣蹂� �듅�븯李� �씤�썝
 	public List<BusUseDTO> busUseList(BusUseDTO budto) {
 		return aMapper.busUseList(budto);
 	}
 	
-	// 踰꾩뒪 �끂�꽑 api 濡� 諛쏆븘�삩 �뜲�씠�꽣媛� �엳�쑝硫� ���옣�븯吏� �븡怨� �뾾�쑝硫� ���옣�븳�떎. 
 	public void saveBusUse() {
 		List<BusUseDTO> busUse = busUseApi();
 		for(BusUseDTO bdto : busUse) {
 			int result = seBusUse(bdto);
 			if(result == 0) {
 				int inR = aMapper.inBusUse(bdto);
-				System.out.println("���옣" + inR);
+				System.out.println("저장" + inR);
 			}else {
-				System.out.println("���옣�븞�븿, �씠誘� 議댁옱�븯�뒗 �뜲�씠�꽣");
+				System.out.println("저장실패");
 			}
 		}
 	}
@@ -117,21 +115,17 @@ public class ApiServiceImpl implements ApiService {
 	public List<BusUseDTO> busUseApi(){
 		
 		List<BusUseDTO> busUseList = new ArrayList<>();
-		// �떆�옉�씪遺��꽣 醫낅즺�씪源뚯�
 		// 20241201
 
-		String startDate = "20250114";
+		String startDate = "20250115";
 		String endDate = "20250117";
 		
-		// �궇吏� �룷留룻꽣 �꽕�젙
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
 
-        // LocalDate濡� 蹂��솚
         LocalDate start = LocalDate.parse(startDate, formatter);
         LocalDate end = LocalDate.parse(endDate, formatter);
         
         for (LocalDate date = start; !date.isAfter(end); date = date.plusDays(1)) {
-        	// �궇吏쒕�� 臾몄옄�뿴濡� 蹂��솚 (yyyyMMdd �삎�떇)
             String dateString = date.format(formatter);
             
             int startIndex = 1;
@@ -139,9 +133,8 @@ public class ApiServiceImpl implements ApiService {
     		Boolean rolling = true;
     		int forCount = 1;
             while (rolling) {
-                // URL �깮�꽦
                 String apiUrl = String.format("http://openapi.seoul.go.kr:8088/7a4a7047727468663533544a6c4747/json/CardBusStatisticsServiceNew/%d/%d/%s", startIndex, endIndex, dateString);
-                String response = restTemplate.getForObject(apiUrl, String.class); // getForObject() 硫붿꽌�뱶�뒗 �꽌踰꾩쓽 �쓳�떟 蹂몃Ц�쓣 吏��젙�맂 responseType �겢�옒�뒪濡� 蹂��솚�븯�뿬 諛섑솚
+                String response = restTemplate.getForObject(apiUrl, String.class); // getForObject() 
                 String codeInfo = null;
                 System.out.println("Generated API URL up: " + apiUrl);
                 
@@ -149,7 +142,7 @@ public class ApiServiceImpl implements ApiService {
                     ObjectMapper objectMapper = new ObjectMapper();  
                     JsonNode rootNode = objectMapper.readTree(response); 
                     JsonNode rowNode = rootNode.path("CardBusStatisticsServiceNew").path("row"); 
-                    // ObjectMapper瑜� �궗�슜�븯�뿬 row 諛곗뿴�쓣 List<BusDTO>濡� 蹂��솚
+                    // ObjectMapper
                     busUseList = objectMapper.convertValue(rowNode, objectMapper.getTypeFactory().constructCollectionType(List.class, BusUseDTO.class));
                     
                     System.out.println(">>>>>>>>>>>>>>>>>>> 1" + rootNode);
@@ -158,25 +151,25 @@ public class ApiServiceImpl implements ApiService {
                 	codeInfo = rootNode.path("CardBusStatisticsServiceNew").path("RESULT").path("CODE").asText();
                 	
                 	List<BusUseDTO> busUse = busUseList;
-                	System.out.println(startIndex + " / " + endIndex + " / �궇吏� " + dateString + "(" + rowCount + ")" + ">>>>>>>>>>>>>>>>>>> 2" + busUse);
+                	System.out.println(startIndex + " / " + endIndex + " / " + dateString + "(" + rowCount + ")" + ">>>>>>>>>>>>>>>>>>> 2" + busUse);
                 	
             		for(BusUseDTO bdto : busUse) {
             			int result = seBusUse(bdto);
             			
             			if(result == 0) {
             				int inR = aMapper.inBusUse(bdto);
-            				System.out.println("���옣" + forCount);
+            				System.out.println("저장" + forCount);
             			}else {
-            				System.out.println("���옣�븞�븿, �씠誘� 議댁옱�븯�뒗 �뜲�씠�꽣" + forCount);
+            				System.out.println("저장안됨" + forCount);
             			}
             			forCount += 1;
             		}
                 	
                 	
-                	System.out.println("api �뿰寃� �꽦怨�");
+                	System.out.println("api 연결성공");
                 }catch (Exception e) {
                 	e.printStackTrace();
-                	System.out.println("api �뿰寃� �삤瑜�");
+                	System.out.println("api 실패");
 				}
                 // �깮�꽦�맂 API URL 異쒕젰
                 // startNum怨� endNum�쓣 1000�뵫 利앷�

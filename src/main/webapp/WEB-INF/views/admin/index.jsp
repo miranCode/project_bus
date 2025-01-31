@@ -291,39 +291,36 @@
 							</ul>
 							<div class="tab-content">
 								<c:forEach var="i" begin="0" end="2">
-									<div class="tab-box">
-										<ul class="flex">
-											<li>no</li>
-											<li>노선명(버스종류)</li>
-											<li>사용수예측 / MAX AM </li>
-											<li>사용수예측 / MAX PM </li>
-											<li>불만접수 현황</li>
-										</ul>
-										<ul class="main-list">
-											<c:forEach var="list" items="${routeTurn}" > 
-												<c:set var="type" value="${i == 0 ? '서울간선버스' : (i == 1 ? '서울지선버스' : (i == 2 ? '서울마을버스' : ''))}" />
-												<c:if test="${list.type == type}" >
-													<c:set var="no" value="${no + 1}" />
-													<li>
-														<ul class="flex">
-															<li>${no}</li>
-															<li>${list.RTE_NO}<span>${list.kind} / ${list.type}</span></li>
-															<li>
-																약 <fmt:formatNumber value="${list.calculated_value}" pattern="#,##0"/>명
-															 	/ 08:00
-															 </li>
-															<li>
-																약 <fmt:formatNumber value="${list.calculated_value_18}" pattern="#,##0"/>명
-															 	/ 18:00
-															 </li>
-															<li></li>
-														</ul>
-													</li>
-												</c:if>
-											</c:forEach>
-										</ul>
-									</div>
+								    <div class="tab-box">
+								        <ul class="flex">
+								            <li>no</li>
+								            <li>노선명(버스종류)</li>
+								            <li>사용수예측 / MAX AM</li>
+								            <li>사용수예측 / MAX PM</li>
+								            <li>불만접수 현황</li>
+								        </ul>
+								        <ul class="main-list">
+								            <c:forEach var="list" items="${routeTurn}" varStatus="status">
+								                <c:set var="type" value="${i == 0 ? '서울간선버스' : (i == 1 ? '서울지선버스' : (i == 2 ? '서울마을버스' : ''))}" />
+								                    <c:set var="no" value="${no + 1}" />
+								                    <li>
+							                            <ul class="flex">
+							                                <li>${no}</li>
+							                                <li>${list.RTE_NO}<span>${list.kind} / ${list.type}</span></li>
+							                                <li>
+							                                    약 <fmt:formatNumber value="${list.calculated_value}" pattern="#,##0"/>명 / 08:00
+							                                </li>
+							                                <li>
+							                                    약 <fmt:formatNumber value="${list.calculated_value_18}" pattern="#,##0"/>명 / 18:00
+							                                </li>
+							                                <li></li>
+							                            </ul>
+								                    </li>
+								            </c:forEach>
+								        </ul>
+								    </div>
 								</c:forEach>
+
 							</div>
 						</div>
 					</div>

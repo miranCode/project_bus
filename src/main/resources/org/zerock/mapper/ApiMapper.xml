@@ -24,13 +24,13 @@
 	</select>
 	
 	<insert id="inBusUse" parameterType="org.zerock.dto.BusUseDTO">
-		insert into bususe(USE_YMD, RTE_ID, RTE_NO, RTE_NM, STOPS_ID, STOPS_ARS_NO, SBWY_STNS_NM, GTON_TNOPE, GTOFF_TNOPE, REG_YMD)
-		values (#{USE_YMD}, #{RTE_ID}, #{RTE_NO}, #{RTE_NM}, #{STOPS_ID}, #{STOPS_ARS_NO}, #{SBWY_STNS_NM}, #{GTON_TNOPE}, #{GTOFF_TNOPE}, #{REG_YMD});
+		insert into bususe(USE_YMD, RTE_ID, RTE_NO, RTE_NM, STOPS_ID, SBWY_STNS_NM, GTON_TNOPE, GTOFF_TNOPE, REG_YMD)
+		values (#{USE_YMD}, #{RTE_ID}, #{RTE_NO}, #{RTE_NM}, #{STOPS_ID}, #{SBWY_STNS_NM}, #{GTON_TNOPE}, #{GTOFF_TNOPE}, #{REG_YMD});
 	</insert>
 	
 	<select id="seBusUse" resultType="Integer">
 		select count(*) from bususe 
-		where USE_YMD = #{USE_YMD} and RTE_ID = #{RTE_ID} and RTE_NO = #{RTE_NO} and RTE_NM = #{RTE_NM} and STOPS_ID = #{STOPS_ID} and STOPS_ARS_NO = #{STOPS_ARS_NO} and SBWY_STNS_NM = #{SBWY_STNS_NM} and GTON_TNOPE = #{GTON_TNOPE} and GTOFF_TNOPE = #{GTOFF_TNOPE} and REG_YMD = #{REG_YMD}
+		where USE_YMD = #{USE_YMD} and RTE_ID = #{RTE_ID} and RTE_NO = #{RTE_NO} and RTE_NM = #{RTE_NM} and STOPS_ID = #{STOPS_ID} and SBWY_STNS_NM = #{SBWY_STNS_NM} and GTON_TNOPE = #{GTON_TNOPE} and GTOFF_TNOPE = #{GTOFF_TNOPE} and REG_YMD = #{REG_YMD}
 		
 	</select>
 	<!-- 기간  -->
@@ -125,6 +125,7 @@
 			CASE
 				WHEN DAYOFWEEK(ro.CRTR_DD) = 1 THEN '공휴일'
 				WHEN DAYOFWEEK(ro.CRTR_DD) = 7 THEN '토요일'
+				when DATE_FORMAT(ro.CRTR_DD, '%y.%m.%d') = '25.01.01' THEN '공휴일'
 				ELSE '평일'
 			END AS day,
 			ro.RTE_ID as busid, 
