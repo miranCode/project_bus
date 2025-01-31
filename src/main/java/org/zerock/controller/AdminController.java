@@ -60,9 +60,9 @@ public class AdminController {
 		System.out.println("aaaa");
 		
 		 // 세션에서 로그인 여부 확인
-	    if (session.getAttribute("id") == null) {
-	        return "redirect:/admin/login";  // 로그인되지 않았다면 로그인 페이지로 리다이렉트
-	    }
+//	    if (session.getAttribute("id") == null) {
+//	        return "redirect:/admin/login";  // 로그인되지 않았다면 로그인 페이지로 리다이렉트
+//	    }
 		
 		try {
 			List<BusTimeDTO> BTList = mService.seTime();
