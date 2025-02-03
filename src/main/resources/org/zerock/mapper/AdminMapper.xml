@@ -10,35 +10,35 @@
 	<select id="login" resultType="org.zerock.dto.AdminDTO">
 		<!-- select 결과를 resultType="org.zerock.dto.MemberDTO" 으로 보낸다  -->
 		<!-- ? 처리를 #{} 변경 -->
-    	SELECT id, pw, name FROM manager WHERE id=#{id}
+    	SELECT id, pw, name FROM manager WHERE id=#{id};
     	<!--  -->
 	</select>
-	<!-- 250110 -->
+	
 	<insert id="join" parameterType="org.zerock.dto.AdminDTO">
-		insert into manager (id, pw, name, regidate, access) 
-		values(#{id}, #{pw}, #{name}, #{regidate}, #{access});
+	    insert into manager (id, pw, name, regidate, access, lastLogin) 
+	    values(#{id}, #{pw}, #{name}, NOW(), #{access}, #{lastLogin});
 	</insert>
 	
 	<select id="idCheck" resultType="boolean">
-    	SELECT COUNT(*) > 0 FROM manager WHERE id = #{id}
+    	SELECT COUNT(*) > 0 FROM manager WHERE id = #{id};
 	</select>
 	
 	<update id="updateLastLogin" parameterType="org.zerock.dto.AdminDTO">
         UPDATE manager 
 	    SET lastLogin = #{lastLogin}
-	    WHERE id = #{id}
+	    WHERE id = #{id};
     </update>
     
     <!-- 관리자 목록 조회 -->
 	<select id="selectAdminList" resultType="org.zerock.dto.AdminDTO">
 	    SELECT *
 	    FROM manager
-	    LIMIT #{startRow}, #{pageSize}
+	    LIMIT #{startRow}, #{pageSize};
 	</select>
 	
 	<!-- 전체 관리자 수 조회 -->
 	<select id="countAdmin" resultType="int">
-	    SELECT COUNT(*) FROM manager
+	    SELECT COUNT(*) FROM manager;
 	</select>
 	
 	<!-- 관리자 정보 수정 -->
@@ -48,12 +48,12 @@
 	        level = #{level},
 	        access = #{access},
 	        pw = #{pw}
-	    WHERE id = #{id}
+	    WHERE id = #{id};
 	</update>
 	
 	<select id="selectAdminById" resultType="org.zerock.dto.AdminDTO">
 	    SELECT id, pw, name, regidate, lastLogin, level, access
 	    FROM manager
-	    WHERE id = #{id}
+	    WHERE id = #{id};
 	</select>
 </mapper>
