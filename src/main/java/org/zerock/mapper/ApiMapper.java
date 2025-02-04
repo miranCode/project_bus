@@ -45,5 +45,8 @@ public interface ApiMapper {
 	// 저장 및 중복확인 
 	public int inRoute(RouteturnDTO dto); // 저장되면 1을 반환
 	public int seRoute(RouteturnDTO dto); // 이미 저장된 값이 있으면 1을 반환 
+	
+	// 
+	public List<Map<String, Object>> barList();
 
 }

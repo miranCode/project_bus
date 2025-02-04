@@ -63,11 +63,15 @@ public class AdminController {
 		try {
 			List<BusTimeDTO> BTList = mService.seTime();
 			List<BoardDTO> mList = bMapper.mainList();
+			List<BoardDTO> busnumList = bMapper.selectAllBusnum();
+			
 			
 			List<Map<String, Object>> sCount = bMapper.sCount();
 			List<Map<String, Object>> period = aMapper.period();
 			List<Map<String, Object>> mBUList = aMapper.mBUList();
-			List<Map<String, Object>> routeTurn = mMapper.routeTurn();
+			// List<Map<String, Object>> routeTurn = mMapper.routeTurn();
+			
+			List<Map<String, Object>> barList = aMapper.barList();
 			
 			int totalcount = bMapper.selectTotalCount();
 			int dateCount = aMapper.dateCount();
@@ -82,7 +86,14 @@ public class AdminController {
 			model.addAttribute("dateCount", dateCount);
 			model.addAttribute("useCount", useCount);
 			model.addAttribute("mBUList", mBUList);
-			model.addAttribute("routeTurn", routeTurn);
+			model.addAttribute("busnumList", busnumList);
+			
+			//model.addAttribute("routeTurn", routeTurn);
+			
+			model.addAttribute("barList", barList);
+			
+			System.out.println(barList);
+			System.out.println(busnumList);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

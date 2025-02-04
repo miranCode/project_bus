@@ -160,7 +160,7 @@
 									<div class="circle-box ">
 										<div class="">
 										    <span>
-										    	<fmt:formatNumber value="${ ((useCount / dateCount) / 9331828) * 100 }" pattern="#,##0.00"/>%
+										    	<fmt:formatNumber value="${ ((useCount / dateCount) / 9331828) * 100 }" pattern="#,##0"/>%
 										    </span>
 										</div>
 										<svg  viewBox="0 0 200 200" width="100%" height="100%">
@@ -196,7 +196,7 @@
 											</span>
 											${list.day_status} 버스 사용자수 		
 											<b class="txt-blue"> 
-												<fmt:formatNumber value="${list.allcount}" pattern="#,##0.00"/>
+												<fmt:formatNumber value="${list.allcount}" pattern="#,##0"/>
 												( <fmt:formatNumber value="${ (list.allcount*0.1 / useCount*0.1 ) * 10000.0 }" pattern="#,##0.00"/>% )
 											</b>									
 										</p>
@@ -291,44 +291,57 @@
 		                </div>
 					</div>
 					<div class="section sec03">
-						<div class="tab-area">
-							<ul class="tabs flex ju-start">
-								<li>서울간선버스</li>
-								<li>서울지선버스</li>
-								<li>서울마을버스</li>
-							</ul>
-							<div class="tab-content">
-								<c:forEach var="i" begin="0" end="2">
-									<c:set var="type" value="${i == 0 ? '서울간선버스' : (i == 1 ? '서울지선버스' : (i == 2 ? '서울마을버스' : ''))}" />
-								    <div class="tab-box">
-								        <ul class="flex">
-								            <li>노선명</li>
-								            <li>요일/버스종류</li>
-								            <li>사용수예측 / MAX AM</li>
-								            <li>사용수예측 / MAX PM</li>
-								            <li>불만접수 현황</li>
-								        </ul>
-								        <ul class="main-list">
-								            <c:forEach var="list" items="${routeTurn}" varStatus="status">
-							                    <li>
-						                            <ul class="flex">
-						                                <li><b>${list.RTE_NO}</b></li>
-						                                <li>${list.kind} / ${list.type}</li>
-						                                <li>
-						                                    약 <fmt:formatNumber value="${list.calculated_value}" pattern="#,##0"/>명 / 08:00
-						                                </li>
-						                                <li>
-						                                    약 <fmt:formatNumber value="${list.calculated_value_18}" pattern="#,##0"/>명 / 18:00
-						                                </li>
-						                                <li></li>
-						                            </ul>
-							                    </li>
-								            </c:forEach>
-								        </ul>
-								    </div>
-								</c:forEach>
-							</div>
-						</div>
+						<select name="busnumber">
+							<c:forEach var="busnum" items="${busnumList}">
+								<option>${busnum.rteNm}</option>
+							</c:forEach>
+						</select>
+						<div class="chart-area bar-type bar-type2">
+		                    <p>(단위 : 버스 운영 횟수) <span>${period[0].startD} ~ ${period[0].endD} (${dateCount}일)</span></p>
+		                    <p>
+		                    	(구분/시간)
+		                    </p>
+		                    <c:if test="${ not empty barList }">
+		                   		<style>
+		                   		</style>
+			                    <div class="graph-area">
+			                        <div class="bg-graph">
+			                            <ul class="txt right">
+			                            	<c:set var="point" value=""/>
+			                            	<fmt:formatNumber var="point" value="${(barList[0].maxnum/mBUList[0].daycount) / 10}" pattern="#,##0"/>
+			                            	<c:forEach var="standard" begin="5" end="${(point * 10)+10}" step="5"  varStatus="status">
+			                            		<li style="width:100%;"><b>${standard }</b><span class="line"></span></li>
+			                            		<style>.bar-type2 .bg-graph ul li{height: calc(250px / ${status.count})}</style>
+			                            	</c:forEach>
+			                            	
+			                            </ul>
+			                        </div>
+			                        <div class="graph-box flex">
+			                            <div class="bar-box">
+			                                <ul class="bar">
+			                                	<!--  -->
+			                                	<c:forEach var="j" begin="0" end="23">
+			                                		<c:set var="time" value="BUS_OPR_${j}" />
+												    <li>
+													    <span><fmt:formatNumber value="${j}" pattern="00"/></span>
+													    <ul>
+													    	<c:forEach var="index" begin="0" end="2">
+													    		<c:set var="barheight" value="${barList[index][time]/mBUList[0].daycount}" />
+													    		<li class="animated-bar" style="height:calc(${barheight} / ${(point * 10)+10} * 100%) !important;">
+														    		<span>${barList[index].day_status}</span>
+															    	<div><fmt:formatNumber value="${barheight}" pattern="00"/></div>
+														    	</li>
+													    	</c:forEach>
+													    </ul>
+												    </li>
+											    </c:forEach>
+											    <!--  -->
+			                                </ul>
+			                            </div>
+			                        </div>
+			                    </div>
+			                </c:if>
+		                </div>
 					</div>
 				</div>  
 				<!-- #content 영역 끝 -->

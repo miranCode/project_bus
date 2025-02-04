@@ -136,4 +136,53 @@
 		    join busnum bn on ro.RTE_ID = bn.tb_RTE_ID
 		    group by bn.RTE_NM;
 	</select>
+	
+	<select id="barList" resultType="java.util.Map">
+		select 
+			max(DATE_FORMAT(CRTR_DD, '%y.%m.%d')) as day,
+			CASE
+				WHEN DAYOFWEEK(CRTR_DD) = 1 THEN '공휴일'
+				WHEN DAYOFWEEK(CRTR_DD) = 7 THEN '토요일'
+				when DATE_FORMAT(CRTR_DD, '%y.%m.%d') = '25.01.01' THEN '공휴일'
+				ELSE '평일'
+			END AS day_status,
+		    RTE_NM,
+			ro.RTE_ID,
+		    TRFC_MNS_TYPE_NM,
+		    GREATEST(
+				sum(BUS_OPR_00), sum(BUS_OPR_01), sum(BUS_OPR_02), sum(BUS_OPR_03), sum(BUS_OPR_04), sum(BUS_OPR_05), 
+		        sum(BUS_OPR_06), sum(BUS_OPR_07), sum(BUS_OPR_08), sum(BUS_OPR_09), sum(BUS_OPR_10), sum(BUS_OPR_11), 
+		        sum(BUS_OPR_12), sum(BUS_OPR_13), sum(BUS_OPR_14), sum(BUS_OPR_15), sum(BUS_OPR_16), sum(BUS_OPR_17), 
+		        sum(BUS_OPR_18), sum(BUS_OPR_19), sum(BUS_OPR_20), sum(BUS_OPR_21), sum(BUS_OPR_22), sum(BUS_OPR_23)
+			) as maxnum,
+		    sum(BUS_OPR) as BUS_OPR,
+		    sum(BUS_OPR_00) as BUS_OPR_0,
+		    sum(BUS_OPR_01) as BUS_OPR_1,
+		    sum(BUS_OPR_02) as BUS_OPR_2,
+		    sum(BUS_OPR_03) as BUS_OPR_3,
+		    sum(BUS_OPR_04) as BUS_OPR_4,
+		    sum(BUS_OPR_05) as BUS_OPR_5,
+		    sum(BUS_OPR_06) as BUS_OPR_6,
+		    sum(BUS_OPR_07) as BUS_OPR_7,
+		    sum(BUS_OPR_08) as BUS_OPR_8,
+		    sum(BUS_OPR_09) as BUS_OPR_9,
+		    sum(BUS_OPR_10) as BUS_OPR_10,
+		    sum(BUS_OPR_11) as BUS_OPR_11,
+		    sum(BUS_OPR_12) as BUS_OPR_12,
+		    sum(BUS_OPR_13) as BUS_OPR_13,
+		    sum(BUS_OPR_14) as BUS_OPR_14,
+		    sum(BUS_OPR_15) as BUS_OPR_15,
+		    sum(BUS_OPR_16) as BUS_OPR_16,
+		    sum(BUS_OPR_17) as BUS_OPR_17,
+		    sum(BUS_OPR_18) as BUS_OPR_18,
+		    sum(BUS_OPR_19) as BUS_OPR_19,
+		    sum(BUS_OPR_20) as BUS_OPR_20,
+		    sum(BUS_OPR_21) as BUS_OPR_21,
+		    sum(BUS_OPR_22) as BUS_OPR_22,
+		    sum(BUS_OPR_23) as BUS_OPR_23
+		from routeturn ro
+		join busnum bn on ro.RTE_ID = bn.tb_RTE_ID
+		where RTE_NM = '100'
+		group by day_status, RTE_NM order by day_status desc;
+	</select>
 </mapper>

@@ -77,6 +77,8 @@ ul.tabs li.on{font-weight:800; background:#fff; border-color:#f5f5f5; color:#007
 .bg-graph ul li:nth-child(odd) span{background:#ddd;}
 
 
+
+
 .graph-box{position: relative;  width: 100%; box-sizing: border-box}
 
 .graph-box .bar-box{position: relative; height: 250px; box-sizing: border-box; width:100%;}
@@ -95,6 +97,29 @@ ul.tabs li.on{font-weight:800; background:#fff; border-color:#f5f5f5; color:#007
 .graph-box .bar-box ul.bar li span{position: absolute; top:100%; left:50%; padding-top: 10%; transform: translateX(-50%); font-size: 12px; width: auto;}
 .graph-box .bar-box ul.bar li:last-of-type{ margin-right: 0;}
 
+
+.bar-type2 .bg-graph ul{
+	display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    flex-direction: column-reverse;
+}
+.bar-type2 .graph-box .bar-box ul.bar{padding:0 1% 0 4%;}
+.bar-type2 .graph-box .bar-box ul.bar > li{width:50px; height:100%; background:unset;}
+.bar-type2 .graph-box .bar-box ul.bar > li > span{top:102%;}
+.bar-type2 .graph-box .bar-box ul.bar > li > ul{
+	display: flex;
+	height: 100%;
+	align-items: flex-end;
+	justify-content: space-between;
+	padding:0;
+	width: 100%;
+	box-sizing: border-box;
+}
+.bar-type2 .graph-box .bar-box ul.bar > li > ul > li{position: relative; display: block; width:15px; height:50%; center; box-sizing: border-box;background:linear-gradient(to bottom, #0ac73e, #e0ffe9);}
+.bar-type2 .graph-box .bar-box ul.bar > li > ul > li:nth-child(2){background:linear-gradient(to bottom, #007bff, #c8e2ff);}
+.bar-type2 .graph-box .bar-box ul.bar > li > ul > li:last-child{background:linear-gradient(to bottom, rgb(253, 2, 65), #ffe0e0);}
+.bar-type2 .graph-box .bar-box ul.bar > li > ul > li > span{ width: max-content; font-size: 10px; transform: rotateZ(50deg) translate(-15px, -1px); transform-origin: center;}
 
 .animated-bar {
   animation: bar 3s ease-in-out forwards;
