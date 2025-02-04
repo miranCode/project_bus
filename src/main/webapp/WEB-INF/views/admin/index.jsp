@@ -53,15 +53,23 @@
 	
 	
 	div.sec03 ul.main-list{}
-	div.sec03 ul.main-list > li{border:2px solid #f5f5f5; border-radius: 9px; padding:5px; box-sizing: border-box; margin-top: 5px;}
+	div.sec03 ul.main-list > li{position:relative; padding:5px; box-sizing: border-box;}
 	div.sec03 ul.main-list > li > ul.flex > li{color: #666; font-size: 14px}
+	div.sec03 ul.main-list > li:first-child{border-top: 2px solid #f5f5f5}
+	div.sec03 ul.main-list > li:nth-child(3n){border-bottom: 2px solid #f5f5f5;}
 	
 	div.sec03 ul.flex{justify-content: space-between; align-items: center;}
 	div.sec03 ul.flex li{font-size: 12px; color:#999; width: calc(100% / 7); text-align: center; line-height: 1.3;}
 	div.sec03 ul.flex li span{display: block; font-size: 12px;}
 	
+	div.sec03 ul.flex > li:first-child b{display: none;}
+	
 	div.sec03 .tab-area ul.tabs.flex{margin-bottom: 30px; justify-content: flex-start;}
 	div.sec03 .tab-area ul.tabs.flex li{width: auto;}
+
+	div.sec03 ul.main-list > li:nth-child(3n) ul.flex > li:first-child b{display: block;}
+	
+	
 </style>
 <script> 
 	// 페이지가 로딩된 후 다시 불러온다. 그래서 제이쿼리는 위에  있어도 괜찮다. 
@@ -291,36 +299,34 @@
 							</ul>
 							<div class="tab-content">
 								<c:forEach var="i" begin="0" end="2">
+									<c:set var="type" value="${i == 0 ? '서울간선버스' : (i == 1 ? '서울지선버스' : (i == 2 ? '서울마을버스' : ''))}" />
 								    <div class="tab-box">
 								        <ul class="flex">
-								            <li>no</li>
-								            <li>노선명(버스종류)</li>
+								            <li>노선명</li>
+								            <li>요일/버스종류</li>
 								            <li>사용수예측 / MAX AM</li>
 								            <li>사용수예측 / MAX PM</li>
 								            <li>불만접수 현황</li>
 								        </ul>
 								        <ul class="main-list">
 								            <c:forEach var="list" items="${routeTurn}" varStatus="status">
-								                <c:set var="type" value="${i == 0 ? '서울간선버스' : (i == 1 ? '서울지선버스' : (i == 2 ? '서울마을버스' : ''))}" />
-								                    <c:set var="no" value="${no + 1}" />
-								                    <li>
-							                            <ul class="flex">
-							                                <li>${no}</li>
-							                                <li>${list.RTE_NO}<span>${list.kind} / ${list.type}</span></li>
-							                                <li>
-							                                    약 <fmt:formatNumber value="${list.calculated_value}" pattern="#,##0"/>명 / 08:00
-							                                </li>
-							                                <li>
-							                                    약 <fmt:formatNumber value="${list.calculated_value_18}" pattern="#,##0"/>명 / 18:00
-							                                </li>
-							                                <li></li>
-							                            </ul>
-								                    </li>
+							                    <li>
+						                            <ul class="flex">
+						                                <li><b>${list.RTE_NO}</b></li>
+						                                <li>${list.kind} / ${list.type}</li>
+						                                <li>
+						                                    약 <fmt:formatNumber value="${list.calculated_value}" pattern="#,##0"/>명 / 08:00
+						                                </li>
+						                                <li>
+						                                    약 <fmt:formatNumber value="${list.calculated_value_18}" pattern="#,##0"/>명 / 18:00
+						                                </li>
+						                                <li></li>
+						                            </ul>
+							                    </li>
 								            </c:forEach>
 								        </ul>
 								    </div>
 								</c:forEach>
-
 							</div>
 						</div>
 					</div>

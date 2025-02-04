@@ -53,7 +53,7 @@
               </form>
               
             <div class="sign-up-option">
-                <a href="#">home</a>
+                <a href="/">home</a>
             </div>    
         </div>
         </div>

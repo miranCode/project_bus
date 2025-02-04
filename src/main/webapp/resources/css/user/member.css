@@ -2,10 +2,12 @@
 * {
   box-sizing: border-box;
 }
-body {
+body.member {
   font-family: "Montserrat", sans-serif;
   margin: 0;
   padding: 0;
+  background:#ebecf0;
+  
   
 }
 body.member #wrap{
@@ -13,9 +15,12 @@ body.member #wrap{
   overflow: hidden;  
 }
 
-body.member.login #header{display:none;}
+body.member.login #header,
+body.member.join #header{display:none;}
 
-#container{
+body.member.join .login-container{position:unset;}
+
+body.member #container{
   width: 100%;
   display: flex;
   justify-content: center;
@@ -37,7 +42,6 @@ body.member.login #header{display:none;}
   background: rgba(255, 255, 255, 0.2);
 }
 #login-form, #signup-form {
-  background: #ebecf0;
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -80,6 +84,8 @@ body.member.join #container button{
 	padding: 8px 12px;
 }
 
+body.member #footer{background:unset;}
+
 .form_btn {
   box-shadow: -5px -5px 10px #fff, 5px 5px 8px #babebc;
   padding: 15px 45px !important;
@@ -111,7 +117,7 @@ form h1 {
   color: #000;
 }
 
-p {
+body.member p {
   font-size: 16px;
   font-weight: bold;
   letter-spacing: 0.5px;

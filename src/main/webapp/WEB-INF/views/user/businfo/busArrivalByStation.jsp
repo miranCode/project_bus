@@ -118,17 +118,17 @@
 		}
 
     	</style>
-        <h1 class="bus-title">정류소 버스 도착 정보 조회</h1>
+        <h1 class="bus-title">정류장 조회</h1>
         <!-- 정류소 검색 폼 -->
         <form action="/getBusArrivalByStationInfo" method="get" class="bus-form">
             <label for="stNm" class="bus-label">정류소 명칭:</label>
-            <input type="text" id="stNm" name="stNm" required class="bus-input">
+            <input type="text" id="stNm" name="stNm" required class="bus-input" value="${stNm}" placeholder="정류소명을 입력해주세요." style="border:1px solid #ddd;">
             <button type="submit" class="bus-button">조회</button>
         </form>
 
         <hr>
 
-        <h2 class="arrival-title">버스 도착 정보:</h2>
+        <h2 class="arrival-title">정류장 도착 정보:</h2>
 
         <div class="busline-container">
             <c:choose>

@@ -3,7 +3,6 @@ body.board {
     font-family: Arial, sans-serif;
     background-color: #f9f9f9;
     margin: 0;
-    padding: 20px;
     color: #333;
 }
 
@@ -60,8 +59,6 @@ select {
 /* 버튼 스타일 */
 button[type="submit"] {
     display: block;
-    margin: 20px auto;
-    padding: 10px 20px;
     background-color: #007BFF;
     color: #fff;
     border: none;

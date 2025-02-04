@@ -17,10 +17,11 @@
                </ul>
              </div>
        </div>
-        <ul>
-            <li>
-                <a href="/qna/write">버스 불편사항 접수하기</a>
-            </li>
+        <ul class="menu">
+        	<li><a href="/">home</a></li>
+            <li><a href="/busArrival">버스노선조회</a></li>
+            <li><a href="/busArrivalByStation">정류장조회</a></li>
+            <li><a href="/qna/write">버스 불편사항 접수하기</a></li>
             <c:if test="${not empty uname}">
 	            <li>
 	                <a href="/member/list">나의 불편사항 접수 현황</a>

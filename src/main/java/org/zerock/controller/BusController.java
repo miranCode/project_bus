@@ -176,10 +176,12 @@ public class BusController {
         }
 
         // 모델에 stNmList, arrivalStatusList, exps1List 추가
+        model.addAttribute("rteNm", rteNm); // 버스 번호 
         model.addAttribute("stNmList", stNmList);
         model.addAttribute("arrivalStatusList", arrivalStatusList);
         model.addAttribute("exps1List", exps1List);  // 분으로 변환된 exps1 리스트도 추가
 
+        System.out.println("rteNm : " + rteNm);
         System.out.println("stNmList : " + stNmList);
         System.out.println("arrivalStatusList : " + arrivalStatusList);
         System.out.println("exps1List : " + exps1List);  // exps1 리스트 출력
@@ -260,6 +262,7 @@ public class BusController {
         }
 
         // 모델에 데이터 추가
+        model.addAttribute("stNm", stNm);
         model.addAttribute("busRouteAbrvList", busRouteAbrvList);
         model.addAttribute("arrmsg1List", arrmsg1List);
         model.addAttribute("stNmList", stNmList);

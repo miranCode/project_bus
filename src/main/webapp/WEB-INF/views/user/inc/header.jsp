@@ -66,16 +66,12 @@
                             <span>버스 노션별 사용자 수 예측 및 불편신고 시스템</span>
                         </a>
                     </h1>
-                    <button id="more-gnb">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </button>
+                    <!-- #gng 영역 시작 -->
+	                <jsp:include page="./gnb.jsp" />
+	                <!-- #gng 영역 끝 -->
                 </div>
                 <!-- 로고 및 유틸 영역 끝 -->
-                <!-- #gng 영역 시작 -->
-                <jsp:include page="./gnb.jsp" />
-                <!-- #gng 영역 끝 -->
+                
             </header>
             <!-- header 영역 끝 -->
             <!-- #container 영역 시작 -->

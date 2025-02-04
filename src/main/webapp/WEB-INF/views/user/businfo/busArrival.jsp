@@ -18,14 +18,10 @@
 			
 			/* 버스 노선 입력 폼 스타일 */
 			.bus-form {
-			    display: flex;
-			    flex-direction: column;
-			    align-items: center;
-			    gap: 10px;
+				display:flex;
 			    padding: 15px;
-			    border-radius: 8px;
-			    max-width: 350px;
-			    margin: 0 auto;
+			    align-items: center;
+			    justify-content: center;
 			}
 			
 			/* 라벨 스타일 */
@@ -43,6 +39,7 @@
 			    border: 2px solid #007bff;
 			    border-radius: 5px;
 			    font-size: 16px;
+			    margin:0 5px;
 			}
 			
 			/* 버튼 스타일 */
@@ -62,12 +59,12 @@
 			    background: #0056b3;
 			}    
 	    </style>
-		<h1 class="bus-title">버스 도착 정보 조회</h1>
+		<h1 class="bus-title">버스 노선 조회</h1>
 
 		<!-- 버스 노선 ID 입력 폼 -->
 		<form action="/getBusArrivalInfo" method="get" class="bus-form">
 		    <label for="rteNm" class="bus-label">버스 번호</label>
-		    <input type="text" id="rteNm" name="rteNm" required class="bus-input">
+		    <input type="text" id="rteNm" name="rteNm" required class="bus-input" value="${rteNm}" placeholder="버스번호를 입력해주세요." style="border:1px solid #ddd;"/>
 		    <button type="submit" class="bus-button">조회</button>
 		</form>
 	    <!-- API 호출 후 도착 정보가 출력되는 부분 -->
@@ -90,7 +87,6 @@
 			    border-radius: 10px;
 			    background: #f9f9f9;
 			}
-			
 			/* 버스 노선 스타일 */
 			ul.busline {
 			    display: flex;
@@ -112,7 +108,7 @@
 			    content: "";
 			    position: absolute;
 			    left: -10px;
-			    top: 0;
+			    top: 45%;
 			    width: 4px;
 			    height: 100%;
 			    background-color: blue;
@@ -156,38 +152,46 @@
 			    font-weight: bold;
 			}
 	    </style>
-	    <div class="busline-container">
-	    <ul class="busline">
-	        <c:forEach var="stNm" items="${stNmList}" varStatus="status">
-	            <li class="">
-	            	<p>
-		                ${stNm}
-		                <c:choose>
-		                    
-		                    <c:when test="${arrivalStatusList[status.index] == '곧 도착'}">
-		                        <span class="arriving-text">(곧 도착)</span>
-		                    </c:when>
-		                    
-		                    <c:when test="${arrivalStatusList[status.index] != '곧 도착' && arrivalStatusList[status.index + 1] == '곧 도착'}">
-		                        <span>🚌</span> 
-		                    </c:when>
-		                   
-		                    <c:otherwise>
-		                        <c:if test="${arrivalStatusList[status.index] != '곧 도착' && arrivalStatusList[status.index + 1] != '곧 도착' && arrivalStatusList[status.index] != '곧 도착'}">
-		                            <span>
-		                                <c:if test="${not empty exps1List[status.index]}">
-		                                    (${exps1List[status.index]} 분 후 도착)
-		                                </c:if>
-		                            </span>
-		                        </c:if>
-		                        
-		                    </c:otherwise>
-		                </c:choose>
-	                </p>
-	            </li>
-	        </c:forEach>
-	    </ul>
-	  </div>
+	    
+	    <c:choose>
+	    	 <c:when test="${not empty stNmList}">
+	    	 <div class="busline-container">
+	    	 	<ul class="busline">
+			        <c:forEach var="stNm" items="${stNmList}" varStatus="status">
+			            <li class="">
+			            	<p>
+				                ${stNm}
+				                <c:choose>
+				                    
+				                    <c:when test="${arrivalStatusList[status.index] == '곧 도착'}">
+				                        <span class="arriving-text">(곧 도착)</span>
+				                    </c:when>
+				                    
+				                    <c:when test="${arrivalStatusList[status.index] != '곧 도착' && arrivalStatusList[status.index + 1] == '곧 도착'}">
+				                        <span>🚌</span> 
+				                    </c:when>
+				                   
+				                    <c:otherwise>
+				                        <c:if test="${arrivalStatusList[status.index] != '곧 도착' && arrivalStatusList[status.index + 1] != '곧 도착' && arrivalStatusList[status.index] != '곧 도착'}">
+				                            <span>
+				                                <c:if test="${not empty exps1List[status.index]}">
+				                                    (${exps1List[status.index]} 분 후 도착)
+				                                </c:if>
+				                            </span>
+				                        </c:if>
+				                        
+				                    </c:otherwise>
+				                </c:choose>
+			                </p>
+			            </li>
+			        </c:forEach>
+			    </ul>
+	  		</div>
+	   </c:when>
+	    	 <c:otherwise>
+                  <p class="no-info">버스 정보가 없습니다.</p>
+              </c:otherwise>
+	    </c:choose>
 	</div>
 
 <jsp:include page="../inc/footer.jsp" />

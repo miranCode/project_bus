@@ -37,34 +37,26 @@ request.setAttribute("bodyClass", "main");
 
 			<!-- 정류장 정보 -->
 			<div class="bus-info">
-				<div class="eight">
-							<pre>
-			<button class="button" onclick="window.location.href='/busArrival';">버스 도착 정보</button>
-						
-		                버스정보시스템에서 제공하는 정보는 교통 및 버스운행 상황, 
-		                정보 변경 시점에 따라 실제 상황과 다 를수 있으며,
-		                도착예정시간은 예측정보로서 
-		                실제 도착시간과 차이가 발생할 수 있습니다.
-		                ※ 막차시간은 교통상황 및 수요에 따라 조정될 수 있음
-		                ※ 제공범위 : 시내버스 및 시외버스(일부)
-		            </pre>
-				<pre>
-			<button class="button" onclick="window.location.href='/busArrivalByStation';">정류장 도착 검색</button>
-	            
-		
-			            실시간 버스 정보를 확인할 수 있습니다. 
-			            이용자의 편의를 위하여 버스정보와 관련해 
-			            인터넷을 통해 실시간으로 버스의 현재위치 정보, 
-			            정류소 도착 예정 버스,버스노선의 검색, 환승정보, 
-			            정류소 검색정보 등을 제공하고 있습니다.
-	            </pre>
-	
-	
-	
-					</div>
-
-
-
+				<div class="eight flex ju-between">
+					<div>
+						<button class="button" onclick="window.location.href='/busArrival';">버스노선조회</button>
+		            	<p>
+			            	버스정보시스템에서 제공하는 정보는 교통 및 버스운행 상황, 정보 변경 시점에 따라 실제 상황과 다를수 있으며, 도착예정시간은 예측정보로서 실제 도착시간과 차이가 발생할 수 있습니다.
+			                <span>※ 막차시간은 교통상황 및 수요에 따라 조정될 수 있음</span>
+			                <span>※ 제공범위 : 시내버스 및 시외버스(일부)</span>
+		            	</p>
+		            </div>
+					<div>
+						<button class="button" onclick="window.location.href='/busArrivalByStation';">정류장조회</button>
+						<p>
+							실시간 버스 정보를 확인할 수 있습니다. 
+				            이용자의 편의를 위하여 버스정보와 관련해 
+				            인터넷을 통해 실시간으로 버스의 현재위치 정보, 
+				            정류소 도착 예정 버스,버스노선의 검색, 환승정보, 
+				            정류소 검색정보 등을 제공하고 있습니다.
+						</p>
+					</div>	
+				</div>
 			</div>
 
 			<!-- 정류장 벤치 -->

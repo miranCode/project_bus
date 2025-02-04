@@ -41,6 +41,9 @@
               <a href="https://kauth.kakao.com/oauth/authorize?client_id=558503d359c98d21606dc6d90c6795aa&redirect_uri=http://localhost:8080/auth/kakao/callback&response_type=code"><i class="xi-kakaotalk"></i></a>
             </div>
           </div>
+           <div class="sign-up-option">
+                <a href="/">home</a>
+            </div>    
        </div>
 				<!-- #content 영역 끝 -->
 <jsp:include page="../inc/footer.jsp" />

@@ -6,6 +6,7 @@
             <!-- #container 영역 끝 -->
             <!-- footer 영역 시작 -->
             <footer id="footer">
+            	<p class="copy">&copy; 에러김열단 All Rights Reserved. </p>
             </footer>
             <!-- footer 영역 끝 -->
         </div>

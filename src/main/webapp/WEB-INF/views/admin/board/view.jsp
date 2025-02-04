@@ -60,7 +60,10 @@
         
         
     </table>
-    <button type="submit">수정</button>
+    <div class="flex ju-between al-center btn-area four">
+    	<a href="/qna/list">목록</a>
+	    <button type="submit">수정</button>
+    </div>
 </form>
 
 <jsp:include page="../inc/footer.jsp" />
