@@ -83,7 +83,9 @@ body.admin #set_level select {
 body.admin #set_access {
     display: flex;
 }
-
+body.admin #active_box{
+	margin-right: 10px;
+}
 body.admin #active_box, #blocked_box {
     margin-bottom: 10px;
 }
@@ -129,4 +131,13 @@ body.admin #set_reset {
 
 body.admin #set_reset:hover {
     background-color: #ddd;
+}
+
+body.admin #set_level select {
+    text-align: center;
+}
+
+body.admin #set_access {
+    display: flex;
+    justify-content: center;
 }
