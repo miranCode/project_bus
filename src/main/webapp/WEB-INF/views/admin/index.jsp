@@ -297,20 +297,20 @@
 							</c:forEach>
 						</select>
 						<div class="chart-area bar-type bar-type2">
-		                    <p>(단위 : 버스 운영 횟수) <span>${period[0].startD} ~ ${period[0].endD} (${dateCount}일)</span></p>
-		                    <p>
-		                    	(구분/시간)
-		                    </p>
-		                    <c:if test="${ not empty barList }">
-		                   		<style>
-		                   		</style>
+		                    <p>(단위 : 명) <span>${period[0].startD} ~ ${period[0].endD} (${dateCount}일)</span></p>
+		                    <p>(구분/시간)</p>
+		                    <c:if test="${ not empty busDateSum }">
+
+			                    <fmt:formatNumber var="point" value="${(busDateSum[0].total/mBUList[0].daycount)/10000}" pattern="#,##0"/>
+			                    <!-- 평일기준 -->
 			                    <div class="graph-area">
 			                        <div class="bg-graph">
 			                            <ul class="txt right">
-			                            	<c:set var="point" value=""/>
-			                            	<fmt:formatNumber var="point" value="${(barList[0].maxnum/mBUList[0].daycount) / 10}" pattern="#,##0"/>
-			                            	<c:forEach var="standard" begin="5" end="${(point * 10)+10}" step="5"  varStatus="status">
-			                            		<li style="width:100%;"><b>${standard }</b><span class="line"></span></li>
+			                            	<c:forEach var="standard" begin="200" end="${(point * 1000)}" step="200"  varStatus="status">
+			                            		<li style="width:100%;">
+			                            			<b><fmt:formatNumber value="${standard }" pattern="#,##0"/></b>
+			                            			<span class="line"></span>
+			                            		</li>
 			                            		<style>.bar-type2 .bg-graph ul li{height: calc(250px / ${status.count})}</style>
 			                            	</c:forEach>
 			                            	
@@ -321,15 +321,24 @@
 			                                <ul class="bar">
 			                                	<!--  -->
 			                                	<c:forEach var="j" begin="0" end="23">
-			                                		<c:set var="time" value="BUS_OPR_${j}" />
-												    <li>
+			                                		<c:set var="time" value="HR_${j}_ON" />
+			                                		<fmt:formatNumber var="mtime" value="${monthBusSum[0][time]}" pattern="0.00"/>
+			                                		<fmt:formatNumber var="mtptal" value="${monthBusSum[0].total}" pattern="0.00"/>
+			                                		<c:set var="per" value="${ mtime / mtptal }" />
+			                                		
+			                                		
+			                                		<li>
 													    <span><fmt:formatNumber value="${j}" pattern="00"/></span>
 													    <ul>
 													    	<c:forEach var="index" begin="0" end="2">
-													    		<c:set var="barheight" value="${barList[index][time]/mBUList[0].daycount}" />
-													    		<li class="animated-bar" style="height:calc(${barheight} / ${(point * 10)+10} * 100%) !important;">
-														    		<span>${barList[index].day_status}</span>
-															    	<div><fmt:formatNumber value="${barheight}" pattern="00"/></div>
+													    		<fmt:formatNumber var="number" value="${busDateSum[index].total * per}" pattern="0.00"/>
+													    		<li class="animated-bar" style="height:calc(${number / mBUList[index].daycount }/${( point * 1000 )}*100%) !important;">
+														    		<span>
+														    			${busDateSum[index].day_status}(<fmt:formatNumber value="${mBUList[index].daycount}" pattern="0"/>)
+														    		</span>
+															    	<div>
+															    		${number / mBUList[index].daycount}
+															    	</div>
 														    	</li>
 													    	</c:forEach>
 													    </ul>

@@ -71,7 +71,8 @@ public class AdminController {
 			List<Map<String, Object>> mBUList = aMapper.mBUList();
 			// List<Map<String, Object>> routeTurn = mMapper.routeTurn();
 			
-			List<Map<String, Object>> barList = aMapper.barList();
+			List<Map<String, Object>> busDateSum = mMapper.busDateSum();
+			List<Map<String, Object>> monthBusSum = mMapper.monthBusSum();
 			
 			int totalcount = bMapper.selectTotalCount();
 			int dateCount = aMapper.dateCount();
@@ -90,10 +91,12 @@ public class AdminController {
 			
 			//model.addAttribute("routeTurn", routeTurn);
 			
-			model.addAttribute("barList", barList);
+			model.addAttribute("busDateSum", busDateSum);
+			model.addAttribute("monthBusSum", monthBusSum);
 			
-			System.out.println(barList);
-			System.out.println(busnumList);
+			System.out.println("busDateSum" + busDateSum);
+			System.out.println("monthBusSum" + monthBusSum);
+			System.out.println("mBUList" + mBUList);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

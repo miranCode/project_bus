@@ -17,4 +17,10 @@ public interface MainMapper {
 	
 	public List<Map<String, Object>> routeTurn ();
 	
+	// 250204
+	// 버스별 12월 합산
+	public List<Map<String, Object>> monthBusSum ();
+	// 버스별 평일, 토요일, 공휴일 합산
+	public List<Map<String, Object>> busDateSum ();
+	
 }

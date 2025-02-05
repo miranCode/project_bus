@@ -119,5 +119,61 @@
 	ORDER BY bu.RTE_ID;
 	</select>
 
+	<!-- 버스별 12월 합산  -->
+	<select id="monthBusSum" resultType="java.util.Map">
+		WITH per AS(
+			SELECT /*+ USE INDEX (idx_rte_no) */
+				USE_YM,
+		        RTE_NO,
+				sum(HR_0_ON) as HR_0_ON, 
+		        sum(HR_1_ON) as HR_1_ON, 
+		        sum(HR_2_ON) as HR_2_ON, 
+		        sum(HR_3_ON) as HR_3_ON, 
+		        sum(HR_4_ON) as HR_4_ON, 
+		        sum(HR_5_ON) as HR_5_ON, 
+		        sum(HR_6_ON) as HR_6_ON, 
+		        sum(HR_7_ON) as HR_7_ON, 
+		        sum(HR_8_ON) as HR_8_ON,
+				sum(HR_9_ON) as HR_9_ON, 
+		        sum(HR_10_ON) as HR_10_ON, 
+		        sum(HR_11_ON) as HR_11_ON, 
+		        sum(HR_12_ON) as HR_12_ON, 
+		        sum(HR_13_ON) as HR_13_ON, 
+		        sum(HR_14_ON) as HR_14_ON, 
+		        sum(HR_15_ON) as HR_15_ON, 
+		        sum(HR_16_ON) as HR_16_ON,
+				sum(HR_17_ON) as HR_17_ON, 
+		        sum(HR_18_ON) as HR_18_ON, 
+		        sum(HR_19_ON) as HR_19_ON, 
+		        sum(HR_20_ON) as HR_20_ON, 
+		        sum(HR_21_ON) as HR_21_ON, 
+		        sum(HR_22_ON) as HR_22_ON, 
+		        sum(HR_23_ON) as HR_23_ON
+			FROM bustimeuse 
+			WHERE RTE_NO = '100'
+		) SELECT 
+			*,
+			sum(
+		        HR_0_ON + HR_1_ON + HR_2_ON + HR_3_ON + HR_4_ON + 
+		        HR_5_ON + HR_6_ON + HR_7_ON + HR_8_ON + HR_9_ON + HR_10_ON + HR_11_ON +
+		        HR_12_ON + HR_13_ON + HR_14_ON + HR_15_ON + HR_16_ON + HR_17_ON + 
+		        HR_18_ON + HR_19_ON + HR_20_ON + HR_21_ON + HR_22_ON + HR_23_ON
+		    ) AS total
+		from per;
+	</select>
+	<!-- 버스별 평일, 토요일, 공휴일 합산 -->
+	<select id="busDateSum" resultType="java.util.Map">
+		select 
+			USE_YMD, 
+		    CASE
+				WHEN DAYOFWEEK(USE_YMD) = 1 THEN '공휴일'
+				WHEN DAYOFWEEK(USE_YMD) = 7 THEN '토요일'
+				when DATE_FORMAT(USE_YMD, '%y.%m.%d') = '25.01.01' THEN '공휴일'
+				ELSE '평일'
+			END AS day_status,
+			RTE_NO, 
+		    sum(GTON_TNOPE) as total
+		from bususe WHERE RTE_NO = '100' group by RTE_NO, day_status;
+	</select>
 
 </mapper>

@@ -85,7 +85,7 @@
 		    sum(CASE WHEN TRFC_MNS_TYPE_NM = "서울마을버스" THEN 탑승객 ELSE 0 END) + 0.0 AS bus5,
 		    sum(CASE WHEN TRFC_MNS_TYPE_NM = "서울광역버스" THEN 탑승객 ELSE 0 END) + 0.0 AS bus6
 		FROM bus_data
-		GROUP BY day_status;
+		GROUP BY day_status order by day_status desc;
 	</select>
 	
 	<insert id="inRoute" parameterType="org.zerock.dto.RouteturnDTO">
