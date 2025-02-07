@@ -119,10 +119,6 @@ body.member button {
 	background-color: #0056b3;
 }
 
-body.member #submitbtn {
-	margin-right: 5px;
-}
-
 body.member #btn_box button {
     transition: color 0.3s, border 0.3s;
 }
@@ -135,6 +131,7 @@ body.member #btn_box button:hover {
 body.member #access_box {
 	display: flex;
 	align-items: center;
+	margin-left: 30px;
 }
 
 body.member #access_select label{
@@ -153,4 +150,8 @@ body.member #access_select input{
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+}
+
+body.member #btn_box{
+	text-align: right;
 }
