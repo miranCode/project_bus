@@ -7,7 +7,7 @@
 .mainbuspost{
     display: flex;
     width: 1200px;
-    margin: 0 auto;
+    
 }
 
 .mainbuspost1{
@@ -49,6 +49,7 @@
 
 /* 버스 표지판 (간판) */
 .bus-sign {
+   
     width: 160px;
     height: 70px;
     background-color: #f4d03f;
@@ -61,6 +62,7 @@
     font-family: 'Arial', sans-serif;
     box-shadow: 0 8px 18px rgba(0, 0, 0, 0.3);
     border: 3px solid #f39c12;
+
 }
 
 /* 표지판 텍스트 */
@@ -112,6 +114,7 @@
     margin-bottom: 40px; /* 버스와 정류장 사이 간격 */
     overflow: hidden;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* 입체감 */
+    transform: scale(0.9);
 }
 
 /* 정류장 지붕 */
@@ -141,6 +144,8 @@
     bottom: 40px;
     left: 10%;
     border-radius: 5px;
+    z-index: 0;
+    
 }
 
 /* 정류장 벤치 다리 */
@@ -184,13 +189,13 @@
 }
 
 .bus-stop-roof {
-    font-size: 40px;
-    font-weight: bold;
+    font-size: 35px;
     text-align: center;
     position: absolute;
     top: 0px;
     width: 100%;
     color: #333;
+
 }
 
 /* 정류장 정보 텍스트 */
@@ -228,39 +233,7 @@
     border-bottom: 2px solid #ccc;
   }
 
-.bus-info button {
-    margin: 0px;
-    padding: 10px 20px; /* Button padding */
-    font-size: 40px; /* Font size */
-    border: none; /* Remove border */
-    border-radius: 8px; /* Rounded corners */
-    background-color: #6bcf6e; /* Background color */
-    color: white; /* Text color */
-    cursor: pointer; /* Pointer cursor */
-    transition: background-color 0.3s ease, transform 0.2s ease;
 
-}
-.button1:hover {
-    color: rgb(36, 255, 102);
-    filter: drop-shadow(0 0 2px rgba(36, 255, 102,0.7)) drop-shadow(0 0 5px rgba(36, 255, 102,0.7)) drop-shadow(0 0 15px rgba(36, 255, 102,0.7)); 
-    transform: translateY(-3px); /* Lift effect */
-  }
-
-.button2:hover {
-    color: rgb(255, 31, 154);
-    filter: drop-shadow(0 0 2px rgba(235, 143, 193, 0.7)) drop-shadow(0 0 5px rgba(255, 31, 154,0.7)) drop-shadow(0 0 15px rgba(255, 31, 154,0.7)); 
-    transform: translateY(-3px); /* Lift effect */
-  }
-
-.bus-info button:active {
-    transform: translateY(2px); /* Pressed effect */
-    background-color: #3dbe43; /* Active state color */
-}
-
-.bus-info button:disabled {
-    background-color: #d3d3d3; /* Disabled button color */
-    cursor: not-allowed; /* No pointer cursor */
-}
 
 
 
@@ -278,17 +251,25 @@
     transform: translateX(-50%);
 }
 
+
+
+
+
 /* 버스 */
 .bus {
+    transform: scale(2);
     display: flex;
     position: relative;
-    width: 250px;
-    height: 100px;
+    top: -150px;
+    width: 400px;
+    height: 160px;
     background-color: #ffcc00;
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
     animation: slide 10s ease-in-out infinite; /* 애니메이션 길이와 타입 변경 */
     margin-top: 20px; /* 버스와 정류장 사이 간격 */
+    z-index: 1; /* 더 높은 값으로 설정하여 가장 위로 배치 */
+
 }
 
 /* 버스 몸체 */
@@ -310,16 +291,16 @@
 /* 창문 */
 .window {
     position: absolute;
-    width: 40px;
-    height: 30px;
+    width: 70px;
+    height: 50px;
     background-color: #a0d8ef;
     border-radius: 5px;
 }
 
-.window-1 { top: 10px; left: 5px; }
-.window-2 { top: 10px; left: 55px; }
-.window-3 { top: 10px; left: 135px; }
-.window-4 { top: 10px; right: 5px; }
+.window-1 { top: 15px; left: 5px; }
+.window-2 { top: 15px; left: 90px; }
+.window-3 { top: 15px; left: 220px; }
+.window-4 { top: 15px; right: 5px; }
 
 /* 문 */
 .door {
@@ -327,8 +308,8 @@
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 30px;
-    height: 50px;
+    width: 40px;
+    height: 100px;
     background-color: #666;
     border-radius: 5px 5px 0 0;
 }
@@ -337,8 +318,8 @@
 .wheel {
     position: absolute;
     bottom: -20px;
-    width: 40px; /* 바퀴 크기 */
-    height: 40px;
+    width: 50px; /* 바퀴 크기 */
+    height: 50px;
     background-color: #333; /* 타이어 색상 */
     border-radius: 50%;
     display: flex;
@@ -349,8 +330,8 @@
     animation: rotate-wheel 2s linear infinite; /* 애니메이션 추가 */
 }
 
-.wheel-1 { left: 30px; }
-.wheel-2 { right: 30px; }
+.wheel-1 { left: 35px; }
+.wheel-2 { right: 35px; }
 
 /* 바퀴 허브캡 (중앙 부분) */
 .wheel .hubcap {
@@ -407,11 +388,11 @@
         left: 0%; /* 화면 밖에서 시작 */
     }
     30% {
-        left: 45%; /* 화면 밖에서 시작 */
+        left: 30%; /* 화면 밖에서 시작 */
     }
     
     60% {
-        left: 45%; /* 화면 밖에서 시작 */
+        left: 30%; /* 화면 밖에서 시작 */
     }
 
 
@@ -436,7 +417,7 @@
     background-color: #FFD700; /* 전조등 색상 */
     border-radius: 80%; /* 원 모양 */
     position: absolute;
-    top: 70px; /* 버스 상단에 배치 */
+    top: 130px; /* 버스 상단에 배치 */
     right: -15px; /* 버스 오른쪽에 배치 */
     transform: rotate(45deg); /* 오른쪽을 향하게 기울임 */
     box-shadow: 0 0 15px rgba(255, 255, 0, 0.8), 0 0 25px rgba(255, 215, 0, 0.7); /* 전조등 빛 효과 */
@@ -508,10 +489,10 @@
 
 .tail-light {
     width: 10px;
-    height: 30px;
+    height: 40px;
     background-color: red; /* 후미등 색상 */
     position: absolute;
-    top: 80px;
+    top: 138px;
     transform: translateY(-50%);
     box-shadow: 0 0 10px rgba(255, 0, 0, 0.7); /* 빛나는 효과 */
     animation: glow 1.5s infinite alternate; /* 반짝이는 효과 */
@@ -530,6 +511,554 @@
     100% {
         box-shadow: 0 0 20px rgba(255, 0, 0, 1), 0 0 30px rgba(255, 0, 0, 0.8);
     }
+}
+
+
+
+
+
+
+.ra {
+    display: flex;
+    position: absolute;
+    left: 220px;
+    top: 300px;
+    justify-content: center;
+    align-items: center;
+  
+    transform: scale(0.6);
+    transform-origin: center;
+  
+    opacity: 1; /* 처음에 보이도록 설정 */
+    animation: fadeinOut 6s linear infinite; /* 6초 동안 반복 */
+  }
+  
+  @keyframes fadeinOut {
+    0% {
+      opacity: 1; /* 처음에 보이기 */
+    }
+    50% {
+      opacity: 0; /* 중간에 반투명 */
+    }
+    100% {
+      opacity: 0; /* 끝에 완전히 사라짐 */
+    }
+  }
+  
+  
+
+
+.nudeBody {
+    width: 50%;
+    height: 180px;
+    display: flex;
+    position: absolute;
+
+
+}
+
+.nudeBodycenter {
+    width: 50px;
+    height: 150px;
+    background-color: #e09602;
+    border-radius: 0px;
+    border: 5px solid #e09602;
+
+
+}
+
+
+.nudeBodyrr {
+    width: 80px;
+    height: 230px;
+    background-color: #e09602;
+    border-radius: 0px 60px 35px 30px;
+    border-top: 10px solid black;
+    border-right: 10px solid black;
+    border-bottom: 10px solid black;
+    border-left: 10px solid black;
+    position: absolute;
+    left: 131px;
+    z-index: 2;
+}
+
+.nudeBodyrrrr {
+    width: 116px;
+    height: 180px;
+    background-color: #e09602;
+    border-radius: 0px 84px 80px 0px / 55px 100px 98px 106px;
+    border-top: 10px solid black;
+    border-right: 10px solid black;
+    border-bottom: 10px solid black;
+    border-bottom-width: 10px;
+    border-bottom-style: solid;
+    border-bottom-color: black;
+    border-left: 10px solid black;
+    position: absolute;
+    top: -38px;
+    left: 140px;
+    z-index: 1;
+    transform: rotate(-10deg);
+}
+
+
+.nudeBodyll {
+    width: 80px;
+    height: 230px;
+    background-color: #e09602;
+    border-radius: 60px 0px 30px 35px;
+    border-top: 10px solid black;
+    border-right: 10px solid black;
+    border-bottom: 10px solid black;
+    border-left: 10px solid black;
+    position: absolute;
+    z-index: 2;
+}
+
+.nudeBodyllll {
+    width: 116px;
+    height: 180px;
+    background-color: #e09602;
+    border-radius: 70px 0px 70px 30px / 64px 0px 0px 73px;
+    border-top: 10px solid black;
+    border-right: 10px solid black;
+    border-bottom: 10px solid black;
+    border-bottom-width: 10px;
+    border-bottom-style: solid;
+    border-bottom-color: black;
+    border-left: 10px solid black;
+    position: absolute;
+    top: -38px;
+    left: -40px;
+    z-index: 1;
+    transform: rotate(10deg);
+}
+
+.bodys {
+    width: 80px;
+    position: absolute;
+    top: 150px;
+    left: 65px;
+    border-radius: 10px;
+    border-bottom: 10px solid rgb(0, 0, 0);
+    /* 굵기 5px, 검은색 */
+    z-index: 4;
+}
+
+
+.bodyss {
+    position: absolute;
+    top: -20px;
+    left: 10px;
+    width: 190px;
+    height: 180px;
+    background-color: #e09602;
+    z-index: 2;
+    /* 앞쪽에 배치 */
+}
+
+.bodysss {
+    position: absolute;
+    top: -5px;
+    left: 30px;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    /* 원형 유지 */
+    background-color: #ffffff;
+
+    /* 하단을 둥글게 조정한 clip-path */
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    z-index: 2;
+    /* 앞쪽에 배치 */
+}
+
+
+.nudeface {
+    position: absolute;
+    top: -254px;
+    left: -65px;
+    width: 320px;
+    height: 250px;
+}
+
+.ear {
+    position: absolute;
+    top: -10px;
+    width: 100px;
+    height: 100px;
+    background-color: #f4a300;
+    border-radius: 50%;
+    border: 10px solid #000000;
+    z-index: 1;
+    /* 뒤에 배치 */
+
+
+}
+
+.ear.left {
+    left: 0px;
+
+}
+
+.ear.right {
+    right: 0px;
+}
+
+.face {
+
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 50%;
+    background-color: #f4a300;
+    border: 10px solid #000000;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+.eyebrow0 {
+    display: flex;
+}
+.eyebrow {
+    position: absolute;
+    top: 30%;
+    width: 80px;
+    height: 10px;
+    background-color: #000000;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+.eyebrow.left {
+    left: 45px;
+}
+
+.eyebrow.right {
+    right: 45px;
+}
+.eye {
+    position: relative;
+    width: 25px;
+    height: 25px;
+    top: 90px;
+    background-color: rgb(0, 0, 0);
+    border-radius: 50%;
+    margin: 5px;
+}
+
+.eye0 {
+    display: flex;
+}
+
+.eye.left {
+    margin-right: 10px;
+    left: -35px;
+}
+
+.eye.right {
+    margin-right: 10px;
+    right: -45px;
+}
+
+.mouth.left {
+   
+    position: absolute;
+    top: 130px;
+    width: 60px;
+    height: 50px;
+    background-color: #ffffff;
+    position: absolute;
+    left: 90px;
+    border: 8px solid #000000;
+    border-radius: 50%;
+    
+}
+.mouth.right {
+    
+    border-radius: 50%;
+    position: absolute;
+    top: 130px;
+    width: 60px;
+    height: 50px;
+    background-color: #ffffff;
+    position: absolute;
+    right: 100px;
+    border: 8px solid #000000;
+ 
+}
+.mouth0{
+    background-color: #ffffff;
+
+}
+
+.nose {
+    position: absolute;
+    top: 110px;
+    width: 30px;
+    height: 30px;
+    background-color: #000000;
+    border-radius: 0%;
+    margin: 10px 0;
+    left: 130px;
+    clip-path: polygon(48% 7%, 80% 10%, 100% 18%, 100% 53%, 80% 90%, 50% 100%, 20% 90%, 0 57%, 0 22%, 20% 10%);
+    border-radius: 50%;
+}
+
+.pade {
+    position: absolute;
+    top: 15px;
+    width: 180px;
+    height: 50px;
+    background-color: #ffffff;
+    border-radius: 50px;
+    position: absolute;
+    bottom: 20px;
+    border: 5px solid #f5c6a5;
+    /* Adds a brown border for a more defined mouth */
+    transform: rotate(0deg);
+    /* Keeps the mouth upright */
+}
+
+.nose1{
+    width: 40px;
+    height: 20px;
+    position: absolute;
+    top: 145px;
+    left: 128px;
+    background-color: white;
+    clip-path: polygon(42% 21%, 100% 0, 100% 100%, 3% 77%, 52% 83%, 0 97%, 0 0);
+
+}
+
+.ra2 {
+    display: flex;
+    position: absolute;
+    left: 15px;
+    top: 50px;
+    justify-content: center;
+    align-items: center;
+  
+    transform: scale(0.2);
+    transform-origin: center;
+    
+
+    opacity: 1; /* Make it immediately visible */
+    animation: fadeIn 6s linear infinite; /* 6 seconds fade-in animation with infinite loop */
+  }
+  
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    50% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
+
+
+
+
+/* doro2: 실제 도로 */
+.doro2 {
+    width: 100%; /* 도로의 가로 크기 */
+    height: 350px; /* 도로의 높이 */
+    background-color: #4b4b4b; /* 도로 색상 */
+    position: relative;
+    border-radius: 5px; /* 둥근 모서리 */
+    z-index: 0; /* z-index를 0으로 설정하여 doro1 뒤로 배치 */
+    margin-top: -135px;
+}
+
+/* 도로 위의 흰색 차선 */
+.doro2::before {
+    z-index: 1;
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 67%;
+    height: 5px; /* 차선 두께 */
+    transform: translateY(-50%); /* 차선을 수평 중앙에 배치 */
+    border-bottom: 5px dashed #ddd;
+}
+
+.bodo {
+    display: flex;
+    flex-direction: column;  /* 세로로 줄 배치 */
+    width: 500px;            /* 너비 설정 */
+    height: 300px;  
+    position: absolute;
+    top: 21px;
+    right: 10px;         /* 횡단보도 높이 */
+    align-items: center;     /* 가로로 중앙 정렬 */
+    padding: 0px;
+    box-sizing: border-box;
+    transform: scale(1.1);
+}
+.dhlqn{
+    display: flex;
+    position: absolute;
+    width: 100%;
+    position: absolute;
+    top: 150px;
+    transform: scale(1.5);
+}
+.dhlqn1 {
+    width: 100%;              /* 각 줄의 너비 */
+    height: 10px;
+    background-color: rgb(255, 255, 255);  /* 줄의 색상 */
+    margin: 0px 0;            /* 줄 간의 간격 */
+    border-radius: 2px;       /* 줄의 둥근 모서리 */
+    transform: rotate(105deg);  /* 25도 회전 */
+}
+.dhlqn2 {
+    width: 100%;              /* 각 줄의 너비 */
+    height: 10px;
+    padding: 0px;             /* 각 줄의 높이 */
+    background-color: rgb(255, 255, 255);  /* 줄의 색상 */
+    border-radius: 2px;       /* 줄의 둥근 모서리 */
+    transform: rotate(80deg);  /* 25도 회전 */
+    width: 100%;
+    
+}
+.fkdls {
+    display: flex;
+    width: 100%;
+height: 300px;
+
+place-content: center;
+  
+}
+.fkdls1 {
+        position: absolute;
+        top: 10px;
+        width: 250px;
+        height: 50px;
+        background-color: rgb(255, 255, 255);
+        clip-path: polygon(10% 0, 90% 0, 100% 100%, 0% 100%);
+
+      }
+
+      .fkdls2 {
+        position: absolute;
+        top: 80px;
+        width: 300px;
+        height: 50px;
+        background-color: rgb(255, 255, 255);
+        clip-path: polygon(10% 0, 90% 0, 100% 100%, 0% 100%);
+
+      }
+      .fkdls3 {
+        position: absolute;
+        top: 150px;
+        width: 350px;
+        height: 50px;
+        background-color: rgb(255, 255, 255);
+        clip-path: polygon(10% 0, 90% 0, 100% 100%, 0% 100%);
+
+      }
+      .fkdls4 {
+        position: absolute;
+        top: 230px;
+        width: 400px;
+        height: 50px;
+        background-color:rgb(255, 255, 255);
+        clip-path: polygon(10% 0, 90% 0, 100% 100%, 0% 100%);
+
+      }
+      
+
+
+
+/* 중간선 */
+.middle-line {
+    width: 100%; 
+    position: absolute;
+    top: 200px;            /* 너비 100% */
+    height: 5px;              /* 두께 5px */
+    transform: rotate(90deg);  /* 25도 회전 */
+    transform-origin: center;  /* 회전의 기준점을 요소의 중앙으로 설정 */
+    background: repeating-linear-gradient(to right, #fff 0px, #fff 10px, transparent 10px, transparent 20px); /* 점선 효과 */
+    margin: 10px 0;           /* 위아래 여백 */
+}
+
+
+img, fieldset {
+    border: 0;
+    position: absolute;
+    top: 350px;
+    right: 440px;
+    width: 200px;
+}
+
+
+
+  
+  
+.tlsghemdtjs {
+    right: 21%;
+    position: absolute;
+    top: 615px;
+    width: 165px;
+    height: 26px;
+    transform: rotate(90deg);
+    transform-origin: center;
+    background: darkgray;
+    margin: 0;
+}
+
+
+.wjdwltjs {
+    position: absolute;
+    top: 880px;
+    right: 525px;
+    width: 368px;
+    height: 11px;
+    background-color: #FFEB3B;
+    margin: 0px 0;
+    border-radius: 0px;
+    transform: rotate(107deg);
+    /* border-radius: 0%; */
+    border-radius: 0px 50px 21px 50px;
+}
+
+
+
+
+
+
+
+element.style {
+}
+.btn.purple, .btn-two.purple {
+    background-color: #cb99c5;
+}
+
+a[class*="btn"] {
+    text-decoration: none;
+}
+.btn-two {
+    color: white;
+    padding: 10px 20px 10px 20px;
+    margin: 0px 70px;
+    display: inline-block;
+    border: 1px solid rgba(0, 0, 0, 0.21);
+    border-bottom-color: rgba(0, 0, 0, 0.34);
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.15);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.34) inset, 0 2px 0 -1px rgba(0, 0, 0, 0.13), 0 3px 0 -1px rgba(0, 0, 0, 0.08), 0 3px 13px -1px rgba(0, 0, 0, 0.21);
+}
+
+.rounded {
+    border-radius: 10px;
+}
+
+.btn.cyan, .btn-two.cyan {
+    background-color: #7fccde;
 }
 
 
