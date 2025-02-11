@@ -37,14 +37,24 @@
                         <a href="${pageContext.request.contextPath}/admin/users/${user.userId}/posts">${user.postCount}</a>
                     </td>
                     <td>${user.created_at }</td>
-                    <td>${user.isActive ? '활성' : '정지'}</td>
+                    <td>
+                    	<c:choose>
+                    		<c:when test="${user.isActive}">
+                    			<span class="txt-green">활성</span>
+                    		</c:when>
+                    		<c:otherwise>
+                    			<span class="txt-red">정지</span>
+                    		</c:otherwise>
+                    	</c:choose>
+                    
+                    </td>
                     <td>
                         <c:choose>
                             <c:when test="${user.isActive}">
-                                <button onclick="banUser('${user.email}')">정지</button>
+                                <button class="btn btn-bagic small" onclick="banUser('${user.email}')">정지</button>
                             </c:when>
                             <c:otherwise>
-                                <button onclick="unbanUser('${user.email}')">정지 해제</button>
+                                <button class="btn btn-bagic line small"  onclick="unbanUser('${user.email}')">정지 해제</button>
                             </c:otherwise>
                         </c:choose>
                     </td>
